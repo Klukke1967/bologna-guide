@@ -1292,6 +1292,32 @@
       font-size: 13px;
     }
 
+  
+    /* Gelato Category Pastel Palette */
+    :root {
+      --cat-gelato-bg: #FFF3EB;
+      --cat-gelato-border: #FFD4BC;
+      --cat-gelato-accent: #E86A38;
+      --cat-gelato-text: #963510;
+    }
+
+    .badge-gelato {
+      background: var(--cat-gelato-bg) !important;
+      border: 1px solid var(--cat-gelato-border) !important;
+      color: var(--cat-gelato-text) !important;
+    }
+
+    .marker-gelato {
+      background: #FFF3EB !important;
+      border-color: #FFB38A !important;
+      color: #E86A38 !important;
+    }
+
+    .hero-box-gelato {
+      background: #FFF8F3 !important;
+      border-color: #FFD4BC !important;
+    }
+
   </style>
 </head>
 <body>
@@ -1365,6 +1391,11 @@
             <span>Kirker & Monumenter</span>
             <span class="chip-count" id="count-kirke">0</span>
           </button>
+          <button type="button" class="chip" data-cat="gelato" onclick="setCategory('gelato')">
+            <span class="chip-icon">🍦</span>
+            <span>Gelato & Is</span>
+            <span class="chip-count" id="count-gelato">0</span>
+          </button>
           <button type="button" class="chip" data-cat="vinbar" onclick="setCategory('vinbar')">
             <span class="chip-icon">🍷</span>
             <span>Vinbarer</span>
@@ -1409,6 +1440,9 @@
       <div class="map-floating-bar" id="map-floating-bar">
         <button type="button" class="map-chip chip active" data-cat="all" onclick="setCategory('all')">
           <span>✨ Alle (<span id="map-count-all">0</span>)</span>
+        </button>
+        <button type="button" class="map-chip chip" data-cat="gelato" onclick="setCategory('gelato')">
+          <span>🍦 Is (<span id="map-count-gelato">0</span>)</span>
         </button>
         <button type="button" class="map-chip chip" data-cat="kirke" onclick="setCategory('kirke')">
           <span>⛪ Kirker (<span id="map-count-kirke">0</span>)</span>
@@ -3052,6 +3086,221 @@
     "address": "Piazza Cavour & Piazza Tre Martiri, 47921 Rimini",
     "hours": "Sidste søndag i måneden: 08:00 - 18:30 (Hele året undtagen juli)",
     "wineFocus": "Kombinér loppemarkedet med en frokost på de omkringliggende osteriaer."
+  },
+  {
+    "id": "cremeria-funivia",
+    "name": "Cremeria Funivia (Piazza Cavour)",
+    "category": "gelato",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4905,
+      11.3448
+    ],
+    "shortDesc": "🔥 TikTok-viral! Opfinderen af 'Alice' med lun flydende Gianduja-chokolade pumpet ned i bunden af vaflen.",
+    "heroDesc": "Cremeria Funivia er verdenskendt på Instagram og TikTok for deres signatur-trick: Før isen skovles i vaflen, fyldes bunden med en generøs portion lun, smeltet mørk chokolade eller Gianduja. Isen er silkeblød og intens i smagen.",
+    "tipsHeading": "Det virale bestillings-tip",
+    "tips": "Bestil 'Alice' (Mascarpone-is med smeltet Gianduja i bunden) eller 'Leonardo' (Zabaione-is med ristede pinjekerner). Husk at filme chokoladepumpen i vaflen!",
+    "pills": [
+      "Flydende Chokolade i Bunden",
+      "Alice & Leonardo",
+      "Viral på TikTok",
+      "Piazza Cavour"
+    ],
+    "address": "Piazza Cavour 1/d, 40124 Bologna",
+    "hours": "Alle dage: 12:00 - 23:30",
+    "wineFocus": "Tæt på byens bedste vinbarer ved Piazza Cavour."
+  },
+  {
+    "id": "galliera-49",
+    "name": "Galliera 49 - Bottega Giardino",
+    "category": "gelato",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.5005,
+      11.3435
+    ],
+    "shortDesc": "🔥 100% økologisk natur-gelato, veganske varianter og autentisk siciliansk granita i håndlavede vafler.",
+    "heroDesc": "Galliera 49 hylder det kompromisløse håndværk. De bruger udelukkende økologisk mælk, sæsonens friskeste frugter og ingen kunstige tilsætningsstoffer. Deres sicilianske granita med mandel eller kaffe er kåret som byens bedste.",
+    "tipsHeading": "Hvad du skal vælge",
+    "tips": "Smag deres Granita di Mandorla (mandelgranita) med en klat friskslået flødeskum eller deres chokoladesorbet lavet på enkeltmarks-kakao.",
+    "pills": [
+      "100% Økologisk",
+      "Granita Siciliana",
+      "Natur-Gelato",
+      "Veganske Valg"
+    ],
+    "address": "Via Galliera 49/b, 40121 Bologna",
+    "hours": "Alle dage: 12:00 - 23:00",
+    "wineFocus": "Gåtur ned ad Via Galliera mod middelalderpaladserne."
+  },
+  {
+    "id": "cremeria-cavour",
+    "name": "Cremeria Cavour",
+    "category": "gelato",
+    "area": "centro",
+    "coords": [
+      44.4908,
+      11.3442
+    ],
+    "shortDesc": "Klassisk luksus-gelateria med udsøgt pistacie, zabaglione og cremede traditionelle opskrifter.",
+    "heroDesc": "Beliggende under de elegante arkader ved Piazza Cavour finder du Cremeria Cavour. Et sandt paradis for yndere af traditionel, cremet italiensk is baseret på æggeblommer, fløde og nødder ristet i huset.",
+    "tipsHeading": "Favoritter",
+    "tips": "Prøv deres 'Crema Cavour' med citron og vanilje eller 'Nocciola Piemonte IGP'.",
+    "pills": [
+      "Arkade-Ismejeri",
+      "Piemonte Hasselnød",
+      "Klassisk Opskrift",
+      "Piazza Cavour"
+    ],
+    "address": "Piazza Cavour 1/de, 40124 Bologna",
+    "hours": "Alle dage: 11:30 - 23:30",
+    "wineFocus": "Nyd isen på bænkene under de historiske træer på Piazza Cavour."
+  },
+  {
+    "id": "telefono-senza-fili-podesta",
+    "name": "Det Hviskende Hjørne (Voltone del Podestà)",
+    "category": "sevaerdighed",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4942,
+      11.3431
+    ],
+    "shortDesc": "🔥 Viralt akustisk fænomen! Stil jer i hver sit diagonale hjørne og hvisk ind i muren – lyden rejser 20 meter gennem hvælvingen.",
+    "heroDesc": "Under Palazzo del Podestà ved Piazza Maggiore findes et af byens sjoveste middelalder-fænomener. På grund af buegangens særlige akustiske kurve fungerer den som en 'trådløs telefon' (Telefono Senza Fili). Hvis du stiller dig med ansigtet mod murstenshjørnet og hvisker, kan din rejsemakker i det modsatte diagonale hjørne høre hvert eneste ord krystalklart!",
+    "tipsHeading": "Sådan gør I",
+    "tips": "Stil én person ved hjørnet mod Piazza del Nettuno og den anden diagonalt overfor. Hvisk hemmeligheder eller hilsner ind i murstenene – det virker hver gang!",
+    "pills": [
+      "Middelalder Akustik",
+      "Det Hviskende Hjørne",
+      "TikTok Fænomen",
+      "Piazza Maggiore"
+    ],
+    "address": "Piazza Re Enzo / Piazza Maggiore, 40124 Bologna",
+    "hours": "Åbent døgnet rundt under arkaderne",
+    "wineFocus": "Lige midt i hjertet af Bologna – 2 minutters gang til Osteria del Sole."
+  },
+  {
+    "id": "scalinata-del-pincio",
+    "name": "Scalinata del Pincio (Montagnola Trappen)",
+    "category": "sevaerdighed",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.5028,
+      11.3456
+    ],
+    "shortDesc": "🔥 Monumental hvid marmortrappe fra 1896 med springvand, skulpturer og dramatisk aftenbelysning.",
+    "heroDesc": "Den monumentale indgangstrappe til Parco della Montagnola blev opført i 1896 og er et af byens mest imponerende neoklassiske bygningsværker. Med sine store krumme trappeløb, hvide marmorrelieffer og det store springvand for foden er det et af Bolognas foretrukne steder til mode- og aftenbilleder.",
+    "tipsHeading": "Fototip",
+    "tips": "Kom ved 'den blå time' lige efter solnedgang, når trappen og springvandet oplyses af de varme gadelamper.",
+    "pills": [
+      "Marmortrappe 1896",
+      "Neoklassisk Arkitektur",
+      "Fotogen Trappe",
+      "Aftenlys"
+    ],
+    "address": "Piazza XX Settembre, 40126 Bologna",
+    "hours": "Åben døgnet rundt",
+    "wineFocus": "Kort gang til naturvinsbaren Galliera 49 og caféerne ved stationen."
+  },
+  {
+    "id": "gelateria-il-castello-rimini",
+    "name": "Gelateria Il Castello (Rimini)",
+    "category": "gelato",
+    "area": "rimini",
+    "trending": true,
+    "coords": [
+      44.0604,
+      12.5642
+    ],
+    "shortDesc": "🔥 Prisvindende håndlavet is med udsigt til Fellini-borgen. Berømt for 'Cioccolato del Castello' og saltkaramel.",
+    "heroDesc": "Placeret direkte over for den oplyste renæssanceborg Castel Sismondo finder du Riminis mest elskede gelateria. Isen fremstilles frisk hver dag uden konserveringsmidler og serveres med et smil og udsigt til borgen og springvandet på Piazza Malatesta.",
+    "tipsHeading": "Smagsanbefaling",
+    "tips": "Prøv deres 'Cioccolato Fondente con Sale di Cervia' (mørk chokolade med det berømte lokale Cervia-havsalt) eller 'Fior di Latte con Fichi Caramellati' (karamelliserede figner).",
+    "pills": [
+      "Castel Sismondo Udsigt",
+      "Cervia Havsalt Chokolade",
+      "Prisvindende Gelato",
+      "Aftenhygge"
+    ],
+    "address": "Piazza Malatesta 28, 47921 Rimini",
+    "hours": "Alle dage: 11:00 - 00:00",
+    "wineFocus": "Perfekt dessert efter middag i centrum eller aperitivo på Piazza Cavour."
+  },
+  {
+    "id": "gelateria-3bis-rimini",
+    "name": "Gelateria 3Bis (Marina Centro)",
+    "category": "gelato",
+    "area": "rimini",
+    "trending": true,
+    "coords": [
+      44.0694,
+      12.5782
+    ],
+    "shortDesc": "🔥 Riminis kyst-institution for luksus-gelato, friskbagte vafler og chokoladefontæner ved strandpromenaden.",
+    "heroDesc": "I årtier har 3Bis været det ubestridte stop for gelato efter en dag på stranden eller under aftenens 'passeggiata' på Viale Vespucci. Kendt for deres enorme udvalg, sprøde nylavede vafler og overdådige toppings.",
+    "tipsHeading": "Hvad du skal prøve",
+    "tips": "Få en 'Cialda Calda' (lun vaffel) toppet med Mascarpone & Nutella eller deres uovertrufne Crema Romagnola.",
+    "pills": [
+      "Strandpromenade",
+      "Varme Vafler",
+      "Passeggiata Klassiker",
+      "Luksus Gelato"
+    ],
+    "address": "Viale Vespucci 17, 47921 Marina Centro, Rimini",
+    "hours": "Alle dage: 10:00 - 01:00 (Sommersæson)",
+    "wineFocus": "Gå en aftentur ned langs Parco del Mare mod molen."
+  },
+  {
+    "id": "pasticceria-rinaldini-rimini",
+    "name": "Rinaldini Pastry & Gelato (Roberto Rinaldini)",
+    "category": "gelato",
+    "area": "rimini",
+    "trending": true,
+    "coords": [
+      44.062,
+      12.567
+    ],
+    "shortDesc": "🔥 'Dessertens Modedesigner'! Ekstremt virale Instagram-kager, farverige MacaRAL og haute couture is.",
+    "heroDesc": "Roberto Rinaldini er optaget i det prestigefyldte internationale konditorakademi Relais Desserts og kendt som Italiens kagekonge. Hans butik i Rimini centrum ligner en juvelerbutik, hvor kager, chokolader og gelato præsenteres som små kunstværker.",
+    "tipsHeading": "Instagram Must-Try",
+    "tips": "Køb en æske af hans berømte 'MacaRAL' (italienske macarons i vilde farver) eller en gourmet gelato-pind med sprødt chokoladeovertræk.",
+    "pills": [
+      "Haute Couture Konditor",
+      "MacaRAL Macarons",
+      "Viral Kagekunst",
+      "Instagram Mekka"
+    ],
+    "address": "Via Coletti 131 / Piazza Mazzini, 47921 Rimini",
+    "hours": "Tir-Søn: 07:30 - 20:30",
+    "wineFocus": "Nyd en kold Franciacorta eller espresso til kagerne."
+  },
+  {
+    "id": "piazza-dei-sogni-rimini",
+    "name": "Piazza dei Sogni & Tågespringvandet",
+    "category": "sevaerdighed",
+    "area": "rimini",
+    "trending": true,
+    "coords": [
+      44.0602,
+      12.5652
+    ],
+    "shortDesc": "🔥 Riminis nye drømmeplads med interaktivt vandspejl, tågeeffekter og lysshow foran Fellini-borgen.",
+    "heroDesc": "Som del af det nye Fellini Museum er pladsen mellem Castel Sismondo og Teatro Galli forvandlet til 'Piazza dei Sogni' (Drømmenes Plads). Pladsen har et stort cirkulært vandspejl, der hver time indhyller borgen i en magisk, filmisk tåge inspireret af Fellinis filmiske drømmeverdener.",
+    "tipsHeading": "Aften & Fototip",
+    "tips": "Kom efter mørkets frembrud, hvor tågedyserne og lysreflekserne i vandspejlet skaber en helt uforglemmelig kulisse til aftenbilleder.",
+    "pills": [
+      "Fellini Drømmeplads",
+      "Tåge- & Vandeffekter",
+      "Castel Sismondo",
+      "Aften Instagram Spot"
+    ],
+    "address": "Piazza Malatesta, 47921 Rimini",
+    "hours": "Åben døgnet rundt (Lys og vandshow kører i aftentimerne)",
+    "wineFocus": "Få skridt fra Il Foyer i Teatro Galli og Enoteca del Teatro."
   }
 ];
 
@@ -3070,6 +3319,7 @@
 
     /* Category Metadata */
     const CATEGORIES = {
+      gelato: { label: 'Gelato & Is', icon: '🍦', colorClass: 'badge-gelato', markerClass: 'marker-gelato', heroClass: 'hero-box-gelato' },
       vinbar: { label: 'Vinbar', icon: '🍷', colorClass: 'badge-vinbar', markerClass: 'marker-vinbar', heroClass: 'hero-box-vinbar' },
       restaurant: { label: 'Restaurant & Mad', icon: '🍝', colorClass: 'badge-restaurant', markerClass: 'marker-restaurant', heroClass: 'hero-box-restaurant' },
       sevaerdighed: { label: 'Seværdighed', icon: '🏛️', colorClass: 'badge-sevaerdighed', markerClass: 'marker-sevaerdighed', heroClass: 'hero-box-sevaerdighed' },
