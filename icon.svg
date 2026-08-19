@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="128" fill="#FAF7F2"/>
+  <circle cx="256" cy="256" r="210" fill="#FEF4E8" stroke="#FCD8B3" stroke-width="12"/>
+  <circle cx="256" cy="256" r="170" fill="#FDEEED"/>
+  <!-- Wine Glass & Fork Icon -->
+  <text x="50%" y="58%" font-size="200" text-anchor="middle" dominant-baseline="central">🍷</text>
+</svg>

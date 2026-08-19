@@ -1,0 +1,4 @@
+server.log
+server_err.log
+.DS_Store
+.vercel
