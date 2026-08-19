@@ -1003,32 +1003,53 @@
     /* Responsive Design for Mobile & Tablet */
     @media (max-width: 900px) {
       header {
-        padding: 10px 14px;
+        padding: 8px 12px;
         flex-direction: column;
         align-items: stretch;
-        gap: 8px;
+        gap: 6px;
       }
 
       .brand-section {
+        display: flex;
+        align-items: center;
         justify-content: space-between;
       }
 
       .brand-logo {
-        width: 36px;
-        height: 36px;
-        font-size: 20px;
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
       }
 
       .brand-title {
-        font-size: 18px;
+        font-size: 16px;
       }
 
       .header-actions {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        gap: 8px;
+        gap: 6px;
         width: 100%;
+      }
+
+      .city-switcher-row {
+        margin-left: 0;
+        display: flex;
+        gap: 4px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .city-btn {
+        padding: 4px 10px;
+        font-size: 11.5px;
+      }
+
+      .btn-header {
+        padding: 6px 10px;
+        font-size: 11.5px;
       }
 
       .stat-pill {
@@ -1039,18 +1060,18 @@
         display: flex !important;
         background: var(--bg-subtle);
         border: 1px solid var(--border-color);
-        padding: 3px;
+        padding: 2px;
         border-radius: var(--radius-full);
         gap: 2px;
       }
 
       .btn-view-toggle {
-        padding: 6px 14px;
+        padding: 5px 12px;
         border-radius: var(--radius-full);
         border: none;
         background: transparent;
         font-family: inherit;
-        font-size: 12.5px;
+        font-size: 12px;
         font-weight: 700;
         color: var(--text-muted);
         cursor: pointer;
@@ -1066,8 +1087,8 @@
 
       .app-layout {
         flex-direction: column;
-        height: calc(100vh - 105px);
-        height: calc(100dvh - 105px);
+        height: calc(100vh - 100px);
+        height: calc(100dvh - 100px);
       }
 
       .app-layout[data-mobile-view="map"] .sidebar {
@@ -1084,11 +1105,67 @@
         display: none !important;
       }
 
+      /* Native full-page scrolling on mobile list */
       .app-layout[data-mobile-view="list"] .sidebar {
         display: flex !important;
+        flex-direction: column !important;
         width: 100% !important;
         height: 100% !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
         border-right: none;
+      }
+
+      .app-layout[data-mobile-view="list"] .sidebar-controls {
+        flex-shrink: 0;
+        padding: 10px 12px;
+        gap: 8px;
+        background: var(--bg-surface);
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      /* Sleek horizontal scrolling pills for categories & areas on mobile */
+      .category-chips {
+        display: flex !important;
+        overflow-x: auto !important;
+        padding-bottom: 4px !important;
+        gap: 6px !important;
+        scrollbar-width: none !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      .category-chips::-webkit-scrollbar {
+        display: none !important;
+      }
+      .category-chips .chip {
+        flex-shrink: 0 !important;
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        border-radius: var(--radius-full) !important;
+      }
+
+      .area-filter-row {
+        display: flex !important;
+        overflow-x: auto !important;
+        padding-bottom: 4px !important;
+        gap: 6px !important;
+        scrollbar-width: none !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      .area-filter-row::-webkit-scrollbar {
+        display: none !important;
+      }
+      .area-btn {
+        flex-shrink: 0 !important;
+        padding: 5px 11px !important;
+        font-size: 11px !important;
+      }
+
+      /* Make places list fill naturally and scroll smoothly with full screen height */
+      .app-layout[data-mobile-view="list"] .places-list-container {
+        flex: none !important;
+        overflow: visible !important;
+        height: auto !important;
+        padding: 12px 12px 100px 12px !important;
       }
 
       .detail-panel {
@@ -4010,6 +4087,7 @@
     /* Category Counts */
     function updateCategoryCounts() {
       const nAll = PLACES.length;
+      const nGelato = PLACES.filter(p => p.category === 'gelato').length;
       const nVin = PLACES.filter(p => p.category === 'vinbar').length;
       const nMad = PLACES.filter(p => p.category === 'restaurant').length;
       const nSev = PLACES.filter(p => p.category === 'sevaerdighed').length;
@@ -4019,6 +4097,7 @@
 
       // Sidebar counts
       if (document.getElementById('count-all')) document.getElementById('count-all').textContent = nAll;
+      if (document.getElementById('count-gelato')) document.getElementById('count-gelato').textContent = nGelato;
       if (document.getElementById('count-vinbar')) document.getElementById('count-vinbar').textContent = nVin;
       if (document.getElementById('count-restaurant')) document.getElementById('count-restaurant').textContent = nMad;
       if (document.getElementById('count-sevaerdighed')) document.getElementById('count-sevaerdighed').textContent = nSev;
@@ -4028,6 +4107,7 @@
 
       // Map floating counts
       if (document.getElementById('map-count-all')) document.getElementById('map-count-all').textContent = nAll;
+      if (document.getElementById('map-count-gelato')) document.getElementById('map-count-gelato').textContent = nGelato;
       if (document.getElementById('map-count-vinbar')) document.getElementById('map-count-vinbar').textContent = nVin;
       if (document.getElementById('map-count-restaurant')) document.getElementById('map-count-restaurant').textContent = nMad;
       if (document.getElementById('map-count-sevaerdighed')) document.getElementById('map-count-sevaerdighed').textContent = nSev;

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bologna-rimini-guide-v6';
+const CACHE_NAME = 'bologna-rimini-guide-v7';
 const STATIC_ASSETS = [
   './',
   './index.html',
