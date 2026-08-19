@@ -123,6 +123,16 @@
       justify-content: center;
       font-size: 24px;
       box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .brand-logo:hover {
+      transform: scale(1.08);
+      box-shadow: var(--shadow-md);
+      background: #FFE8CC;
     }
 
     .brand-title {
@@ -1459,7 +1469,7 @@
   <!-- Top Navigation Header -->
   <header>
     <div class="brand-section">
-      <div class="brand-logo">🍷</div>
+      <a href="https://vinverdenenrundt.dk" class="brand-logo" title="Gå til forsiden på Vinverdenen">🍷</a>
       <div>
         <h1 class="brand-title">Bologna & Rimini</h1>
         <div class="brand-subtitle">
