@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Bologna & Omegn – Guiden til Emilia-Romagna</title>
+  <title>Bologna & Rimini – Guiden til Emilia-Romagna</title>
   
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
@@ -1109,6 +1109,189 @@
         transform: translateY(0);
       }
     }
+  
+    /* Weather Widget & Quick City Switcher */
+    .city-switcher-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 8px;
+    }
+
+    .city-btn {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .city-btn:hover {
+      background: #EFE8DF;
+      color: var(--text-main);
+    }
+
+    .city-btn.active {
+      background: var(--cat-mad-bg);
+      border-color: var(--cat-mad-border);
+      color: var(--cat-mad-text);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-weather {
+      background: linear-gradient(135deg, #FFF6E5 0%, #FFEEDA 100%) !important;
+      border: 1px solid #FCD8B3 !important;
+      color: #96470C !important;
+      font-weight: 700 !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-weather:hover {
+      background: #FFE8CC !important;
+      transform: translateY(-1px);
+    }
+
+    /* Weather Modal Styling */
+    .weather-modal-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .weather-city-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .weather-tab-btn {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid transparent;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .weather-tab-btn.active {
+      background: var(--cat-mad-bg);
+      border-color: var(--cat-mad-border);
+      color: var(--cat-mad-text);
+    }
+
+    .weather-hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background: linear-gradient(135deg, #FAF4EB 0%, #F5ECDF 100%);
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+      border: 1px solid #EBE2D5;
+    }
+
+    .weather-temp-huge {
+      font-size: 44px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1;
+    }
+
+    .weather-condition-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .weather-icon-huge {
+      font-size: 48px;
+    }
+
+    .weather-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .weather-stat-box {
+      background: var(--bg-subtle);
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+
+    .weather-stat-label {
+      font-size: 11px;
+      color: var(--text-light);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .weather-stat-val {
+      font-size: 14px;
+      color: var(--text-main);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .weather-forecast-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .forecast-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+    }
+
+    .forecast-day {
+      font-weight: 700;
+      font-size: 13px;
+      width: 80px;
+    }
+
+    .forecast-condition {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .forecast-temp {
+      font-weight: 700;
+      font-size: 13px;
+    }
+
   </style>
 </head>
 <body>
@@ -1118,7 +1301,7 @@
     <div class="brand-section">
       <div class="brand-logo">🍷</div>
       <div>
-        <h1 class="brand-title">Bologna & Omegn</h1>
+        <h1 class="brand-title">Bologna & Rimini</h1>
         <div class="brand-subtitle">
           <span>Gourmet-, vin-, kultur- & Instagram-kort</span>
           <span style="font-size:10px; background:var(--cat-trend-bg); color:var(--cat-trend-text); border:1px solid var(--cat-trend-border); padding:1px 6px; border-radius:10px; font-weight:700;">✨ 2026 TRENDS</span>
@@ -1127,6 +1310,14 @@
     </div>
 
     <div class="header-actions">
+      <div class="city-switcher-row">
+        <button type="button" class="city-btn active" id="city-btn-all" onclick="selectCityFilter('all')">🗺️ Hele Regionen</button>
+        <button type="button" class="city-btn" id="city-btn-bologna" onclick="selectCityFilter('bologna')">🍝 Bologna</button>
+        <button type="button" class="city-btn" id="city-btn-rimini" onclick="selectCityFilter('rimini')">🏖️ Rimini</button>
+      </div>
+      <button type="button" class="btn-header btn-weather" id="btn-weather" onclick="openModal('weather-modal')">
+        <span id="weather-icon-header">☀️</span> <span id="weather-text-header">Vejr: Henter...</span>
+      </button>
       <div class="mobile-view-switcher">
         <button type="button" class="btn-view-toggle active" data-view="map" onclick="setMobileView('map')">🗺️ Kort</button>
         <button type="button" class="btn-view-toggle" data-view="list" onclick="setMobileView('list')">📋 Liste</button>
@@ -1202,6 +1393,7 @@
           <button class="area-btn" data-area="centro" onclick="setArea('centro')">Centro Storico</button>
           <button class="area-btn" data-area="colli" onclick="setArea('colli')">Colli Bolognesi (Bakkerne)</button>
           <button class="area-btn" data-area="omegn" onclick="setArea('omegn')">Omegn (Modena, Ravenna, Parma)</button>
+          <button class="area-btn" data-area="rimini" onclick="setArea('rimini')">🏖️ Rimini & Adriaterhavet</button>
         </div>
       </div>
 
@@ -1353,1139 +1545,1514 @@
   <script>
     /* Data Store: Bologna & Surroundings (Enhanced with Viral & Trending Instagram Spots) */
     const PLACES = [
-    {
-        "id": "serre-giardini-margherita",
-        "name": "Le Serre dei Giardini Margherita",
-        "category": "vinbar",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4842,
-            11.3531
-        ],
-        "shortDesc": "🔥 Instagram-fænomen! Gamle drivhuse i byparken omdannet til naturvinsbar, hængekøjer, lyskæder og kulturhub.",
-        "heroDesc": "Det absolut mest trendy hæng-ud-sted i Bologna. Gamle forladte drivhuse i byens største park er blevet genoplivet som en grøn oase fyldt med naturvin, håndbrygget øl, økologiske snacks, lyskæder og afslappede sommeraftener.",
-        "tipsHeading": "Instagram & Sommeraften Tip",
-        "tips": "Kom ved solnedgang for magisk lys gennem drivhusenes glas. Snup en pét-nat eller orangevin og slap af i en af hængekøjerne mellem citrustræerne.",
-        "pills": [
-            "Viral Drivhusbar",
-            "Naturvin",
-            "Hængekøjer & Lyskæder",
-            "Park Oase",
-            "Instagram Must-Visit"
-        ],
-        "address": "Via Castiglione 134, 40136 Bologna",
-        "hours": "Tir-Søn: 18:00 - 00:00 (Sommersæson maj-okt)",
-        "wineFocus": "Biodynamiske vine, pét-nat på lokale druer, håndværks-cider og naturvin."
-    },
-    {
-        "id": "camera-a-sud",
-        "name": "Camera a Sud",
-        "category": "vinbar",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4969,
-            11.3486
-        ],
-        "shortDesc": "🔥 Stemningsfuld retro-boheme vinbar i det jødiske ghetto med vintage fløjlsmøbler, bøger og naturvin.",
-        "heroDesc": "Gemt i de snævre gyder i Ghetto Ebraico finder du Camera a Sud. Indrettet som en hyggelig kunstnerlejlighed med bløde fløjlslænestole, bogreoler, stearinlys og en uimodståelig afslappet stemning.",
-        "tipsHeading": "Aperitivo & Aften Tip",
-        "tips": "Perfekt til en intim aften eller eftermiddagskaffe. Bestil deres udvalgte naturvine på glas ledsaget af små tapasbræt med lokale oste.",
-        "pills": [
-            "Jødisk Ghetto",
-            "Boheme Vintage",
-            "Romantisk",
-            "Naturvin & Cocktails"
-        ],
-        "address": "Via Valdonica 5, 40126 Bologna",
-        "hours": "Alle dage: 12:00 - 01:00",
-        "wineFocus": "Spændende naturvine, små italienske vinhuse og klassiske aperitifs."
-    },
-    {
-        "id": "osteria-del-sole",
-        "name": "Osteria del Sole",
-        "category": "vinbar",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4938,
-            11.3435
-        ],
-        "shortDesc": "🔥 Verdens ældste osteria fra 1465. Medbring din egen mad fra markedet og drik lokal vin ved langbordene.",
-        "heroDesc": "En levende tidslomme midt i Quadrilatero! Osteria del Sole har skænket vin siden 1465. Konceptet er unikt og elsket på sociale medier: Du køber din mortadella, oste og friskbagt brød i markedsgaderne og sætter dig ind ved de slidte træborde for at drikke vin.",
-        "tipsHeading": "Vores Vin- & Besøgstip",
-        "tips": "Bestil en kande mousserende Pignoletto eller en tør Lambrusco di Sorbara. Kom tidligt om eftermiddagen for at opleve den ægte lokale stemning.",
-        "pills": [
-            "Historisk 1465",
-            "Medbring egen mad",
-            "Kultsted",
-            "Pignoletto & Lambrusco"
-        ],
-        "address": "Vicolo Ranocchi 1, 40124 Bologna",
-        "hours": "Man-Lør: 10:30 - 22:00 (Søn lukket)",
-        "wineFocus": "Lokale emilianske vine på kande & flaske (Pignoletto, Lambrusco, Sangiovese)."
-    },
-    {
-        "id": "medulla-vini",
-        "name": "Medulla Vini Naturali",
-        "category": "vinbar",
-        "area": "centro",
-        "coords": [
-            44.4998,
-            11.3392
-        ],
-        "shortDesc": "Bolognas bedste naturvinsbar med passion for biodynamik, orangevin og kompromisløs kvalitet.",
-        "heroDesc": "Medulla er det absolutte mekka for naturvinsentusiaster i Bologna. Her finder du et håndplukket udvalg af biodynamiske, usvovlede og macererede vine fra små uafhængige vinbønder i Emilia-Romagna og resten af Italien.",
-        "tipsHeading": "Hvad du skal smage",
-        "tips": "Prøv en macereret Albana (orangevin) eller en pét-nat på lokale druer. Personalet er uhyre vidende og guider med stor passion.",
-        "pills": [
-            "Naturvin",
-            "Biodynamisk",
-            "Orangevin",
-            "Pét-Nat",
-            "Gourmet snacks"
-        ],
-        "address": "Via Guglielmo Marconi 27/A, 40122 Bologna",
-        "hours": "Tir-Lør: 17:30 - 23:30 (Søn-Man lukket)",
-        "wineFocus": "Orangevine, ufiltreret Lambrusco, biodynamisk Sangiovese & Champagne."
-    },
-    {
-        "id": "enoteca-italiana",
-        "name": "Enoteca Italiana Bologna",
-        "category": "vinbar",
-        "area": "centro",
-        "coords": [
-            44.4975,
-            11.3475
-        ],
-        "shortDesc": "Historisk vinkælder med over 3.000 labels, sjældne årgange og stor Champagne.",
-        "heroDesc": "Siden 1970 har Enoteca Italiana været en institution for seriøse vinelskere. Med tusindvis af flasker fra gulv til loft kan du smage store Baroloer, Brunelloer, Super Toscanere samt sjældne lokale perler ledsaget af udvalgte oste.",
-        "tipsHeading": "Sommelier Tip",
-        "tips": "Gå på opdagelse i de ældre årgange af Sangiovese di Romagna Riserva og deres servering af håndplukket Champagne.",
-        "pills": [
-            "3000+ Flasker",
-            "Sjældne årgange",
-            "Champagne",
-            "Klassisk elegance"
-        ],
-        "address": "Via Marsala 28/B, 40126 Bologna",
-        "hours": "Man-Lør: 10:00 - 13:30 & 16:30 - 21:30",
-        "wineFocus": "Barolo, Brunello, Riserva Sangiovese, Champagne og vintage vine."
-    },
-    {
-        "id": "vineria-favalli",
-        "name": "Vineria Favalli",
-        "category": "vinbar",
-        "area": "centro",
-        "coords": [
-            44.4925,
-            11.3486
-        ],
-        "shortDesc": "Hyggelig vinbar under de smukke porticoer tæt ved Santo Stefano med delikate charcuteribrætter.",
-        "heroDesc": "Placeret langs den maleriske Via Santo Stefano byder Vineria Favalli på afslappet italiensk livsstil. Her sidder man under de historiske buer og nyder et stort glas vin akkompagneret af 36-måneders Culatello di Zibello og Parmigiano Reggiano.",
-        "tipsHeading": "Aperitivo Tip",
-        "tips": "Tag en plads udendørs under porticoen ved 18-tiden til aperitivo. Bestil deres \"Tagliere Degustazione\" med lokale pølser og oste.",
-        "pills": [
-            "Portico udsigt",
-            "Culatello di Zibello",
-            "Aperitivo",
-            "Vinkort på glas"
-        ],
-        "address": "Via Santo Stefano 5/A, 40125 Bologna",
-        "hours": "Alle dage: 12:00 - 23:00",
-        "wineFocus": "Fremragende udvalg på glas fra Emilia-Romagna, Veneto og Piemonte."
-    },
-    {
-        "id": "enoteca-al-risanamento",
-        "name": "Enoteca Al Risanamento",
-        "category": "vinbar",
-        "area": "centro",
-        "coords": [
-            44.4981,
-            11.3538
-        ],
-        "shortDesc": "Universitetskvarterets hemmelige perle med fokus på små, glemte italienske vinbønder.",
-        "heroDesc": "En autentisk og uformel vinbar, hvor de lokale stamgæster og vinnørder mødes. Værtens passion for ukendte mikrobønder og autentisk terroir gør hvert besøg til en opdagelsesrejse.",
-        "tipsHeading": "Smagsprofil",
-        "tips": "Spørg efter deres \"Vini del Giorno\" (dagens vine) – her skænkes altid sjældne flasker, du ikke finder andre steder.",
-        "pills": [
-            "Mikrobønder",
-            "Autentisk",
-            "Gode priser",
-            "Skjult perle"
-        ],
-        "address": "Via Zamboni 57, 40126 Bologna",
-        "hours": "Tir-Lør: 18:00 - 00:30",
-        "wineFocus": "Små uafhængige vinbønder, oprindelige druesorter og rå natur."
-    },
-    {
-        "id": "enoteca-regionale-dozza",
-        "name": "Enoteca Regionale Emilia Romagna (Dozza)",
-        "category": "vinbar",
-        "area": "omegn",
-        "trending": true,
-        "coords": [
-            44.3592,
-            11.6281
-        ],
-        "shortDesc": "🔥 Officielt vinkammer i den middelalderlige borg Rocca Sforzesca med over 1.000 regionale vine til smagning.",
-        "heroDesc": "I de underjordiske hvælvinger i den mægtige borg Rocca di Dozza ligger Emilia-Romagnas officielle vincenter. Her præsenteres over 1.000 DOC og DOCG vine fra hele regionen under ét tag.",
-        "tipsHeading": "Vinsmagnings-Tip",
-        "tips": "Køb et smagekort og smag på tværs af Sangiovese Riserva, Albana Passito, Lambrusco og Colli Bolognesi Pignoletto.",
-        "pills": [
-            "1000+ Regionale Vine",
-            "Rocca di Dozza",
-            "Officielt Vincenter",
-            "Middelalderkælder"
-        ],
-        "address": "Piazza Rocca 1, 40060 Dozza (BO)",
-        "hours": "Tir-Søn: 10:00 - 13:00 & 15:00 - 19:00",
-        "wineFocus": "Hele Emilia-Romagnas vinverden: Sangiovese, Albana, Lambrusco, Pignoletto, Gutturnio."
-    },
-    {
-        "id": "mo-mortadella-lab",
-        "name": "Mò Mortadella Lab",
-        "category": "restaurant",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4947,
-            11.3411
-        ],
-        "shortDesc": "🔥 Bolognas mest virale sandwich-spot på TikTok & Instagram! Kæmpe lune focacciaer fyldt til randen med frisk mortadella.",
-        "heroDesc": "Et fænomen på de sociale medier. Hver eneste dag dannes der kø af madglade foodies for at få fingrene i disse gigantiske, nybagte focaccia-sandwicher pakket med silkeblød IGP-mortadella, cremet stracciatella, pistaciecreme og trøffel.",
-        "tipsHeading": "Bestillingstip & Kø-hack",
-        "tips": "Kom 10 minutter før åbningstid for at minimere køen. Bestil nummer 1 på menukortet: Mortadella, pistaciepesto og friskskåret stracciatella.",
-        "pills": [
-            "Viral TikTok Hit",
-            "Kæmpe Focaccia",
-            "IGP Mortadella",
-            "Pistaciecreme",
-            "Must-Try Streetfood"
-        ],
-        "address": "Via de' Monari 8c, 40121 Bologna",
-        "hours": "Alle dage: 11:30 - 20:00",
-        "wineFocus": "Køb en kold dåse Pignoletto Frizzante to-go til din sandwich."
-    },
-    {
-        "id": "cremeria-santo-stefano",
-        "name": "Cremeria Santo Stefano",
-        "category": "restaurant",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4912,
-            11.3512
-        ],
-        "shortDesc": "🔥 Kåret blandt Italiens absolut bedste gelateriaer. Håndlavet gelato, pistacie fra Bronte og chokolade fra Venezuela.",
-        "heroDesc": "En drøm af en håndværks-isbutik. Ejerne rejser jorden rundt for at finde de bedste råvarer: IGP-hasselnødder fra Piemonte, ægte Bronte-pistacie og vild kakao. Konsistensen er silkeblød, og smagen er intens og sublim.",
-        "tipsHeading": "Vores Favorit-kombination",
-        "tips": "Bestil en vaffel med \"Crema Santo Stefano\" (deres signatur æggecreme) og \"Pistacchio Puro di Bronte\" med en klat friskslået mascarpone-flødeskum på toppen.",
-        "pills": [
-            "Italiens Top Gelato",
-            "Bronte Pistacie",
-            "Gourmet Chokolade",
-            "Instagram Foodie Hit"
-        ],
-        "address": "Via Santo Stefano 70/c, 40125 Bologna",
-        "hours": "Tir-Søn: 11:00 - 22:30 (Man lukket)",
-        "wineFocus": "Prøv deres gelato med et strejf af Albana Passito sød vin."
-    },
-    {
-        "id": "mercato-di-mezzo",
-        "name": "Mercato di Mezzo",
-        "category": "restaurant",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4942,
-            11.3441
-        ],
-        "shortDesc": "🔥 Det historiske overdækkede madmarked i Quadrilatero, fyldt med boder, lune tortellini, vinbarer og leben.",
-        "heroDesc": "Bolognas ældste overdækkede madmarked fra middelalderen, fuldstændig genopstået som en livlig gourmet-foodhall. Her finder du boder med håndrullet pasta, stegte fisk, håndværksøl, charcuteri og vinbarer under ét tag.",
-        "tipsHeading": "Foodie Guide",
-        "tips": "Perfekt til uformel frokost eller tidlig aperitivo. Snup en bakke friskfriterede crescentine med culatello og et glas Lambrusco.",
-        "pills": [
-            "Historisk Foodhall",
-            "Street Food",
-            "Quadrilatero Hjerte",
-            "Livlig Aperitivo"
-        ],
-        "address": "Via Clavature 12, 40124 Bologna",
-        "hours": "Alle dage: 09:00 - 23:00",
-        "wineFocus": "Stort udvalg af vin på glas fra de forskellige markedsboder."
-    },
-    {
-        "id": "trattoria-via-serra",
-        "name": "Trattoria di Via Serra",
-        "category": "restaurant",
-        "area": "centro",
-        "coords": [
-            44.5072,
-            11.3458
-        ],
-        "shortDesc": "Bolognas mest hyldede moderne Slow Food trattoria i Bolognina. Hjemmelavet pasta og råvarer fra Appenninerne.",
-        "heroDesc": "I det hippe arbejderkvarter Bolognina bag banegården ligger denne perle. Her hyldes de små bjergbønder og glemte lokale traditioner. Maden er ægte Slow Food med en sjæl og præcision, der gør bordbestilling måneder i forvejen nødvendig.",
-        "tipsHeading": "Menu Tip",
-        "tips": "Deres Gramigna med pølseragù og deres Gramigna con salsiccia di mora romagnola er legendariske. Bestil bord i god tid!",
-        "pills": [
-            "Slow Food Hæder",
-            "Bolognina Kvarteret",
-            "Håndrullet Pasta",
-            "Autentisk Sjæl"
-        ],
-        "address": "Via Luigi Serra 9b, 40129 Bologna",
-        "hours": "Ons-Lør: 12:30 - 15:00 & 19:30 - 22:30 (Søn frokost, Man-Tir lukket)",
-        "wineFocus": "Naturvine og små biodynamiske producenter fra bakkerne og Appenninerne."
-    },
-    {
-        "id": "da-cesari",
-        "name": "Ristorante Da Cesari",
-        "category": "restaurant",
-        "area": "centro",
-        "coords": [
-            44.4927,
-            11.3418
-        ],
-        "shortDesc": "Klassisk elegance og Bolognas bedste Tagliatelle al Ragù og Tortellini in Brodo i tre generationer.",
-        "heroDesc": "Da Cesari er essensen af det traditionelle, noble Bologna. Familien har drevet stedet siden 1955 med kærlighed til det ægte bolognesiske køkken. Vinkælderen er formidabel, og betjeningen er varm og professionel.",
-        "tipsHeading": "Hvad du skal bestille",
-        "tips": "Start med Tortellini in Brodo (i cappon-suppe), efterfulgt af Tagliatelle al Ragù eller Cotoletta alla Bolognese med skinke og smeltet Parmigiano.",
-        "pills": [
-            "Klassisk Bologna",
-            "Bedste Tagliatelle",
-            "Tradition & Stolthed",
-            "Familiedrevet 1955"
-        ],
-        "address": "Via de' Carbonesi 8, 40123 Bologna",
-        "hours": "Man-Lør: 12:30 - 14:30 & 19:30 - 22:30 (Søn lukket)",
-        "wineFocus": "Familiens egen produktion af Sangiovese og et rigt vinkort med top-årgange."
-    },
-    {
-        "id": "sfoglia-rina",
-        "name": "Sfoglia Rina",
-        "category": "restaurant",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4939,
-            11.3475
-        ],
-        "shortDesc": "🔥 Frisk håndlavet pasta serveret i autentiske pande-skåle midt i centrum. Kæmpe hit på Instagram.",
-        "heroDesc": "Sfoglia Rina startede som en lille pastabutik i 1963 og er i dag et af byens mest populære steder for moderne pastanydere. Man sidder ved enkle borde og nyder friskrullet pasta serveret direkte i små metalpander.",
-        "tipsHeading": "Vores Råd",
-        "tips": "Ingen bordbestilling – kom kl. 12:00 eller kl. 19:00 for at undgå den lange kø på gaden. Prøv deres ugentlige sæson-tortelloni.",
-        "pills": [
-            "Frisk Pasta Bar",
-            "Pande Servering",
-            "Instagram Favorit",
-            "Hurtig & Lækker"
-        ],
-        "address": "Via Castiglione 4/b, 40124 Bologna",
-        "hours": "Alle dage: 11:30 - 21:00 (Uden pause)",
-        "wineFocus": "Gode, lette lokale vine på glas, der matcher pastaen perfekt."
-    },
-    {
-        "id": "trattoria-da-amerigo",
-        "name": "Trattoria Da Amerigo (Savigno)",
-        "category": "restaurant",
-        "area": "colli",
-        "coords": [
-            44.3912,
-            11.0772
-        ],
-        "shortDesc": "1 Michelin-stjerne! Legendarisk trattoria i de hvide trøflers hovedstad Savigno i bakkerne vest for Bologna.",
-        "heroDesc": "En institution i italiensk gastronomi. Amerigo har bevaret sin oprindelige, varme trattoria-sjæl fra 1934, men leverer mad i absolut verdensklasse med 1 Michelin-stjerne. Stedet er verdenskendt for sine retter med friske lokale trøfler og vildt.",
-        "tipsHeading": "Trøffel & Vin Oplevelse",
-        "tips": "Besøg Amerigo i trøffelsæsonen (okt-dec) for hvid trøffel over frisk æggepasta. Glem ikke at besøge deres lille delikatessebutik \"La Dispensa di Amerigo\" overfor.",
-        "pills": [
-            "1 Michelin Stjerne",
-            "Hvide Trøfler",
-            "Colli Bolognesi",
-            "Historisk Trattoria 1934"
-        ],
-        "address": "Via Marconi 14/16, 40050 Savigno (BO)",
-        "hours": "Ons-Søn: 12:30 - 14:30 & 19:30 - 22:00 (Man-Tir lukket)",
-        "wineFocus": "En af Italiens bedste vinkældre med tusindvis af sjældne flasker og modne Sangiovese-årgange."
-    },
-    {
-        "id": "antica-trattoria-sacerno",
-        "name": "Antica Trattoria di Sacerno",
-        "category": "restaurant",
-        "area": "omegn",
-        "coords": [
-            44.5367,
-            11.1963
-        ],
-        "shortDesc": "Ekstraordinær fiskerestaurations-oplevelse på landet ved Calderara di Reno, skabt af stjernekokken Dario Picchiotti.",
-        "heroDesc": "En af regionens mest overraskende gourmetoplevelser. Midt på den emilianske landevejspampas tryller Dario Picchiotti med dagens friskeste fangst fra Adriaterhavet og Middelhavet i innovative, smagsmættede retter.",
-        "tipsHeading": "Gourmet Tip",
-        "tips": "Vælg kokkens store degustationsmenu for en uforglemmelig gastronomisk rejse gennem italiensk fiskekunst i særklasse.",
-        "pills": [
-            "Top Fiske-Gourmet",
-            "Kreativt Køkken",
-            "Michelin Guide",
-            "Skjult Landperle"
-        ],
-        "address": "Via di Sacerno 1, 40012 Calderara di Reno (BO)",
-        "hours": "Tir-Lør: 12:30 - 14:30 & 19:45 - 22:30 (Søn frokost, Man lukket)",
-        "wineFocus": "Fremragende Champagne-kort, hvidvine fra Friuli, Alto Adige og mineralske Albanaer."
-    },
-    {
-        "id": "finestrella-via-piella",
-        "name": "Finestrella di Via Piella (Lille Venedig)",
-        "category": "sevaerdighed",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4996,
-            11.3444
-        ],
-        "shortDesc": "🔥 Det hemmelige vindue i murstensvæggen, der åbner op til Bolognas skjulte kanaler (Canale delle Moline).",
-        "heroDesc": "Bolognas mest fotograferede hemmelighed på Instagram og TikTok! En lille trælem i en ellers anonym murstensvæg i Via Piella. Når du åbner den, kigger du direkte ned på Canale delle Moline, hvor vandet flyder mellem historiske huse og giver en fornemmelse af Venedig midt i Bologna.",
-        "tipsHeading": "Fototip",
-        "tips": "Kom tidligt om morgenen for at undgå selfie-køen foran vinduet. Kig også over broens rækværk på den modsatte side for et andet smukt kanal-kig.",
-        "pills": [
-            "Viral TikTok Spot",
-            "Skjulte Kanaler",
-            "Lille Venedig",
-            "Magisk Fotovinkel"
-        ],
-        "address": "Via Piella 16, 40126 Bologna",
-        "hours": "Altid åbent (Offentlig gade)",
-        "wineFocus": "Tæt på vinbarerne i det livlige universitetskvarter og Via Mascarella."
-    },
-    {
-        "id": "terrazza-san-petronio",
-        "name": "Panoramaterrassen på San Petronio",
-        "category": "sevaerdighed",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4929,
-            11.3432
-        ],
-        "shortDesc": "🔥 54 meter over jorden med elevator! Den mest storslåede 360° panoramaudsigt over Bolognas røde tage.",
-        "heroDesc": "På bagsiden af Basilica di San Petronio (fra Piazza Galvani) fører en udvendig glaselevator op til den 54 meter høje panoramaterrasse. Herfra har du et magisk kig direkte over Piazza Maggiore, tårnene og bakkerne.",
-        "tipsHeading": "Golden Hour Tip",
-        "tips": "Besøg terrassen en time før solnedgang for det varme gyldne lys over de emilianske tegltage. Husk kamera!",
-        "pills": [
-            "54m Udsigt",
-            "Elevator",
-            "360 Graders Panorama",
-            "Golden Hour Fotospot"
-        ],
-        "address": "Piazza Galvani (bag San Petronio), 40124 Bologna",
-        "hours": "Fre-Søn: 10:00 - 13:00 & 15:00 - 18:00",
-        "wineFocus": "Perfekt at fejre udsigten med en aperitivo på Piazza Galvani nedenfor."
-    },
-    {
-        "id": "le-due-torri",
-        "name": "Le Due Torri (Asinelli & Garisenda)",
-        "category": "sevaerdighed",
-        "area": "centro",
-        "coords": [
-            44.4943,
-            11.3466
-        ],
-        "shortDesc": "Bolognas ubestridte vartegn. To skæve middelaldertårne fra det 12. århundrede.",
-        "heroDesc": "I middelalderen havde Bologna over 100 forsvarstårne. I dag står Torre degli Asinelli (97,2 m) og det stærkt hældende Torre Garisenda som byens stolte symboler.",
-        "tipsHeading": "Udsigtstip",
-        "tips": "Nyd udsigten over pladsen og de historiske porticoer, der mødes for foden af tårnene.",
-        "pills": [
-            "Middelalder",
-            "Byens Vartegn",
-            "Panoramautsigt",
-            "UNESCO Kandidat"
-        ],
-        "address": "Piazza di Porta Ravegnana, 40126 Bologna",
-        "hours": "Området kan nydes udefra alle dage",
-        "wineFocus": "Brug udsigten til at orientere dig mod Colli Bolognesi mod syd!"
-    },
-    {
-        "id": "piazza-maggiore",
-        "name": "Piazza Maggiore & Fontana del Nettuno",
-        "category": "sevaerdighed",
-        "area": "centro",
-        "coords": [
-            44.4937,
-            11.3431
-        ],
-        "shortDesc": "Bolognas storslåede hjerte, omgivet af renæssancepaladser og Giambolognas berømte Neptun-fontæne.",
-        "heroDesc": "Byens sociale og kulturelle centrum siden det 13. århundrede. Her finder du Palazzo d'Accursio, Palazzo dei Notai, Palazzo del Podestà og Giambolognas berømte Neptun-springvand (1566) med de karakteristiske havfruer og delfiner.",
-        "tipsHeading": "Kulturelt Tip",
-        "tips": "Prøv det akustiske hviskegalleri under Palazzo del Podestàs buegang: Tal ind i det ene hjørne, og din ledsager i det diagonale hjørne hører det krystalklart!",
-        "pills": [
-            "Historisk Plads",
-            "Neptun Fontæne",
-            "Hviskegalleri",
-            "Palazzo d'Accursio"
-        ],
-        "address": "Piazza Maggiore, 40124 Bologna",
-        "hours": "Pladsen er altid åben",
-        "wineFocus": "Mange historiske barer under buerne serverer god vin og aperitivo."
-    },
-    {
-        "id": "archiginnasio",
-        "name": "Archiginnasio & Teatro Anatomico",
-        "category": "sevaerdighed",
-        "area": "centro",
-        "coords": [
-            44.4924,
-            11.3433
-        ],
-        "shortDesc": "1500-tals universitetspalads dækket af 6.000 våbenskjolde med det berømte anatomiske træteater.",
-        "heroDesc": "Universitetet i Bologna blev grundlagt i 1088 som verdens ældste. Archiginnasio var universitetets hovedsæde fra 1563. Højdepunktet er Teatro Anatomico, bygget i grantræ i 1637 til dissektion af menneskekroppe.",
-        "tipsHeading": "Arkitektur Tip",
-        "tips": "Læg mærke til de to udskårne \"Spellati\" (flåede mænd) af træ, der bærer baldakinen over professorens lærestol.",
-        "pills": [
-            "Verdens ældste universitet",
-            "Teatro Anatomico",
-            "Historisk Bibliotek",
-            "Træskærerarbejde"
-        ],
-        "address": "Piazza Galvani 1, 40124 Bologna",
-        "hours": "Man-Lør: 09:00 - 19:00, Søn: 10:00 - 14:00",
-        "wineFocus": "Kort gåafstand til Quadrilateros vinbarer."
-    },
-    {
-        "id": "dozza-murales",
-        "name": "Dozza – Den Bemalede Middelalderby",
-        "category": "sevaerdighed",
-        "area": "omegn",
-        "trending": true,
-        "coords": [
-            44.3589,
-            11.6278
-        ],
-        "shortDesc": "🔥 Eventyrlig befæstet bakketop-landsby, hvor hver eneste husmur er et kunstværk af internationale kunstnere.",
-        "heroDesc": "Dozza er kåret som en af Italiens smukkeste landsbyer (\"I Borghi più belli d'Italia\"). Hvert andet år inviteres internationale kunstnere til \"Biennale del Muro Dipinto\" for at male direkte på byens facader.",
-        "tipsHeading": "Vandretur & Fototip",
-        "tips": "Gå gennem de smalle brostensbelagte gader op mod borgen Rocca Sforzesca. Hvert gadehjørne byder på nye farverige vægmalerier.",
-        "pills": [
-            "Bemalede Husmure",
-            "Borgo Romantico",
-            "Rocca Sforzesca",
-            "Instagram Favorit"
-        ],
-        "address": "Borgo di Dozza, 40060 Dozza (BO)",
-        "hours": "Byen er åben 24/7 (Borgen: 10:00 - 18:30)",
-        "wineFocus": "Huser Enoteca Regionale Emilia Romagna i borgens kælder!"
-    },
-    {
-        "id": "labirinto-della-masone",
-        "name": "Labirinto della Masone (Omegn)",
-        "category": "sevaerdighed",
-        "area": "omegn",
-        "trending": true,
-        "coords": [
-            44.8519,
-            10.1517
-        ],
-        "shortDesc": "🔥 Verdens største bambus-labyrint skabt af Franco Maria Ricci med over 300.000 bambusplanter og neoklassisk pyramide.",
-        "heroDesc": "En drømmeagtig arkitektonisk og botanisk kreation ved Fontanellato nær Parma. Franco Maria Ricci skabte denne kæmpe labyrint med over 300.000 bambusplanter, der danner en stjerneformet labyrint omkring en central neoklassisk pyramide.",
-        "tipsHeading": "Labyrint & Kunstsamling",
-        "tips": "Afsæt minimum 2-3 timer til at fare vild i de grønne bambusgange og beundre Riccis private kunst- og bogsamling.",
-        "pills": [
-            "Verdens Største Bambuslabyrint",
-            "Neoklassisk Pyramide",
-            "Franco Maria Ricci",
-            "Instagram Fænomen"
-        ],
-        "address": "Strada Masone 121, 43012 Fontanellato (PR)",
-        "hours": "Ons-Man: 10:30 - 19:00 (Tirsdag lukket)",
-        "wineFocus": "Ligger i hjertet af Parmigiano Reggiano og Culatello di Zibello distriktet."
-    },
-    {
-        "id": "basilica-san-petronio",
-        "name": "Basilica di San Petronio",
-        "category": "kirke",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4936,
-            11.3431
-        ],
-        "shortDesc": "🔥 Verdens 6. største gotiske katedral med Cassinis 67m lange solmeridian og Giovanni da Modenas fresker.",
-        "heroDesc": "Den dominerende katedral på Piazza Maggiore, grundlagt i 1390 til ære for Bolognas skytshelgen San Petronio. Den karakteristiske tofarvede facade er bevidst ufuldendt. Indenfor åbner et svimlende kirkerum sig med Bolognini-kapellets dramatiske fresker og Gian Domenico Cassinis astronomiske solmeridian fra 1655.",
-        "tipsHeading": "Astronomisk & Kunstnerisk Oplevelse",
-        "tips": "Kom præcis ved astronomisk middagstid (ca. 12:15-13:15 afhængig af sommertid) og se solstrålen fra hullet i loftet ramme meridianlinjen i marmorgulvet. Gå ikke glip af Giovanni da Modenas fresko af Himmel og Helvede i Cappella Bolognini.",
-        "pills": [
-            "Cassini Solmeridian",
-            "Gotisk Katedral",
-            "Cappella Bolognini",
-            "Piazza Maggiore",
-            "Skytshelgen"
-        ],
-        "address": "Piazza Maggiore, 40124 Bologna",
-        "hours": "Alle dage: 08:30 - 13:30 & 14:30 - 18:30 (Messen søndag)",
-        "wineFocus": "Kort gåafstand til Quadrilateros historiske vinbarer som Osteria del Sole."
-    },
-    {
-        "id": "santo-stefano-sette-chiese",
-        "name": "Complesso di Santo Stefano (Le Sette Chiese)",
-        "category": "kirke",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4919,
-            11.349
-        ],
-        "shortDesc": "🔥 Bolognas mest mystiske og elskede helligdom – 7 sammenbyggede middelalderkirker, Pilatus-gården og romansk klostergang.",
-        "heroDesc": "Også kaldet \"Det Hellige Jerusalem\" i Bologna. Grundlagt af biskop Petronio i det 5. århundrede over et hedensk Isis-tempel for at genskabe Gravkirken i Jerusalem. Komplekset rummer bl.a. Chiesa del Crocifisso, Santo Sepolcro med San Petronios oprindelige grav, Pilatus' gård med marmorvaskekummen og den toetagers romanske klostergang.",
-        "tipsHeading": "Besøgstip & Atmosfære",
-        "tips": "Gå i ro og mag gennem de dunkle kapeller og træd ud i den fredfyldte Cortile di Pilato. Nyd derefter udsigten over den trekantede Piazza Santo Stefano fra en af caféerne.",
-        "pills": [
-            "De 7 Kirker",
-            "Kopi af Jerusalems Gravkirke",
-            "Pilatus Gård",
-            "Romansk Klostergang",
-            "Magisk Atmosfære"
-        ],
-        "address": "Piazza Santo Stefano, 40125 Bologna",
-        "hours": "Tir-Søn: 09:00 - 12:30 & 14:30 - 19:00 (Man lukket)",
-        "wineFocus": "Nyd et glas vin hos Vineria Favalli direkte under buerne foran kirkepladsen."
-    },
-    {
-        "id": "santuario-san-luca",
-        "name": "Santuario della Madonna di San Luca",
-        "category": "kirke",
-        "area": "colli",
-        "trending": true,
-        "coords": [
-            44.4791,
-            11.2965
-        ],
-        "shortDesc": "🔥 Ikonisk barok valfartskirke forbundet til byen via verdens længste overdækkede buegang med 666 buer (3,8 km).",
-        "heroDesc": "Tronende på toppen af Colle della Guardia knejser den lyserøde barokke basilika over hele Bologna-sletten. Kirken blev opført for at huse det hellige ikon af Jomfru Maria med barnet, som ifølge legenden blev malet af evangelisten Lukas. Portico di San Luca med sine 666 monumentale buer er optaget på UNESCOs verdensarvsliste.",
-        "tipsHeading": "Pilgrimsvandring & Udsigt",
-        "tips": "Gå turen til fods fra Arco del Meloncello op gennem de 666 buer (ca. 45 min) eller tag San Luca Express. Besøg også tagterrassen \"San Luca Sky Experience\" for 360° udsigt over bakkerne og Appenninerne.",
-        "pills": [
-            "UNESCO Verdensarv",
-            "666 Buer (3,8 km Portico)",
-            "Helligt Maria-ikon",
-            "Colle della Guardia",
-            "Panoramaudsigt"
-        ],
-        "address": "Via di San Luca 36, 40135 Bologna",
-        "hours": "Alle dage: 07:00 - 19:00 (Terrasse 10:00 - 18:00)",
-        "wineFocus": "Prøv en frokost med Colli Bolognesi Pignoletto på trattoriaerne ved foden af bakken."
-    },
-    {
-        "id": "santa-maria-della-vita",
-        "name": "Santuario di Santa Maria della Vita & Compianto",
-        "category": "kirke",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4941,
-            11.3444
-        ],
-        "shortDesc": "🔥 Rummer Niccolò dell'Arcas \"Compianto\" – en af renæssancens mest gribende og dramatiske terrakottaskulpturer.",
-        "heroDesc": "En intim senbarok kirke midt i det pulserende Quadrilatero-kvarter. I et kapel til højre for alteret finder du et af italiensk kunsthistories mest intense mesterværker: Niccolò dell'Arcas livagtige terrakottagruppe fra ca. 1463, der forestiller Maria og disciplenes hjerteskærende sorg over den døde Kristus (\"il pianto di pietra\").",
-        "tipsHeading": "Mesterværkets Hemmelighed",
-        "tips": "Læg mærke til Marias og Maria Magdalenes forvredne ansigter og flagrende gevandter – følelsen af vind og rå smerte i brændt ler er uovertruffen. Gå også op til det tilhørende museum og oratorium.",
-        "pills": [
-            "Niccolò dell'Arca Compianto",
-            "Dramatisk Terrakotta 1463",
-            "Quadrilatero",
-            "Barokkuppel",
-            "Unikt Mesterværk"
-        ],
-        "address": "Via Clavature 8/10, 40124 Bologna",
-        "hours": "Tir-Søn: 10:00 - 18:30 (Lukket mandag)",
-        "wineFocus": "Lige uden for døren ligger Quadrilateros bedste vin- og madboder i Mercato di Mezzo."
-    },
-    {
-        "id": "basilica-san-domenico",
-        "name": "Basilica di San Domenico",
-        "category": "kirke",
-        "area": "centro",
-        "trending": false,
-        "coords": [
-            44.4899,
-            11.3448
-        ],
-        "shortDesc": "Dominikanerordenens vugge med det storslåede Arca di San Domenico relikvieskrin med skulpturer af en ung Michelangelo.",
-        "heroDesc": "En af Bolognas historisk og kunstnerisk vigtigste kirker. Her ligger Sankt Dominikus (grundlægger af Dominikanerordenen, død 1221) begravet. Det monumentale marmorrelikvieskrin \"Arca di San Domenico\" er et fælles værk af Nicola Pisano, Niccolò dell'Arca og en purung Michelangelo, som i 1494 udhuggede tre figurer: den knælende lysestagebærende engel, San Procolo og San Petronio.",
-        "tipsHeading": "Michelangelo & Musik Tip",
-        "tips": "Gå ind i Cappella di San Domenico for at beundre Michelangelos engel. Kirken rummer desuden et historisk orgel, hvor den 14-årige Wolfgang Amadeus Mozart øvede i 1770 under sit studieophold i Bologna.",
-        "pills": [
-            "Michelangelo Skulpturer",
-            "Arca di San Domenico 1267",
-            "Mozarts Orgel",
-            "Sankt Dominikus Grav",
-            "Piazza San Domenico"
-        ],
-        "address": "Piazza San Domenico 13, 40124 Bologna",
-        "hours": "Man-Fre: 09:00 - 12:00 & 15:30 - 18:00, Lør-Søn: 09:00 - 12:30 & 15:30 - 17:00",
-        "wineFocus": "Fredeligt kvarter få minutters gang fra vinbarerne i det sydlige Centro Storico."
-    },
-    {
-        "id": "cattedrale-san-pietro",
-        "name": "Cattedrale Metropolitana di San Pietro",
-        "category": "kirke",
-        "area": "centro",
-        "trending": false,
-        "coords": [
-            44.4958,
-            11.3429
-        ],
-        "shortDesc": "Bolognas officielle domkirke og ærkebispesæde med 70m højt klokketårn, rig barokkunst og Alfonso Lombardis terrakotta.",
-        "heroDesc": "Beliggende på den livlige Via dell'Indipendenza ligger byens domkirke. Kirken blev grundlagt i det 10. århundrede og genopbygget i overdådig barokstil i det 17. århundrede. Inde i katedralen finder man et imponerende tøndehvælv, Alfonso Lombardis gribende terrakotta-krucifiks fra 1522 og katedralens skatkammer.",
-        "tipsHeading": "Tårnbestigning & Udsigt",
-        "tips": "I weekenderne kan man bestige det 70 meter høje klokketårn (Campanile), der rummer den berømte klokke \"La Nonna\" (bedstemoderen) på 3,3 tons og giver en formidabel udsigt over tagene.",
-        "pills": [
-            "Bolognas Domkirke",
-            "70m Klokketårn",
-            "Alfonso Lombardi 1522",
-            "Ærkebispesæde",
-            "Via Indipendenza"
-        ],
-        "address": "Via dell'Indipendenza 7, 40121 Bologna",
-        "hours": "Man-Lør: 07:30 - 18:45, Søn: 08:00 - 18:45",
-        "wineFocus": "Tæt på de populære aperitivo-steder omkring Mercato delle Erbe."
-    },
-    {
-        "id": "basilica-san-francesco",
-        "name": "Basilica di San Francesco & Tombe dei Glossatori",
-        "category": "kirke",
-        "area": "centro",
-        "trending": false,
-        "coords": [
-            44.4953,
-            11.3361
-        ],
-        "shortDesc": "Tidlig gotisk basilika fra 1236 med franske stræbepiller og de berømte hængende middelalder-gravmæler for juraprofessorer.",
-        "heroDesc": "Franciskanernes basilika var den første kirke i Bologna opført i rendyrket gotisk stil med synlige udvendige stræbepiller efter fransk forbillede. På den rolige plads foran kirkens apsis knejser \"Tombe dei Glossatori\" – monumentale gotiske mausoleer på søjler for de berømte retslærde (glossatorer) fra Bolognas middelalderuniversitet.",
-        "tipsHeading": "Klosterhave & Ro",
-        "tips": "Besøg den smukke Chiostro dei Morti (de dødes klostergang) ved siden af kirken – en af byens mest fredfyldte og stemningsmættede oaser.",
-        "pills": [
-            "Fransk-gotisk 1236",
-            "Tombe dei Glossatori",
-            "Fredfyldt Klostergang",
-            "Pratello Kvarteret"
-        ],
-        "address": "Piazza San Francesco, 40122 Bologna",
-        "hours": "Alle dage: 06:45 - 12:00 & 15:00 - 19:00",
-        "wineFocus": "Ligger lige ved Via del Pratello – Bolognas mest livlige gade for uformelle osteriaer og vin."
-    },
-    {
-        "id": "santa-maria-dei-servi",
-        "name": "Basilica di Santa Maria dei Servi",
-        "category": "kirke",
-        "area": "centro",
-        "trending": false,
-        "coords": [
-            44.492,
-            11.3533
-        ],
-        "shortDesc": "Mesterværk af gotisk arkitektur med berømt quadriportico-søjlegang, Cimabues \"Maestà\" og historisk orgel.",
-        "heroDesc": "Grundlagt i 1346 af Servitterordenen langs Strada Maggiore. Kirken er berømt for sin storslåede rektangulære quadriportico (firedobbelt søjlegang) foran facaden, som danner et elegant atrium mod gaden. Indenfor rummer kirken Cimabues berømte altertavle \"Maestà\" (Jomfru Maria med barnet og engle, ca. 1285) samt et af Italiens fineste symfoniske orgler.",
-        "tipsHeading": "Fototip & Klassiske Koncerter",
-        "tips": "Søjlegangen er et af Bolognas smukkeste motiver om aftenen, når lysene tændes under buegangene. Kirken er også kendt for sine stemningsfulde orgelkoncerter.",
-        "pills": [
-            "Cimabue Maestà 1285",
-            "Quadriportico Buegang",
-            "Gotisk Katedral",
-            "Strada Maggiore",
-            "Klassisk Orgel"
-        ],
-        "address": "Strada Maggiore 43, 40125 Bologna",
-        "hours": "Alle dage: 09:00 - 12:00 & 15:30 - 18:30",
-        "wineFocus": "Kort gang til Giardini Margherita og vinbarerne i Santo Stefano-kvarteret."
-    },
-    {
-        "id": "corpus-domini-chiesa-santa",
-        "name": "Santuario del Corpus Domini (Chiesa della Santa)",
-        "category": "kirke",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4883,
-            11.3418
-        ],
-        "shortDesc": "🔥 Bolognas mest fascinerende helligdom: Huser det mumificerede lig af Santa Caterina de' Vigri siddende på en gylden trone.",
-        "heroDesc": "Klarissernes klosterkirke fra 1477 rummer en helt enestående åndelig og historisk skat. I et rigt udsmykket sidekapel sidder det uforgængelige lig af Santa Caterina de' Vigri (1413-1463), Bolognas skytshelgeninde og kunstnernes helgeninde, fuldt påklædt i ordensdragt på en gylden stol – præcis som hun blev placeret for over 500 år siden.",
-        "tipsHeading": "Unik Oplevelse",
-        "tips": "Ring på klokken ved kapellet til venstre i kirken for at få adgang til helgenindens rum. Læg mærke til hendes håndskrevne bibel og malede violiner, som også er udstillet.",
-        "pills": [
-            "Santa Caterina de' Vigri",
-            "Mumificeret Helgeninde",
-            "Gylden Trone",
-            "15. Århundrede",
-            "Sjælden Oplevelse"
-        ],
-        "address": "Via Tagliapietre 19, 40123 Bologna",
-        "hours": "Tors-Lør: 09:30 - 11:30 & 16:00 - 17:45 (Søn efter messen)",
-        "wineFocus": "Beliggende i en rolig, nobel gade tæt på Palazzo Albergati."
-    },
-    {
-        "id": "san-michele-in-bosco",
-        "name": "Complesso di San Michele in Bosco",
-        "category": "kirke",
-        "area": "colli",
-        "trending": true,
-        "coords": [
-            44.4789,
-            11.3421
-        ],
-        "shortDesc": "🔥 Klostret på bakketoppen med byens vildeste panoramaudsigt og den berømte optiske illusion \"Il Cannocchiale\".",
-        "heroDesc": "Hævet 132 meter over havets overflade knejser det historiske olivetaner-kloster San Michele in Bosco. Fra forpladsen Piazzale San Michele in Bosco har du Bolognas smukkeste udsigt over hele Centro Storico. Inde i den lange klosterkorridor (Monastero) oplever man det verdensberømte optiske fænomen: Går man baglæns bort fra vinduet, synes Asinelli-tårnet at komme tættere på og vokse.",
-        "tipsHeading": "Panoramablik & Fototip",
-        "tips": "Tag herop ved solnedgang for gyldent lys over byens spir og kupler. Kirken indeholder fine renæssance- og barokarbejder af Guido Reni og Ludovico Carracci.",
-        "pills": [
-            "Optisk Illusion (Tårnkig)",
-            "Bolognas Bedste Panorama",
-            "Olivetanerkloster",
-            "Solnedgangsspot",
-            "Colli Bolognesi"
-        ],
-        "address": "Piazzale San Michele in Bosco, 40136 Bologna",
-        "hours": "Kirken: 09:00 - 12:00 & 16:00 - 19:00 (Pladsen altid åben)",
-        "wineFocus": "Perfekt at kombinere med en flaske Lambrusco Grasparossa eller Pignoletto til solnedgangen."
-    },
-    {
-        "id": "san-colombano-tagliavini",
-        "name": "Complesso di San Colombano & Collezione Tagliavini",
-        "category": "kirke",
-        "area": "centro",
-        "trending": false,
-        "coords": [
-            44.4975,
-            11.3396
-        ],
-        "shortDesc": "Helligdom fra det 7. århundrede med sjældne fresker fra Carracci-skolen og enestående samling af antikke musikinstrumenter.",
-        "heroDesc": "Grundlagt omkring år 616 af den irske munk Sankt Columban. Komplekset rummer en fascinerende lagdelt historie med en romansk krypt, en unik freskocyklus fra 1600-tallet malet af Bolognas førende mestre (Guido Reni, Albani m.fl.) og Tagliavini-samlingen af historiske cembaloer, orgler og spinetter, som stadig spilles på.",
-        "tipsHeading": "For Musik- & Kunstelskere",
-        "tips": "Tjek koncertkalenderen – at høre renæssance- og barokmusik fremført på de originale historiske instrumenter i det freskoudsmykkede oratorium er en uforglemmelig oplevelse.",
-        "pills": [
-            "7. Århundrede",
-            "Carracci Fresker",
-            "Antikke Instrumenter",
-            "Musikkirke",
-            "Stemningsfuld Krypt"
-        ],
-        "address": "Via Parigi 5, 40121 Bologna",
-        "hours": "Ons-Søn: 10:00 - 18:00 (Lukket Man-Tir)",
-        "wineFocus": "Kort gang til Mercato delle Erbes vinbarer og restauranter."
-    },
-    {
-        "id": "certosa-di-bologna",
-        "name": "Cimitero Monumentale della Certosa di Bologna",
-        "category": "kirke",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4952,
-            11.309
-        ],
-        "shortDesc": "🔥 Middelalderligt karteuserkloster fra 1334 omdannet til en storslået monumental skulpturkirkegård, beundret af Lord Byron.",
-        "heroDesc": "Grundlagt i 1334 som klostret San Girolamo di Casara for den strenge Karteuserorden. I 1801 blev det under Napoleon omdannet til en monumental kirkegård, der i dag fungerer som et enestående udendørs museum for nyklassicistisk og Liberty-skulpturkunst med kilometervis af overdækkede buegange, kapeller og klostergårde. Blev hyldet som et mesterværk af Lord Byron, Charles Dickens og Stendhal.",
-        "tipsHeading": "Kulturel Oplevelse",
-        "tips": "Gå ind i den oprindelige klosterkirke San Girolamo for at se den fantastiske samling af 1600-tals malerier af Bartolomeo Cesi. Gå derefter en tur gennem Chiostro Terzo og Sala delle Tombe.",
-        "pills": [
-            "Karteuserkloster 1334",
-            "Monumental Skulpturpark",
-            "UNESCO Portico-forbindelse",
-            "Lord Byron & Dickens",
-            "Historisk Fred"
-        ],
-        "address": "Via della Certosa 18, 40134 Bologna",
-        "hours": "Alle dage: 08:00 - 18:00",
-        "wineFocus": "Ligger for enden af den lange Certosa-buegang tæt ved Stadio Dall'Ara."
-    },
-    {
-        "id": "eremo-di-tizzano",
-        "name": "Santuario & Eremo di Tizzano",
-        "category": "kirke",
-        "area": "colli",
-        "trending": false,
-        "coords": [
-            44.4646,
-            11.2662
-        ],
-        "shortDesc": "Malerisk camaldolenser-kloster og eremitage fra 1655 tronende på en bakkekam med udsigt over Reno-dalen og vinmarker.",
-        "heroDesc": "Højt hævet over Casalecchio di Reno ligger denne fredfyldte eremitage, grundlagt i 1655 af Camaldolenser-munkene. Kirkens karakteristiske tårn og klosterbygningerne spejler sig i det bløde bakkede landskab, omgivet af vinmarker og cypresser, med en storslået udsigt mod San Luca og Reno-dalen.",
-        "tipsHeading": "Ro & Romantisk Udsigt",
-        "tips": "Et vidunderligt stop på en køretur i Colli Bolognesi. Stedet emmer af fred og åndelig fordybelse fjernt fra byens larm.",
-        "pills": [
-            "Camaldolenser Eremitage 1655",
-            "Bakkekam Udsigt",
-            "Stilhed & Ro",
-            "Colli Bolognesi",
-            "Vinmarker"
-        ],
-        "address": "Via Tizzano 34, 40033 Casalecchio di Reno (BO)",
-        "hours": "Lør-Søn: 09:00 - 18:00 (Hverdage efter aftale)",
-        "wineFocus": "Omgivet af fremragende DOC Colli Bolognesi vingårde og trattoriaer."
-    },
-    {
-        "id": "duomo-di-modena",
-        "name": "Duomo di Modena & Torre Ghirlandina",
-        "category": "kirke",
-        "area": "omegn",
-        "trending": true,
-        "coords": [
-            44.6462,
-            10.9256
-        ],
-        "shortDesc": "🔥 UNESCO-verdensarv i absolut verdensklasse: Romansk mesterkatedral fra 1099 med Wiligelmos berømte stenrelieffer.",
-        "heroDesc": "Et af Europas største arkitektoniske mesterværker fra den romanske epoke. Katedralen blev påbegyndt i 1099 af arkitekten Lanfranco og udsmykket med Wiligelmos banebrydende bibelske stenrelieffer på facaden. I krypten hviler Modenas skytshelgen Sankt Geminianus under 60 romanske søjler. Ved siden af knejser det 89 meter høje tårn Torre Ghirlandina.",
-        "tipsHeading": "UNESCO & Gastronomi",
-        "tips": "Kig grundigt på Wiligelmos relieffer af Skabelsen og Noas Ark ved hovedportalen. Besøg derefter det historiske madmarked Mercato Albinelli kun 200 meter derfra.",
-        "pills": [
-            "UNESCO Verdensarv",
-            "Romansk Mesterværk 1099",
-            "Wiligelmo Relieffer",
-            "Torre Ghirlandina",
-            "Modena Centrum"
-        ],
-        "address": "Corso Duomo, 41121 Modena",
-        "hours": "Tir-Søn: 07:00 - 19:00 (Man lukket formiddag)",
-        "wineFocus": "Perfekt kombination med traditionel Balsamico di Modena og et glas mousserende Lambrusco di Sorbara."
-    },
-    {
-        "id": "abbazia-nonantola",
-        "name": "Abbazia di Nonantola (San Silvestro)",
-        "category": "kirke",
-        "area": "omegn",
-        "trending": false,
-        "coords": [
-            44.6784,
-            11.0435
-        ],
-        "shortDesc": "Mægtigt langobardisk benediktinerkloster fra år 752 med enestående 86-søjlet krypt og pave Sankt Silvesters relikvier.",
-        "heroDesc": "Grundlagt i 752 af den langobardiske hertug Anselm og velsignet af kong Aistulf. I middelalderen var klostret et af Europas mest magtfulde åndelige centre og herberget for kejsere og paver på vej over Alperne. Den imponerende treskibede basilika rummer en magisk underjordisk krypt med 86 fint udskårne søjler samt et uvurderligt skatkammer med hellige relikvier og gaver fra Karl den Store.",
-        "tipsHeading": "Middelalderens Mystik",
-        "tips": "Træd ned i kryptens skov af søjler og mærk historiens vingesus fra det tidlige middelalderitalien. Besøg også klostermuseet med de illuminerede håndskrifter.",
-        "pills": [
-            "Langobardisk 752",
-            "86-Søjlet Krypt",
-            "Pave Sankt Silvester",
-            "Nonantola",
-            "Benediktinerkloster"
-        ],
-        "address": "Piazza Caduti Partigiani 1, 41015 Nonantola (MO)",
-        "hours": "Tir-Søn: 09:00 - 12:30 & 14:30 - 18:00 (Lukket mandag)",
-        "wineFocus": "Hjertet af Lambrusco di Sorbara-vinregionen med mange lokale producenter."
-    },
-    {
-        "id": "duomo-battistero-parma",
-        "name": "Duomo & Battistero di Parma",
-        "category": "kirke",
-        "area": "omegn",
-        "trending": true,
-        "coords": [
-            44.8038,
-            10.3308
-        ],
-        "shortDesc": "🔥 Parmas romanske domkirke med Correggios svimlende kuppelfresko og Antelamis ottekantede dåbskapel i lyserødt marmor.",
-        "heroDesc": "Piazza del Duomo i Parma rummer to af Italiens største kulturskatte. Domkirken (Cattedrale di Santa Maria Assunta) er berømt for renæssancemaleren Correggios revolutionerende kuppelfresko \"Jomfru Marias Himmelfart\" (1526–1530) med en hvirvelvind af skyer og engle. Ved siden af knejser det ottekantede Battistero i lyserødt Verona-marmor skabt af Benedetto Antelami i 1196.",
-        "tipsHeading": "Kuppel & Skulptur Tip",
-        "tips": "Medbring mønter til lysautomaten for at oplyse Correggios kuppel og Antelamis relieffer af årets måneder i Battistero. Nyd en frokost med Prosciutto di Parma og Parmigiano Reggiano bagefter.",
-        "pills": [
-            "Correggio Kuppelfresko",
-            "Antelami Battistero 1196",
-            "Lyserødt Marmor",
-            "Parma Centrum",
-            "Romansk Kunst"
-        ],
-        "address": "Piazza Duomo, 43121 Parma",
-        "hours": "Alle dage: 08:30 - 19:00 (Battistero 09:00 - 18:30)",
-        "wineFocus": "Nyd et glas lokal Malvasia dei Colli di Parma eller Lambrusco Marcello."
-    },
-    {
-        "id": "san-vitale-galla-placidia-ravenna",
-        "name": "Basilica di San Vitale & Mausoleo di Galla Placidia (Ravenna)",
-        "category": "kirke",
-        "area": "omegn",
-        "trending": true,
-        "coords": [
-            44.4204,
-            12.1963
-        ],
-        "shortDesc": "🔥 Verdensberømt UNESCO-verdensarv fra 547 e.Kr. med uforlignelige byzantinske guldmosaikker af Justinian og Theodora.",
-        "heroDesc": "En af verdenshistoriens største kristne og kunstneriske skatte. San Vitale blev indviet i 547 e.Kr. under den byzantinske kejser Justinian. Apsis er dækket af glødende guld- og smaragdfarvede mosaikker af Kristus, Justinian og kejserinde Theodora med hendes hof. I haven ligger Mausoleo di Galla Placidia fra det 5. århundrede med sin berømte dybblå nattehimmel af stjernemosaikker.",
-        "tipsHeading": "Mosaikkernes Magi",
-        "tips": "Køb en samlet kombibillet til Ravennas 5 UNESCO-monumenter. Stå stille under stjernehimlen i Galla Placidia og oplev det gyldne alabastlys gennem de små vinduer.",
-        "pills": [
-            "UNESCO Verdensarv",
-            "Byzantinske Guldmosaikker",
-            "Kejser Justinian & Theodora",
-            "547 e.Kr.",
-            "Ravenna"
-        ],
-        "address": "Via San Vitale 17, 48121 Ravenna",
-        "hours": "Alle dage: 09:00 - 19:00 (Tidsreservation anbefales)",
-        "wineFocus": "Prøv en Sangiovese di Romagna Superiore eller en sprød Albana di Romagna i Ravennas historiske gader."
-    },
-    {
-        "id": "sant-apollinare-in-classe",
-        "name": "Basilica di Sant'Apollinare in Classe (Ravenna)",
-        "category": "kirke",
-        "area": "omegn",
-        "trending": false,
-        "coords": [
-            44.3802,
-            12.2335
-        ],
-        "shortDesc": "Monumental tidskristen basilika fra 549 e.Kr. med enestående apsismosaik af Sankt Apollinaris i et paradisisk eng-landskab.",
-        "heroDesc": "Rejst i det 6. århundrede over graven for Ravennas første biskop Sankt Apollinaris ved den antikke romerske flådehavn Classe. Kirkerummet er en kolossal treskibet basilika båret af 24 græske marmorsøjler. Højdepunktet er den storslåede apsismosaik, der fremstiller et grønt, blomstrende paradis med tolv hvide lam og et juvelbesat krucifiks svævende mod en himmel af guld.",
-        "tipsHeading": "Arkitektur & Fred",
-        "tips": "Et af de mest intakte og majestætiske tidskristne kirkerum i verden. Læg mærke til det runde byzantinske klokketårn fra det 9. århundrede.",
-        "pills": [
-            "UNESCO Verdensarv",
-            "6. Århundrede 549 e.Kr.",
-            "Paradis-Apsismosaik",
-            "Byzantinsk Basilika",
-            "Ravenna Omegn"
-        ],
-        "address": "Via Romea Sud 224, 48124 Classe, Ravenna",
-        "hours": "Man-Lør: 08:30 - 19:30, Søn: 13:30 - 19:30",
-        "wineFocus": "Kort kørsel til den adriatiske kysts fiskerestauranter og Romagna DOC vine."
-    },
-    {
-        "id": "friperie-vintage",
-        "name": "Friperie Vintage & Design",
-        "category": "antik",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4988,
-            11.3415
-        ],
-        "shortDesc": "🔥 Super trendy vintagebutik i Via San Felice med håndplukkede italienske designervarer og unika.",
-        "heroDesc": "Friperie er et sandt mekka for vintage-elskere. Her kurateres tøj, accessories, silketørklæder og interiør fra 60'erne, 70'erne og 80'erne med fokus på italiensk håndværk og tidløs elegance.",
-        "tipsHeading": "Shopping Tip",
-        "tips": "Kig efter deres vintage silkeskjorter fra italienske modehuse og unikke solbriller. Udvalget skifter ugentligt.",
-        "pills": [
-            "Italiensk Vintage",
-            "Designertøj",
-            "Silketørklæder",
-            "San Felice"
-        ],
-        "address": "Via San Felice 134/a, 40122 Bologna",
-        "hours": "Man-Lør: 10:30 - 19:30",
-        "wineFocus": "Ligger tæt på hyggelige vinbarer langs Via del Pratello."
-    },
-    {
-        "id": "mercato-antiquario-santo-stefano",
-        "name": "Mercato Antiquario di Santo Stefano",
-        "category": "antik",
-        "area": "centro",
-        "trending": true,
-        "coords": [
-            44.4922,
-            11.3482
-        ],
-        "shortDesc": "🔥 Det berømte antikmarked på Piazza Santo Stefano den 2. weekend i hver måned. Møbler, kunst og rariteter.",
-        "heroDesc": "Et af Italiens mest stemningsfulde antikmarkeder. På den smukke plads foran Sette Chiese samles antikvitetshandlere fra hele Emilia-Romagna med antikke møbler, sølvtøj, vintageure, gamle bøger og kunstværker.",
-        "tipsHeading": "Markedstip",
-        "tips": "Kom lørdag eller søndag formiddag. Tag en kaffe på pladsen og nyd synet af de lokale antikvitetshandlere, der forhandler.",
-        "pills": [
-            "Månedligt Marked",
-            "2. Weekend i md.",
-            "Sølvtøj & Møbler",
-            "Sjældne tryk"
-        ],
-        "address": "Piazza Santo Stefano, 40125 Bologna",
-        "hours": "2. lørdag & søndag i måneden: 08:30 - 18:30 (undtagen juli/august)",
-        "wineFocus": "Perfekt at kombinere med et glas vin hos Vineria Favalli ved siden af."
-    },
-    {
-        "id": "curiosita-vintage-dautore",
-        "name": "Curiosità & Vintage D'Autore",
-        "category": "antik",
-        "area": "centro",
-        "coords": [
-            44.4979,
-            11.3482
-        ],
-        "shortDesc": "Kurateret vintagebutik med 1950-1970 italiensk design, Murano-glas, vintagesmykker og designertasker.",
-        "heroDesc": "En lille skattekiste for elskere af mid-century italiensk design. Her finder du smukt håndlavet Murano-glas, vintage Gucci og Hermès tasker samt retro bordlamper fra 60'erne og 70'erne.",
-        "tipsHeading": "Design Tip",
-        "tips": "Spørg efter deres samling af italienske vintage karafler og vinglas i mundblæst krystal – perfekte souvenirs for vinentusiasten.",
-        "pills": [
-            "Italiensk Design",
-            "Murano Glas",
-            "Vintage Tasker",
-            "60'er/70'er Retro"
-        ],
-        "address": "Via Mascarella 18, 40126 Bologna",
-        "hours": "Tir-Lør: 10:30 - 13:00 & 16:00 - 19:30",
-        "wineFocus": "Ligger i det livlige vin- og jazz-kvarter på Via Mascarella."
-    },
-    {
-        "id": "antichita-santa-cristina",
-        "name": "Antichità Santa Cristina",
-        "category": "antik",
-        "area": "centro",
-        "coords": [
-            44.4889,
-            11.3551
-        ],
-        "shortDesc": "Prestigefyldt antikvitetsforretning med speciale i emilianske 1600- og 1700-tals møbler og kunst.",
-        "heroDesc": "En udsøgt butik dedikeret til klassiske italienske antikviteter. Ejerne er anerkendte eksperter i historisk italiensk møbelkunst, forgyldte spejle og barokmalerier.",
-        "tipsHeading": "Hvad du finder her",
-        "tips": "Særligt kendt for sjældne emilianske kommoder i valnøddetræ og kandelabre i forgyldt bronze.",
-        "pills": [
-            "Højkvalitets Antik",
-            "Emilianske møbler",
-            "Barokkunst",
-            "Ekspertise"
-        ],
-        "address": "Piazza Santa Cristina 2, 40125 Bologna",
-        "hours": "Man-Fre: 10:00 - 13:00 & 16:00 - 19:30 (Lør efter aftale)",
-        "wineFocus": "Ligger i det rolige og mondæne sydlige Santo Stefano-kvarter."
-    },
-    {
-        "id": "mercato-della-montagnola",
-        "name": "Mercato della Montagnola / Brocantage",
-        "category": "antik",
-        "area": "centro",
-        "coords": [
-            44.5015,
-            11.3448
-        ],
-        "shortDesc": "Kæmpe historisk marked på Piazza VIII Agosto hver fredag og lørdag med masser af vintage og retrofund.",
-        "heroDesc": "Det historiske \"Piazzola\"-marked har eksisteret siden 1251. I Montagnola-parkens skygge finder du boder med retro tøj, vintagelædertasker, gamle vinylplader, lamper og genbrugsfund.",
-        "tipsHeading": "Skattejæger Tip",
-        "tips": "Gå efter vintageboderne tæt på parktrappen (\"Scalinata del Pincio\"). Husk kontanter og vær klar til at prutte om prisen.",
-        "pills": [
-            "Fredag & Lørdag",
-            "Vintage Tøj",
-            "Retro Design",
-            "Folkemarked"
-        ],
-        "address": "Piazza VIII Agosto / Parco della Montagnola, 40126 Bologna",
-        "hours": "Fredag & Lørdag: 08:00 - 18:30",
-        "wineFocus": "Nyd en frokost i nærliggende Bolognina efter markedsbesøget."
-    },
-    {
-        "id": "antiquario-del-borgo-modena",
-        "name": "L'Antiquario del Borgo (Modena)",
-        "category": "antik",
-        "area": "omegn",
-        "coords": [
-            44.6479,
-            10.9282
-        ],
-        "shortDesc": "Charmerende antikforretning i Modenas centrum med antikke ure, sjældne kort og keramik.",
-        "heroDesc": "Beliggende langs den antikke Via Emilia i Modena. Forretningen rummer en fortryllende blanding af antikke emilianske fajancer, gamle landkort over Emilia-Romagna og mekaniske lommeure.",
-        "tipsHeading": "Unikke Fund",
-        "tips": "Kig efter antikke botaniske tryk og historiske kort over vinregionerne i Norditalien.",
-        "pills": [
-            "Modena Centrum",
-            "Gamle Landkort",
-            "Antikke Ure",
-            "Emiliansk Keramik"
-        ],
-        "address": "Via Emilia Centro 120, 41121 Modena",
-        "hours": "Man-Lør: 09:30 - 12:30 & 16:00 - 19:30",
-        "wineFocus": "Kort gang til Piazza Grande og Modenas berømte madmarked Mercato Albinelli."
-    }
+  {
+    "id": "serre-giardini-margherita",
+    "name": "Le Serre dei Giardini Margherita",
+    "category": "vinbar",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4842,
+      11.3531
+    ],
+    "shortDesc": "🔥 Instagram-fænomen! Gamle drivhuse i byparken omdannet til naturvinsbar, hængekøjer, lyskæder og kulturhub.",
+    "heroDesc": "Det absolut mest trendy hæng-ud-sted i Bologna. Gamle forladte drivhuse i byens største park er blevet genoplivet som en grøn oase fyldt med naturvin, håndbrygget øl, økologiske snacks, lyskæder og afslappede sommeraftener.",
+    "tipsHeading": "Instagram & Sommeraften Tip",
+    "tips": "Kom ved solnedgang for magisk lys gennem drivhusenes glas. Snup en pét-nat eller orangevin og slap af i en af hængekøjerne mellem citrustræerne.",
+    "pills": [
+      "Viral Drivhusbar",
+      "Naturvin",
+      "Hængekøjer & Lyskæder",
+      "Park Oase",
+      "Instagram Must-Visit"
+    ],
+    "address": "Via Castiglione 134, 40136 Bologna",
+    "hours": "Tir-Søn: 18:00 - 00:00 (Sommersæson maj-okt)",
+    "wineFocus": "Biodynamiske vine, pét-nat på lokale druer, håndværks-cider og naturvin."
+  },
+  {
+    "id": "camera-a-sud",
+    "name": "Camera a Sud",
+    "category": "vinbar",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4969,
+      11.3486
+    ],
+    "shortDesc": "🔥 Stemningsfuld retro-boheme vinbar i det jødiske ghetto med vintage fløjlsmøbler, bøger og naturvin.",
+    "heroDesc": "Gemt i de snævre gyder i Ghetto Ebraico finder du Camera a Sud. Indrettet som en hyggelig kunstnerlejlighed med bløde fløjlslænestole, bogreoler, stearinlys og en uimodståelig afslappet stemning.",
+    "tipsHeading": "Aperitivo & Aften Tip",
+    "tips": "Perfekt til en intim aften eller eftermiddagskaffe. Bestil deres udvalgte naturvine på glas ledsaget af små tapasbræt med lokale oste.",
+    "pills": [
+      "Jødisk Ghetto",
+      "Boheme Vintage",
+      "Romantisk",
+      "Naturvin & Cocktails"
+    ],
+    "address": "Via Valdonica 5, 40126 Bologna",
+    "hours": "Alle dage: 12:00 - 01:00",
+    "wineFocus": "Spændende naturvine, små italienske vinhuse og klassiske aperitifs."
+  },
+  {
+    "id": "osteria-del-sole",
+    "name": "Osteria del Sole",
+    "category": "vinbar",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4938,
+      11.3435
+    ],
+    "shortDesc": "🔥 Verdens ældste osteria fra 1465. Medbring din egen mad fra markedet og drik lokal vin ved langbordene.",
+    "heroDesc": "En levende tidslomme midt i Quadrilatero! Osteria del Sole har skænket vin siden 1465. Konceptet er unikt og elsket på sociale medier: Du køber din mortadella, oste og friskbagt brød i markedsgaderne og sætter dig ind ved de slidte træborde for at drikke vin.",
+    "tipsHeading": "Vores Vin- & Besøgstip",
+    "tips": "Bestil en kande mousserende Pignoletto eller en tør Lambrusco di Sorbara. Kom tidligt om eftermiddagen for at opleve den ægte lokale stemning.",
+    "pills": [
+      "Historisk 1465",
+      "Medbring egen mad",
+      "Kultsted",
+      "Pignoletto & Lambrusco"
+    ],
+    "address": "Vicolo Ranocchi 1, 40124 Bologna",
+    "hours": "Man-Lør: 10:30 - 22:00 (Søn lukket)",
+    "wineFocus": "Lokale emilianske vine på kande & flaske (Pignoletto, Lambrusco, Sangiovese)."
+  },
+  {
+    "id": "medulla-vini",
+    "name": "Medulla Vini Naturali",
+    "category": "vinbar",
+    "area": "centro",
+    "coords": [
+      44.4998,
+      11.3392
+    ],
+    "shortDesc": "Bolognas bedste naturvinsbar med passion for biodynamik, orangevin og kompromisløs kvalitet.",
+    "heroDesc": "Medulla er det absolutte mekka for naturvinsentusiaster i Bologna. Her finder du et håndplukket udvalg af biodynamiske, usvovlede og macererede vine fra små uafhængige vinbønder i Emilia-Romagna og resten af Italien.",
+    "tipsHeading": "Hvad du skal smage",
+    "tips": "Prøv en macereret Albana (orangevin) eller en pét-nat på lokale druer. Personalet er uhyre vidende og guider med stor passion.",
+    "pills": [
+      "Naturvin",
+      "Biodynamisk",
+      "Orangevin",
+      "Pét-Nat",
+      "Gourmet snacks"
+    ],
+    "address": "Via Guglielmo Marconi 27/A, 40122 Bologna",
+    "hours": "Tir-Lør: 17:30 - 23:30 (Søn-Man lukket)",
+    "wineFocus": "Orangevine, ufiltreret Lambrusco, biodynamisk Sangiovese & Champagne."
+  },
+  {
+    "id": "enoteca-italiana",
+    "name": "Enoteca Italiana Bologna",
+    "category": "vinbar",
+    "area": "centro",
+    "coords": [
+      44.4975,
+      11.3475
+    ],
+    "shortDesc": "Historisk vinkælder med over 3.000 labels, sjældne årgange og stor Champagne.",
+    "heroDesc": "Siden 1970 har Enoteca Italiana været en institution for seriøse vinelskere. Med tusindvis af flasker fra gulv til loft kan du smage store Baroloer, Brunelloer, Super Toscanere samt sjældne lokale perler ledsaget af udvalgte oste.",
+    "tipsHeading": "Sommelier Tip",
+    "tips": "Gå på opdagelse i de ældre årgange af Sangiovese di Romagna Riserva og deres servering af håndplukket Champagne.",
+    "pills": [
+      "3000+ Flasker",
+      "Sjældne årgange",
+      "Champagne",
+      "Klassisk elegance"
+    ],
+    "address": "Via Marsala 28/B, 40126 Bologna",
+    "hours": "Man-Lør: 10:00 - 13:30 & 16:30 - 21:30",
+    "wineFocus": "Barolo, Brunello, Riserva Sangiovese, Champagne og vintage vine."
+  },
+  {
+    "id": "vineria-favalli",
+    "name": "Vineria Favalli",
+    "category": "vinbar",
+    "area": "centro",
+    "coords": [
+      44.4925,
+      11.3486
+    ],
+    "shortDesc": "Hyggelig vinbar under de smukke porticoer tæt ved Santo Stefano med delikate charcuteribrætter.",
+    "heroDesc": "Placeret langs den maleriske Via Santo Stefano byder Vineria Favalli på afslappet italiensk livsstil. Her sidder man under de historiske buer og nyder et stort glas vin akkompagneret af 36-måneders Culatello di Zibello og Parmigiano Reggiano.",
+    "tipsHeading": "Aperitivo Tip",
+    "tips": "Tag en plads udendørs under porticoen ved 18-tiden til aperitivo. Bestil deres \"Tagliere Degustazione\" med lokale pølser og oste.",
+    "pills": [
+      "Portico udsigt",
+      "Culatello di Zibello",
+      "Aperitivo",
+      "Vinkort på glas"
+    ],
+    "address": "Via Santo Stefano 5/A, 40125 Bologna",
+    "hours": "Alle dage: 12:00 - 23:00",
+    "wineFocus": "Fremragende udvalg på glas fra Emilia-Romagna, Veneto og Piemonte."
+  },
+  {
+    "id": "enoteca-al-risanamento",
+    "name": "Enoteca Al Risanamento",
+    "category": "vinbar",
+    "area": "centro",
+    "coords": [
+      44.4981,
+      11.3538
+    ],
+    "shortDesc": "Universitetskvarterets hemmelige perle med fokus på små, glemte italienske vinbønder.",
+    "heroDesc": "En autentisk og uformel vinbar, hvor de lokale stamgæster og vinnørder mødes. Værtens passion for ukendte mikrobønder og autentisk terroir gør hvert besøg til en opdagelsesrejse.",
+    "tipsHeading": "Smagsprofil",
+    "tips": "Spørg efter deres \"Vini del Giorno\" (dagens vine) – her skænkes altid sjældne flasker, du ikke finder andre steder.",
+    "pills": [
+      "Mikrobønder",
+      "Autentisk",
+      "Gode priser",
+      "Skjult perle"
+    ],
+    "address": "Via Zamboni 57, 40126 Bologna",
+    "hours": "Tir-Lør: 18:00 - 00:30",
+    "wineFocus": "Små uafhængige vinbønder, oprindelige druesorter og rå natur."
+  },
+  {
+    "id": "enoteca-regionale-dozza",
+    "name": "Enoteca Regionale Emilia Romagna (Dozza)",
+    "category": "vinbar",
+    "area": "omegn",
+    "trending": true,
+    "coords": [
+      44.3592,
+      11.6281
+    ],
+    "shortDesc": "🔥 Officielt vinkammer i den middelalderlige borg Rocca Sforzesca med over 1.000 regionale vine til smagning.",
+    "heroDesc": "I de underjordiske hvælvinger i den mægtige borg Rocca di Dozza ligger Emilia-Romagnas officielle vincenter. Her præsenteres over 1.000 DOC og DOCG vine fra hele regionen under ét tag.",
+    "tipsHeading": "Vinsmagnings-Tip",
+    "tips": "Køb et smagekort og smag på tværs af Sangiovese Riserva, Albana Passito, Lambrusco og Colli Bolognesi Pignoletto.",
+    "pills": [
+      "1000+ Regionale Vine",
+      "Rocca di Dozza",
+      "Officielt Vincenter",
+      "Middelalderkælder"
+    ],
+    "address": "Piazza Rocca 1, 40060 Dozza (BO)",
+    "hours": "Tir-Søn: 10:00 - 13:00 & 15:00 - 19:00",
+    "wineFocus": "Hele Emilia-Romagnas vinverden: Sangiovese, Albana, Lambrusco, Pignoletto, Gutturnio."
+  },
+  {
+    "id": "mo-mortadella-lab",
+    "name": "Mò Mortadella Lab",
+    "category": "restaurant",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4947,
+      11.3411
+    ],
+    "shortDesc": "🔥 Bolognas mest virale sandwich-spot på TikTok & Instagram! Kæmpe lune focacciaer fyldt til randen med frisk mortadella.",
+    "heroDesc": "Et fænomen på de sociale medier. Hver eneste dag dannes der kø af madglade foodies for at få fingrene i disse gigantiske, nybagte focaccia-sandwicher pakket med silkeblød IGP-mortadella, cremet stracciatella, pistaciecreme og trøffel.",
+    "tipsHeading": "Bestillingstip & Kø-hack",
+    "tips": "Kom 10 minutter før åbningstid for at minimere køen. Bestil nummer 1 på menukortet: Mortadella, pistaciepesto og friskskåret stracciatella.",
+    "pills": [
+      "Viral TikTok Hit",
+      "Kæmpe Focaccia",
+      "IGP Mortadella",
+      "Pistaciecreme",
+      "Must-Try Streetfood"
+    ],
+    "address": "Via de' Monari 8c, 40121 Bologna",
+    "hours": "Alle dage: 11:30 - 20:00",
+    "wineFocus": "Køb en kold dåse Pignoletto Frizzante to-go til din sandwich."
+  },
+  {
+    "id": "cremeria-santo-stefano",
+    "name": "Cremeria Santo Stefano",
+    "category": "restaurant",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4912,
+      11.3512
+    ],
+    "shortDesc": "🔥 Kåret blandt Italiens absolut bedste gelateriaer. Håndlavet gelato, pistacie fra Bronte og chokolade fra Venezuela.",
+    "heroDesc": "En drøm af en håndværks-isbutik. Ejerne rejser jorden rundt for at finde de bedste råvarer: IGP-hasselnødder fra Piemonte, ægte Bronte-pistacie og vild kakao. Konsistensen er silkeblød, og smagen er intens og sublim.",
+    "tipsHeading": "Vores Favorit-kombination",
+    "tips": "Bestil en vaffel med \"Crema Santo Stefano\" (deres signatur æggecreme) og \"Pistacchio Puro di Bronte\" med en klat friskslået mascarpone-flødeskum på toppen.",
+    "pills": [
+      "Italiens Top Gelato",
+      "Bronte Pistacie",
+      "Gourmet Chokolade",
+      "Instagram Foodie Hit"
+    ],
+    "address": "Via Santo Stefano 70/c, 40125 Bologna",
+    "hours": "Tir-Søn: 11:00 - 22:30 (Man lukket)",
+    "wineFocus": "Prøv deres gelato med et strejf af Albana Passito sød vin."
+  },
+  {
+    "id": "mercato-di-mezzo",
+    "name": "Mercato di Mezzo",
+    "category": "restaurant",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4942,
+      11.3441
+    ],
+    "shortDesc": "🔥 Det historiske overdækkede madmarked i Quadrilatero, fyldt med boder, lune tortellini, vinbarer og leben.",
+    "heroDesc": "Bolognas ældste overdækkede madmarked fra middelalderen, fuldstændig genopstået som en livlig gourmet-foodhall. Her finder du boder med håndrullet pasta, stegte fisk, håndværksøl, charcuteri og vinbarer under ét tag.",
+    "tipsHeading": "Foodie Guide",
+    "tips": "Perfekt til uformel frokost eller tidlig aperitivo. Snup en bakke friskfriterede crescentine med culatello og et glas Lambrusco.",
+    "pills": [
+      "Historisk Foodhall",
+      "Street Food",
+      "Quadrilatero Hjerte",
+      "Livlig Aperitivo"
+    ],
+    "address": "Via Clavature 12, 40124 Bologna",
+    "hours": "Alle dage: 09:00 - 23:00",
+    "wineFocus": "Stort udvalg af vin på glas fra de forskellige markedsboder."
+  },
+  {
+    "id": "trattoria-via-serra",
+    "name": "Trattoria di Via Serra",
+    "category": "restaurant",
+    "area": "centro",
+    "coords": [
+      44.5072,
+      11.3458
+    ],
+    "shortDesc": "Bolognas mest hyldede moderne Slow Food trattoria i Bolognina. Hjemmelavet pasta og råvarer fra Appenninerne.",
+    "heroDesc": "I det hippe arbejderkvarter Bolognina bag banegården ligger denne perle. Her hyldes de små bjergbønder og glemte lokale traditioner. Maden er ægte Slow Food med en sjæl og præcision, der gør bordbestilling måneder i forvejen nødvendig.",
+    "tipsHeading": "Menu Tip",
+    "tips": "Deres Gramigna med pølseragù og deres Gramigna con salsiccia di mora romagnola er legendariske. Bestil bord i god tid!",
+    "pills": [
+      "Slow Food Hæder",
+      "Bolognina Kvarteret",
+      "Håndrullet Pasta",
+      "Autentisk Sjæl"
+    ],
+    "address": "Via Luigi Serra 9b, 40129 Bologna",
+    "hours": "Ons-Lør: 12:30 - 15:00 & 19:30 - 22:30 (Søn frokost, Man-Tir lukket)",
+    "wineFocus": "Naturvine og små biodynamiske producenter fra bakkerne og Appenninerne."
+  },
+  {
+    "id": "da-cesari",
+    "name": "Ristorante Da Cesari",
+    "category": "restaurant",
+    "area": "centro",
+    "coords": [
+      44.4927,
+      11.3418
+    ],
+    "shortDesc": "Klassisk elegance og Bolognas bedste Tagliatelle al Ragù og Tortellini in Brodo i tre generationer.",
+    "heroDesc": "Da Cesari er essensen af det traditionelle, noble Bologna. Familien har drevet stedet siden 1955 med kærlighed til det ægte bolognesiske køkken. Vinkælderen er formidabel, og betjeningen er varm og professionel.",
+    "tipsHeading": "Hvad du skal bestille",
+    "tips": "Start med Tortellini in Brodo (i cappon-suppe), efterfulgt af Tagliatelle al Ragù eller Cotoletta alla Bolognese med skinke og smeltet Parmigiano.",
+    "pills": [
+      "Klassisk Bologna",
+      "Bedste Tagliatelle",
+      "Tradition & Stolthed",
+      "Familiedrevet 1955"
+    ],
+    "address": "Via de' Carbonesi 8, 40123 Bologna",
+    "hours": "Man-Lør: 12:30 - 14:30 & 19:30 - 22:30 (Søn lukket)",
+    "wineFocus": "Familiens egen produktion af Sangiovese og et rigt vinkort med top-årgange."
+  },
+  {
+    "id": "sfoglia-rina",
+    "name": "Sfoglia Rina",
+    "category": "restaurant",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4939,
+      11.3475
+    ],
+    "shortDesc": "🔥 Frisk håndlavet pasta serveret i autentiske pande-skåle midt i centrum. Kæmpe hit på Instagram.",
+    "heroDesc": "Sfoglia Rina startede som en lille pastabutik i 1963 og er i dag et af byens mest populære steder for moderne pastanydere. Man sidder ved enkle borde og nyder friskrullet pasta serveret direkte i små metalpander.",
+    "tipsHeading": "Vores Råd",
+    "tips": "Ingen bordbestilling – kom kl. 12:00 eller kl. 19:00 for at undgå den lange kø på gaden. Prøv deres ugentlige sæson-tortelloni.",
+    "pills": [
+      "Frisk Pasta Bar",
+      "Pande Servering",
+      "Instagram Favorit",
+      "Hurtig & Lækker"
+    ],
+    "address": "Via Castiglione 4/b, 40124 Bologna",
+    "hours": "Alle dage: 11:30 - 21:00 (Uden pause)",
+    "wineFocus": "Gode, lette lokale vine på glas, der matcher pastaen perfekt."
+  },
+  {
+    "id": "trattoria-da-amerigo",
+    "name": "Trattoria Da Amerigo (Savigno)",
+    "category": "restaurant",
+    "area": "colli",
+    "coords": [
+      44.3912,
+      11.0772
+    ],
+    "shortDesc": "1 Michelin-stjerne! Legendarisk trattoria i de hvide trøflers hovedstad Savigno i bakkerne vest for Bologna.",
+    "heroDesc": "En institution i italiensk gastronomi. Amerigo har bevaret sin oprindelige, varme trattoria-sjæl fra 1934, men leverer mad i absolut verdensklasse med 1 Michelin-stjerne. Stedet er verdenskendt for sine retter med friske lokale trøfler og vildt.",
+    "tipsHeading": "Trøffel & Vin Oplevelse",
+    "tips": "Besøg Amerigo i trøffelsæsonen (okt-dec) for hvid trøffel over frisk æggepasta. Glem ikke at besøge deres lille delikatessebutik \"La Dispensa di Amerigo\" overfor.",
+    "pills": [
+      "1 Michelin Stjerne",
+      "Hvide Trøfler",
+      "Colli Bolognesi",
+      "Historisk Trattoria 1934"
+    ],
+    "address": "Via Marconi 14/16, 40050 Savigno (BO)",
+    "hours": "Ons-Søn: 12:30 - 14:30 & 19:30 - 22:00 (Man-Tir lukket)",
+    "wineFocus": "En af Italiens bedste vinkældre med tusindvis af sjældne flasker og modne Sangiovese-årgange."
+  },
+  {
+    "id": "antica-trattoria-sacerno",
+    "name": "Antica Trattoria di Sacerno",
+    "category": "restaurant",
+    "area": "omegn",
+    "coords": [
+      44.5367,
+      11.1963
+    ],
+    "shortDesc": "Ekstraordinær fiskerestaurations-oplevelse på landet ved Calderara di Reno, skabt af stjernekokken Dario Picchiotti.",
+    "heroDesc": "En af regionens mest overraskende gourmetoplevelser. Midt på den emilianske landevejspampas tryller Dario Picchiotti med dagens friskeste fangst fra Adriaterhavet og Middelhavet i innovative, smagsmættede retter.",
+    "tipsHeading": "Gourmet Tip",
+    "tips": "Vælg kokkens store degustationsmenu for en uforglemmelig gastronomisk rejse gennem italiensk fiskekunst i særklasse.",
+    "pills": [
+      "Top Fiske-Gourmet",
+      "Kreativt Køkken",
+      "Michelin Guide",
+      "Skjult Landperle"
+    ],
+    "address": "Via di Sacerno 1, 40012 Calderara di Reno (BO)",
+    "hours": "Tir-Lør: 12:30 - 14:30 & 19:45 - 22:30 (Søn frokost, Man lukket)",
+    "wineFocus": "Fremragende Champagne-kort, hvidvine fra Friuli, Alto Adige og mineralske Albanaer."
+  },
+  {
+    "id": "finestrella-via-piella",
+    "name": "Finestrella di Via Piella (Lille Venedig)",
+    "category": "sevaerdighed",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4996,
+      11.3444
+    ],
+    "shortDesc": "🔥 Det hemmelige vindue i murstensvæggen, der åbner op til Bolognas skjulte kanaler (Canale delle Moline).",
+    "heroDesc": "Bolognas mest fotograferede hemmelighed på Instagram og TikTok! En lille trælem i en ellers anonym murstensvæg i Via Piella. Når du åbner den, kigger du direkte ned på Canale delle Moline, hvor vandet flyder mellem historiske huse og giver en fornemmelse af Venedig midt i Bologna.",
+    "tipsHeading": "Fototip",
+    "tips": "Kom tidligt om morgenen for at undgå selfie-køen foran vinduet. Kig også over broens rækværk på den modsatte side for et andet smukt kanal-kig.",
+    "pills": [
+      "Viral TikTok Spot",
+      "Skjulte Kanaler",
+      "Lille Venedig",
+      "Magisk Fotovinkel"
+    ],
+    "address": "Via Piella 16, 40126 Bologna",
+    "hours": "Altid åbent (Offentlig gade)",
+    "wineFocus": "Tæt på vinbarerne i det livlige universitetskvarter og Via Mascarella."
+  },
+  {
+    "id": "terrazza-san-petronio",
+    "name": "Panoramaterrassen på San Petronio",
+    "category": "sevaerdighed",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4929,
+      11.3432
+    ],
+    "shortDesc": "🔥 54 meter over jorden med elevator! Den mest storslåede 360° panoramaudsigt over Bolognas røde tage.",
+    "heroDesc": "På bagsiden af Basilica di San Petronio (fra Piazza Galvani) fører en udvendig glaselevator op til den 54 meter høje panoramaterrasse. Herfra har du et magisk kig direkte over Piazza Maggiore, tårnene og bakkerne.",
+    "tipsHeading": "Golden Hour Tip",
+    "tips": "Besøg terrassen en time før solnedgang for det varme gyldne lys over de emilianske tegltage. Husk kamera!",
+    "pills": [
+      "54m Udsigt",
+      "Elevator",
+      "360 Graders Panorama",
+      "Golden Hour Fotospot"
+    ],
+    "address": "Piazza Galvani (bag San Petronio), 40124 Bologna",
+    "hours": "Fre-Søn: 10:00 - 13:00 & 15:00 - 18:00",
+    "wineFocus": "Perfekt at fejre udsigten med en aperitivo på Piazza Galvani nedenfor."
+  },
+  {
+    "id": "le-due-torri",
+    "name": "Le Due Torri (Asinelli & Garisenda)",
+    "category": "sevaerdighed",
+    "area": "centro",
+    "coords": [
+      44.4943,
+      11.3466
+    ],
+    "shortDesc": "Bolognas ubestridte vartegn. To skæve middelaldertårne fra det 12. århundrede.",
+    "heroDesc": "I middelalderen havde Bologna over 100 forsvarstårne. I dag står Torre degli Asinelli (97,2 m) og det stærkt hældende Torre Garisenda som byens stolte symboler.",
+    "tipsHeading": "Udsigtstip",
+    "tips": "Nyd udsigten over pladsen og de historiske porticoer, der mødes for foden af tårnene.",
+    "pills": [
+      "Middelalder",
+      "Byens Vartegn",
+      "Panoramautsigt",
+      "UNESCO Kandidat"
+    ],
+    "address": "Piazza di Porta Ravegnana, 40126 Bologna",
+    "hours": "Området kan nydes udefra alle dage",
+    "wineFocus": "Brug udsigten til at orientere dig mod Colli Bolognesi mod syd!"
+  },
+  {
+    "id": "piazza-maggiore",
+    "name": "Piazza Maggiore & Fontana del Nettuno",
+    "category": "sevaerdighed",
+    "area": "centro",
+    "coords": [
+      44.4937,
+      11.3431
+    ],
+    "shortDesc": "Bolognas storslåede hjerte, omgivet af renæssancepaladser og Giambolognas berømte Neptun-fontæne.",
+    "heroDesc": "Byens sociale og kulturelle centrum siden det 13. århundrede. Her finder du Palazzo d'Accursio, Palazzo dei Notai, Palazzo del Podestà og Giambolognas berømte Neptun-springvand (1566) med de karakteristiske havfruer og delfiner.",
+    "tipsHeading": "Kulturelt Tip",
+    "tips": "Prøv det akustiske hviskegalleri under Palazzo del Podestàs buegang: Tal ind i det ene hjørne, og din ledsager i det diagonale hjørne hører det krystalklart!",
+    "pills": [
+      "Historisk Plads",
+      "Neptun Fontæne",
+      "Hviskegalleri",
+      "Palazzo d'Accursio"
+    ],
+    "address": "Piazza Maggiore, 40124 Bologna",
+    "hours": "Pladsen er altid åben",
+    "wineFocus": "Mange historiske barer under buerne serverer god vin og aperitivo."
+  },
+  {
+    "id": "archiginnasio",
+    "name": "Archiginnasio & Teatro Anatomico",
+    "category": "sevaerdighed",
+    "area": "centro",
+    "coords": [
+      44.4924,
+      11.3433
+    ],
+    "shortDesc": "1500-tals universitetspalads dækket af 6.000 våbenskjolde med det berømte anatomiske træteater.",
+    "heroDesc": "Universitetet i Bologna blev grundlagt i 1088 som verdens ældste. Archiginnasio var universitetets hovedsæde fra 1563. Højdepunktet er Teatro Anatomico, bygget i grantræ i 1637 til dissektion af menneskekroppe.",
+    "tipsHeading": "Arkitektur Tip",
+    "tips": "Læg mærke til de to udskårne \"Spellati\" (flåede mænd) af træ, der bærer baldakinen over professorens lærestol.",
+    "pills": [
+      "Verdens ældste universitet",
+      "Teatro Anatomico",
+      "Historisk Bibliotek",
+      "Træskærerarbejde"
+    ],
+    "address": "Piazza Galvani 1, 40124 Bologna",
+    "hours": "Man-Lør: 09:00 - 19:00, Søn: 10:00 - 14:00",
+    "wineFocus": "Kort gåafstand til Quadrilateros vinbarer."
+  },
+  {
+    "id": "dozza-murales",
+    "name": "Dozza – Den Bemalede Middelalderby",
+    "category": "sevaerdighed",
+    "area": "omegn",
+    "trending": true,
+    "coords": [
+      44.3589,
+      11.6278
+    ],
+    "shortDesc": "🔥 Eventyrlig befæstet bakketop-landsby, hvor hver eneste husmur er et kunstværk af internationale kunstnere.",
+    "heroDesc": "Dozza er kåret som en af Italiens smukkeste landsbyer (\"I Borghi più belli d'Italia\"). Hvert andet år inviteres internationale kunstnere til \"Biennale del Muro Dipinto\" for at male direkte på byens facader.",
+    "tipsHeading": "Vandretur & Fototip",
+    "tips": "Gå gennem de smalle brostensbelagte gader op mod borgen Rocca Sforzesca. Hvert gadehjørne byder på nye farverige vægmalerier.",
+    "pills": [
+      "Bemalede Husmure",
+      "Borgo Romantico",
+      "Rocca Sforzesca",
+      "Instagram Favorit"
+    ],
+    "address": "Borgo di Dozza, 40060 Dozza (BO)",
+    "hours": "Byen er åben 24/7 (Borgen: 10:00 - 18:30)",
+    "wineFocus": "Huser Enoteca Regionale Emilia Romagna i borgens kælder!"
+  },
+  {
+    "id": "labirinto-della-masone",
+    "name": "Labirinto della Masone (Omegn)",
+    "category": "sevaerdighed",
+    "area": "omegn",
+    "trending": true,
+    "coords": [
+      44.8519,
+      10.1517
+    ],
+    "shortDesc": "🔥 Verdens største bambus-labyrint skabt af Franco Maria Ricci med over 300.000 bambusplanter og neoklassisk pyramide.",
+    "heroDesc": "En drømmeagtig arkitektonisk og botanisk kreation ved Fontanellato nær Parma. Franco Maria Ricci skabte denne kæmpe labyrint med over 300.000 bambusplanter, der danner en stjerneformet labyrint omkring en central neoklassisk pyramide.",
+    "tipsHeading": "Labyrint & Kunstsamling",
+    "tips": "Afsæt minimum 2-3 timer til at fare vild i de grønne bambusgange og beundre Riccis private kunst- og bogsamling.",
+    "pills": [
+      "Verdens Største Bambuslabyrint",
+      "Neoklassisk Pyramide",
+      "Franco Maria Ricci",
+      "Instagram Fænomen"
+    ],
+    "address": "Strada Masone 121, 43012 Fontanellato (PR)",
+    "hours": "Ons-Man: 10:30 - 19:00 (Tirsdag lukket)",
+    "wineFocus": "Ligger i hjertet af Parmigiano Reggiano og Culatello di Zibello distriktet."
+  },
+  {
+    "id": "basilica-san-petronio",
+    "name": "Basilica di San Petronio",
+    "category": "kirke",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4936,
+      11.3431
+    ],
+    "shortDesc": "🔥 Verdens 6. største gotiske katedral med Cassinis 67m lange solmeridian og Giovanni da Modenas fresker.",
+    "heroDesc": "Den dominerende katedral på Piazza Maggiore, grundlagt i 1390 til ære for Bolognas skytshelgen San Petronio. Den karakteristiske tofarvede facade er bevidst ufuldendt. Indenfor åbner et svimlende kirkerum sig med Bolognini-kapellets dramatiske fresker og Gian Domenico Cassinis astronomiske solmeridian fra 1655.",
+    "tipsHeading": "Astronomisk & Kunstnerisk Oplevelse",
+    "tips": "Kom præcis ved astronomisk middagstid (ca. 12:15-13:15 afhængig af sommertid) og se solstrålen fra hullet i loftet ramme meridianlinjen i marmorgulvet. Gå ikke glip af Giovanni da Modenas fresko af Himmel og Helvede i Cappella Bolognini.",
+    "pills": [
+      "Cassini Solmeridian",
+      "Gotisk Katedral",
+      "Cappella Bolognini",
+      "Piazza Maggiore",
+      "Skytshelgen"
+    ],
+    "address": "Piazza Maggiore, 40124 Bologna",
+    "hours": "Alle dage: 08:30 - 13:30 & 14:30 - 18:30 (Messen søndag)",
+    "wineFocus": "Kort gåafstand til Quadrilateros historiske vinbarer som Osteria del Sole."
+  },
+  {
+    "id": "santo-stefano-sette-chiese",
+    "name": "Complesso di Santo Stefano (Le Sette Chiese)",
+    "category": "kirke",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4919,
+      11.349
+    ],
+    "shortDesc": "🔥 Bolognas mest mystiske og elskede helligdom – 7 sammenbyggede middelalderkirker, Pilatus-gården og romansk klostergang.",
+    "heroDesc": "Også kaldet \"Det Hellige Jerusalem\" i Bologna. Grundlagt af biskop Petronio i det 5. århundrede over et hedensk Isis-tempel for at genskabe Gravkirken i Jerusalem. Komplekset rummer bl.a. Chiesa del Crocifisso, Santo Sepolcro med San Petronios oprindelige grav, Pilatus' gård med marmorvaskekummen og den toetagers romanske klostergang.",
+    "tipsHeading": "Besøgstip & Atmosfære",
+    "tips": "Gå i ro og mag gennem de dunkle kapeller og træd ud i den fredfyldte Cortile di Pilato. Nyd derefter udsigten over den trekantede Piazza Santo Stefano fra en af caféerne.",
+    "pills": [
+      "De 7 Kirker",
+      "Kopi af Jerusalems Gravkirke",
+      "Pilatus Gård",
+      "Romansk Klostergang",
+      "Magisk Atmosfære"
+    ],
+    "address": "Piazza Santo Stefano, 40125 Bologna",
+    "hours": "Tir-Søn: 09:00 - 12:30 & 14:30 - 19:00 (Man lukket)",
+    "wineFocus": "Nyd et glas vin hos Vineria Favalli direkte under buerne foran kirkepladsen."
+  },
+  {
+    "id": "santuario-san-luca",
+    "name": "Santuario della Madonna di San Luca",
+    "category": "kirke",
+    "area": "colli",
+    "trending": true,
+    "coords": [
+      44.4791,
+      11.2965
+    ],
+    "shortDesc": "🔥 Ikonisk barok valfartskirke forbundet til byen via verdens længste overdækkede buegang med 666 buer (3,8 km).",
+    "heroDesc": "Tronende på toppen af Colle della Guardia knejser den lyserøde barokke basilika over hele Bologna-sletten. Kirken blev opført for at huse det hellige ikon af Jomfru Maria med barnet, som ifølge legenden blev malet af evangelisten Lukas. Portico di San Luca med sine 666 monumentale buer er optaget på UNESCOs verdensarvsliste.",
+    "tipsHeading": "Pilgrimsvandring & Udsigt",
+    "tips": "Gå turen til fods fra Arco del Meloncello op gennem de 666 buer (ca. 45 min) eller tag San Luca Express. Besøg også tagterrassen \"San Luca Sky Experience\" for 360° udsigt over bakkerne og Appenninerne.",
+    "pills": [
+      "UNESCO Verdensarv",
+      "666 Buer (3,8 km Portico)",
+      "Helligt Maria-ikon",
+      "Colle della Guardia",
+      "Panoramaudsigt"
+    ],
+    "address": "Via di San Luca 36, 40135 Bologna",
+    "hours": "Alle dage: 07:00 - 19:00 (Terrasse 10:00 - 18:00)",
+    "wineFocus": "Prøv en frokost med Colli Bolognesi Pignoletto på trattoriaerne ved foden af bakken."
+  },
+  {
+    "id": "santa-maria-della-vita",
+    "name": "Santuario di Santa Maria della Vita & Compianto",
+    "category": "kirke",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4941,
+      11.3444
+    ],
+    "shortDesc": "🔥 Rummer Niccolò dell'Arcas \"Compianto\" – en af renæssancens mest gribende og dramatiske terrakottaskulpturer.",
+    "heroDesc": "En intim senbarok kirke midt i det pulserende Quadrilatero-kvarter. I et kapel til højre for alteret finder du et af italiensk kunsthistories mest intense mesterværker: Niccolò dell'Arcas livagtige terrakottagruppe fra ca. 1463, der forestiller Maria og disciplenes hjerteskærende sorg over den døde Kristus (\"il pianto di pietra\").",
+    "tipsHeading": "Mesterværkets Hemmelighed",
+    "tips": "Læg mærke til Marias og Maria Magdalenes forvredne ansigter og flagrende gevandter – følelsen af vind og rå smerte i brændt ler er uovertruffen. Gå også op til det tilhørende museum og oratorium.",
+    "pills": [
+      "Niccolò dell'Arca Compianto",
+      "Dramatisk Terrakotta 1463",
+      "Quadrilatero",
+      "Barokkuppel",
+      "Unikt Mesterværk"
+    ],
+    "address": "Via Clavature 8/10, 40124 Bologna",
+    "hours": "Tir-Søn: 10:00 - 18:30 (Lukket mandag)",
+    "wineFocus": "Lige uden for døren ligger Quadrilateros bedste vin- og madboder i Mercato di Mezzo."
+  },
+  {
+    "id": "basilica-san-domenico",
+    "name": "Basilica di San Domenico",
+    "category": "kirke",
+    "area": "centro",
+    "trending": false,
+    "coords": [
+      44.4899,
+      11.3448
+    ],
+    "shortDesc": "Dominikanerordenens vugge med det storslåede Arca di San Domenico relikvieskrin med skulpturer af en ung Michelangelo.",
+    "heroDesc": "En af Bolognas historisk og kunstnerisk vigtigste kirker. Her ligger Sankt Dominikus (grundlægger af Dominikanerordenen, død 1221) begravet. Det monumentale marmorrelikvieskrin \"Arca di San Domenico\" er et fælles værk af Nicola Pisano, Niccolò dell'Arca og en purung Michelangelo, som i 1494 udhuggede tre figurer: den knælende lysestagebærende engel, San Procolo og San Petronio.",
+    "tipsHeading": "Michelangelo & Musik Tip",
+    "tips": "Gå ind i Cappella di San Domenico for at beundre Michelangelos engel. Kirken rummer desuden et historisk orgel, hvor den 14-årige Wolfgang Amadeus Mozart øvede i 1770 under sit studieophold i Bologna.",
+    "pills": [
+      "Michelangelo Skulpturer",
+      "Arca di San Domenico 1267",
+      "Mozarts Orgel",
+      "Sankt Dominikus Grav",
+      "Piazza San Domenico"
+    ],
+    "address": "Piazza San Domenico 13, 40124 Bologna",
+    "hours": "Man-Fre: 09:00 - 12:00 & 15:30 - 18:00, Lør-Søn: 09:00 - 12:30 & 15:30 - 17:00",
+    "wineFocus": "Fredeligt kvarter få minutters gang fra vinbarerne i det sydlige Centro Storico."
+  },
+  {
+    "id": "cattedrale-san-pietro",
+    "name": "Cattedrale Metropolitana di San Pietro",
+    "category": "kirke",
+    "area": "centro",
+    "trending": false,
+    "coords": [
+      44.4958,
+      11.3429
+    ],
+    "shortDesc": "Bolognas officielle domkirke og ærkebispesæde med 70m højt klokketårn, rig barokkunst og Alfonso Lombardis terrakotta.",
+    "heroDesc": "Beliggende på den livlige Via dell'Indipendenza ligger byens domkirke. Kirken blev grundlagt i det 10. århundrede og genopbygget i overdådig barokstil i det 17. århundrede. Inde i katedralen finder man et imponerende tøndehvælv, Alfonso Lombardis gribende terrakotta-krucifiks fra 1522 og katedralens skatkammer.",
+    "tipsHeading": "Tårnbestigning & Udsigt",
+    "tips": "I weekenderne kan man bestige det 70 meter høje klokketårn (Campanile), der rummer den berømte klokke \"La Nonna\" (bedstemoderen) på 3,3 tons og giver en formidabel udsigt over tagene.",
+    "pills": [
+      "Bolognas Domkirke",
+      "70m Klokketårn",
+      "Alfonso Lombardi 1522",
+      "Ærkebispesæde",
+      "Via Indipendenza"
+    ],
+    "address": "Via dell'Indipendenza 7, 40121 Bologna",
+    "hours": "Man-Lør: 07:30 - 18:45, Søn: 08:00 - 18:45",
+    "wineFocus": "Tæt på de populære aperitivo-steder omkring Mercato delle Erbe."
+  },
+  {
+    "id": "basilica-san-francesco",
+    "name": "Basilica di San Francesco & Tombe dei Glossatori",
+    "category": "kirke",
+    "area": "centro",
+    "trending": false,
+    "coords": [
+      44.4953,
+      11.3361
+    ],
+    "shortDesc": "Tidlig gotisk basilika fra 1236 med franske stræbepiller og de berømte hængende middelalder-gravmæler for juraprofessorer.",
+    "heroDesc": "Franciskanernes basilika var den første kirke i Bologna opført i rendyrket gotisk stil med synlige udvendige stræbepiller efter fransk forbillede. På den rolige plads foran kirkens apsis knejser \"Tombe dei Glossatori\" – monumentale gotiske mausoleer på søjler for de berømte retslærde (glossatorer) fra Bolognas middelalderuniversitet.",
+    "tipsHeading": "Klosterhave & Ro",
+    "tips": "Besøg den smukke Chiostro dei Morti (de dødes klostergang) ved siden af kirken – en af byens mest fredfyldte og stemningsmættede oaser.",
+    "pills": [
+      "Fransk-gotisk 1236",
+      "Tombe dei Glossatori",
+      "Fredfyldt Klostergang",
+      "Pratello Kvarteret"
+    ],
+    "address": "Piazza San Francesco, 40122 Bologna",
+    "hours": "Alle dage: 06:45 - 12:00 & 15:00 - 19:00",
+    "wineFocus": "Ligger lige ved Via del Pratello – Bolognas mest livlige gade for uformelle osteriaer og vin."
+  },
+  {
+    "id": "santa-maria-dei-servi",
+    "name": "Basilica di Santa Maria dei Servi",
+    "category": "kirke",
+    "area": "centro",
+    "trending": false,
+    "coords": [
+      44.492,
+      11.3533
+    ],
+    "shortDesc": "Mesterværk af gotisk arkitektur med berømt quadriportico-søjlegang, Cimabues \"Maestà\" og historisk orgel.",
+    "heroDesc": "Grundlagt i 1346 af Servitterordenen langs Strada Maggiore. Kirken er berømt for sin storslåede rektangulære quadriportico (firedobbelt søjlegang) foran facaden, som danner et elegant atrium mod gaden. Indenfor rummer kirken Cimabues berømte altertavle \"Maestà\" (Jomfru Maria med barnet og engle, ca. 1285) samt et af Italiens fineste symfoniske orgler.",
+    "tipsHeading": "Fototip & Klassiske Koncerter",
+    "tips": "Søjlegangen er et af Bolognas smukkeste motiver om aftenen, når lysene tændes under buegangene. Kirken er også kendt for sine stemningsfulde orgelkoncerter.",
+    "pills": [
+      "Cimabue Maestà 1285",
+      "Quadriportico Buegang",
+      "Gotisk Katedral",
+      "Strada Maggiore",
+      "Klassisk Orgel"
+    ],
+    "address": "Strada Maggiore 43, 40125 Bologna",
+    "hours": "Alle dage: 09:00 - 12:00 & 15:30 - 18:30",
+    "wineFocus": "Kort gang til Giardini Margherita og vinbarerne i Santo Stefano-kvarteret."
+  },
+  {
+    "id": "corpus-domini-chiesa-santa",
+    "name": "Santuario del Corpus Domini (Chiesa della Santa)",
+    "category": "kirke",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4883,
+      11.3418
+    ],
+    "shortDesc": "🔥 Bolognas mest fascinerende helligdom: Huser det mumificerede lig af Santa Caterina de' Vigri siddende på en gylden trone.",
+    "heroDesc": "Klarissernes klosterkirke fra 1477 rummer en helt enestående åndelig og historisk skat. I et rigt udsmykket sidekapel sidder det uforgængelige lig af Santa Caterina de' Vigri (1413-1463), Bolognas skytshelgeninde og kunstnernes helgeninde, fuldt påklædt i ordensdragt på en gylden stol – præcis som hun blev placeret for over 500 år siden.",
+    "tipsHeading": "Unik Oplevelse",
+    "tips": "Ring på klokken ved kapellet til venstre i kirken for at få adgang til helgenindens rum. Læg mærke til hendes håndskrevne bibel og malede violiner, som også er udstillet.",
+    "pills": [
+      "Santa Caterina de' Vigri",
+      "Mumificeret Helgeninde",
+      "Gylden Trone",
+      "15. Århundrede",
+      "Sjælden Oplevelse"
+    ],
+    "address": "Via Tagliapietre 19, 40123 Bologna",
+    "hours": "Tors-Lør: 09:30 - 11:30 & 16:00 - 17:45 (Søn efter messen)",
+    "wineFocus": "Beliggende i en rolig, nobel gade tæt på Palazzo Albergati."
+  },
+  {
+    "id": "san-michele-in-bosco",
+    "name": "Complesso di San Michele in Bosco",
+    "category": "kirke",
+    "area": "colli",
+    "trending": true,
+    "coords": [
+      44.4789,
+      11.3421
+    ],
+    "shortDesc": "🔥 Klostret på bakketoppen med byens vildeste panoramaudsigt og den berømte optiske illusion \"Il Cannocchiale\".",
+    "heroDesc": "Hævet 132 meter over havets overflade knejser det historiske olivetaner-kloster San Michele in Bosco. Fra forpladsen Piazzale San Michele in Bosco har du Bolognas smukkeste udsigt over hele Centro Storico. Inde i den lange klosterkorridor (Monastero) oplever man det verdensberømte optiske fænomen: Går man baglæns bort fra vinduet, synes Asinelli-tårnet at komme tættere på og vokse.",
+    "tipsHeading": "Panoramablik & Fototip",
+    "tips": "Tag herop ved solnedgang for gyldent lys over byens spir og kupler. Kirken indeholder fine renæssance- og barokarbejder af Guido Reni og Ludovico Carracci.",
+    "pills": [
+      "Optisk Illusion (Tårnkig)",
+      "Bolognas Bedste Panorama",
+      "Olivetanerkloster",
+      "Solnedgangsspot",
+      "Colli Bolognesi"
+    ],
+    "address": "Piazzale San Michele in Bosco, 40136 Bologna",
+    "hours": "Kirken: 09:00 - 12:00 & 16:00 - 19:00 (Pladsen altid åben)",
+    "wineFocus": "Perfekt at kombinere med en flaske Lambrusco Grasparossa eller Pignoletto til solnedgangen."
+  },
+  {
+    "id": "san-colombano-tagliavini",
+    "name": "Complesso di San Colombano & Collezione Tagliavini",
+    "category": "kirke",
+    "area": "centro",
+    "trending": false,
+    "coords": [
+      44.4975,
+      11.3396
+    ],
+    "shortDesc": "Helligdom fra det 7. århundrede med sjældne fresker fra Carracci-skolen og enestående samling af antikke musikinstrumenter.",
+    "heroDesc": "Grundlagt omkring år 616 af den irske munk Sankt Columban. Komplekset rummer en fascinerende lagdelt historie med en romansk krypt, en unik freskocyklus fra 1600-tallet malet af Bolognas førende mestre (Guido Reni, Albani m.fl.) og Tagliavini-samlingen af historiske cembaloer, orgler og spinetter, som stadig spilles på.",
+    "tipsHeading": "For Musik- & Kunstelskere",
+    "tips": "Tjek koncertkalenderen – at høre renæssance- og barokmusik fremført på de originale historiske instrumenter i det freskoudsmykkede oratorium er en uforglemmelig oplevelse.",
+    "pills": [
+      "7. Århundrede",
+      "Carracci Fresker",
+      "Antikke Instrumenter",
+      "Musikkirke",
+      "Stemningsfuld Krypt"
+    ],
+    "address": "Via Parigi 5, 40121 Bologna",
+    "hours": "Ons-Søn: 10:00 - 18:00 (Lukket Man-Tir)",
+    "wineFocus": "Kort gang til Mercato delle Erbes vinbarer og restauranter."
+  },
+  {
+    "id": "certosa-di-bologna",
+    "name": "Cimitero Monumentale della Certosa di Bologna",
+    "category": "kirke",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4952,
+      11.309
+    ],
+    "shortDesc": "🔥 Middelalderligt karteuserkloster fra 1334 omdannet til en storslået monumental skulpturkirkegård, beundret af Lord Byron.",
+    "heroDesc": "Grundlagt i 1334 som klostret San Girolamo di Casara for den strenge Karteuserorden. I 1801 blev det under Napoleon omdannet til en monumental kirkegård, der i dag fungerer som et enestående udendørs museum for nyklassicistisk og Liberty-skulpturkunst med kilometervis af overdækkede buegange, kapeller og klostergårde. Blev hyldet som et mesterværk af Lord Byron, Charles Dickens og Stendhal.",
+    "tipsHeading": "Kulturel Oplevelse",
+    "tips": "Gå ind i den oprindelige klosterkirke San Girolamo for at se den fantastiske samling af 1600-tals malerier af Bartolomeo Cesi. Gå derefter en tur gennem Chiostro Terzo og Sala delle Tombe.",
+    "pills": [
+      "Karteuserkloster 1334",
+      "Monumental Skulpturpark",
+      "UNESCO Portico-forbindelse",
+      "Lord Byron & Dickens",
+      "Historisk Fred"
+    ],
+    "address": "Via della Certosa 18, 40134 Bologna",
+    "hours": "Alle dage: 08:00 - 18:00",
+    "wineFocus": "Ligger for enden af den lange Certosa-buegang tæt ved Stadio Dall'Ara."
+  },
+  {
+    "id": "eremo-di-tizzano",
+    "name": "Santuario & Eremo di Tizzano",
+    "category": "kirke",
+    "area": "colli",
+    "trending": false,
+    "coords": [
+      44.4646,
+      11.2662
+    ],
+    "shortDesc": "Malerisk camaldolenser-kloster og eremitage fra 1655 tronende på en bakkekam med udsigt over Reno-dalen og vinmarker.",
+    "heroDesc": "Højt hævet over Casalecchio di Reno ligger denne fredfyldte eremitage, grundlagt i 1655 af Camaldolenser-munkene. Kirkens karakteristiske tårn og klosterbygningerne spejler sig i det bløde bakkede landskab, omgivet af vinmarker og cypresser, med en storslået udsigt mod San Luca og Reno-dalen.",
+    "tipsHeading": "Ro & Romantisk Udsigt",
+    "tips": "Et vidunderligt stop på en køretur i Colli Bolognesi. Stedet emmer af fred og åndelig fordybelse fjernt fra byens larm.",
+    "pills": [
+      "Camaldolenser Eremitage 1655",
+      "Bakkekam Udsigt",
+      "Stilhed & Ro",
+      "Colli Bolognesi",
+      "Vinmarker"
+    ],
+    "address": "Via Tizzano 34, 40033 Casalecchio di Reno (BO)",
+    "hours": "Lør-Søn: 09:00 - 18:00 (Hverdage efter aftale)",
+    "wineFocus": "Omgivet af fremragende DOC Colli Bolognesi vingårde og trattoriaer."
+  },
+  {
+    "id": "duomo-di-modena",
+    "name": "Duomo di Modena & Torre Ghirlandina",
+    "category": "kirke",
+    "area": "omegn",
+    "trending": true,
+    "coords": [
+      44.6462,
+      10.9256
+    ],
+    "shortDesc": "🔥 UNESCO-verdensarv i absolut verdensklasse: Romansk mesterkatedral fra 1099 med Wiligelmos berømte stenrelieffer.",
+    "heroDesc": "Et af Europas største arkitektoniske mesterværker fra den romanske epoke. Katedralen blev påbegyndt i 1099 af arkitekten Lanfranco og udsmykket med Wiligelmos banebrydende bibelske stenrelieffer på facaden. I krypten hviler Modenas skytshelgen Sankt Geminianus under 60 romanske søjler. Ved siden af knejser det 89 meter høje tårn Torre Ghirlandina.",
+    "tipsHeading": "UNESCO & Gastronomi",
+    "tips": "Kig grundigt på Wiligelmos relieffer af Skabelsen og Noas Ark ved hovedportalen. Besøg derefter det historiske madmarked Mercato Albinelli kun 200 meter derfra.",
+    "pills": [
+      "UNESCO Verdensarv",
+      "Romansk Mesterværk 1099",
+      "Wiligelmo Relieffer",
+      "Torre Ghirlandina",
+      "Modena Centrum"
+    ],
+    "address": "Corso Duomo, 41121 Modena",
+    "hours": "Tir-Søn: 07:00 - 19:00 (Man lukket formiddag)",
+    "wineFocus": "Perfekt kombination med traditionel Balsamico di Modena og et glas mousserende Lambrusco di Sorbara."
+  },
+  {
+    "id": "abbazia-nonantola",
+    "name": "Abbazia di Nonantola (San Silvestro)",
+    "category": "kirke",
+    "area": "omegn",
+    "trending": false,
+    "coords": [
+      44.6784,
+      11.0435
+    ],
+    "shortDesc": "Mægtigt langobardisk benediktinerkloster fra år 752 med enestående 86-søjlet krypt og pave Sankt Silvesters relikvier.",
+    "heroDesc": "Grundlagt i 752 af den langobardiske hertug Anselm og velsignet af kong Aistulf. I middelalderen var klostret et af Europas mest magtfulde åndelige centre og herberget for kejsere og paver på vej over Alperne. Den imponerende treskibede basilika rummer en magisk underjordisk krypt med 86 fint udskårne søjler samt et uvurderligt skatkammer med hellige relikvier og gaver fra Karl den Store.",
+    "tipsHeading": "Middelalderens Mystik",
+    "tips": "Træd ned i kryptens skov af søjler og mærk historiens vingesus fra det tidlige middelalderitalien. Besøg også klostermuseet med de illuminerede håndskrifter.",
+    "pills": [
+      "Langobardisk 752",
+      "86-Søjlet Krypt",
+      "Pave Sankt Silvester",
+      "Nonantola",
+      "Benediktinerkloster"
+    ],
+    "address": "Piazza Caduti Partigiani 1, 41015 Nonantola (MO)",
+    "hours": "Tir-Søn: 09:00 - 12:30 & 14:30 - 18:00 (Lukket mandag)",
+    "wineFocus": "Hjertet af Lambrusco di Sorbara-vinregionen med mange lokale producenter."
+  },
+  {
+    "id": "duomo-battistero-parma",
+    "name": "Duomo & Battistero di Parma",
+    "category": "kirke",
+    "area": "omegn",
+    "trending": true,
+    "coords": [
+      44.8038,
+      10.3308
+    ],
+    "shortDesc": "🔥 Parmas romanske domkirke med Correggios svimlende kuppelfresko og Antelamis ottekantede dåbskapel i lyserødt marmor.",
+    "heroDesc": "Piazza del Duomo i Parma rummer to af Italiens største kulturskatte. Domkirken (Cattedrale di Santa Maria Assunta) er berømt for renæssancemaleren Correggios revolutionerende kuppelfresko \"Jomfru Marias Himmelfart\" (1526–1530) med en hvirvelvind af skyer og engle. Ved siden af knejser det ottekantede Battistero i lyserødt Verona-marmor skabt af Benedetto Antelami i 1196.",
+    "tipsHeading": "Kuppel & Skulptur Tip",
+    "tips": "Medbring mønter til lysautomaten for at oplyse Correggios kuppel og Antelamis relieffer af årets måneder i Battistero. Nyd en frokost med Prosciutto di Parma og Parmigiano Reggiano bagefter.",
+    "pills": [
+      "Correggio Kuppelfresko",
+      "Antelami Battistero 1196",
+      "Lyserødt Marmor",
+      "Parma Centrum",
+      "Romansk Kunst"
+    ],
+    "address": "Piazza Duomo, 43121 Parma",
+    "hours": "Alle dage: 08:30 - 19:00 (Battistero 09:00 - 18:30)",
+    "wineFocus": "Nyd et glas lokal Malvasia dei Colli di Parma eller Lambrusco Marcello."
+  },
+  {
+    "id": "san-vitale-galla-placidia-ravenna",
+    "name": "Basilica di San Vitale & Mausoleo di Galla Placidia (Ravenna)",
+    "category": "kirke",
+    "area": "omegn",
+    "trending": true,
+    "coords": [
+      44.4204,
+      12.1963
+    ],
+    "shortDesc": "🔥 Verdensberømt UNESCO-verdensarv fra 547 e.Kr. med uforlignelige byzantinske guldmosaikker af Justinian og Theodora.",
+    "heroDesc": "En af verdenshistoriens største kristne og kunstneriske skatte. San Vitale blev indviet i 547 e.Kr. under den byzantinske kejser Justinian. Apsis er dækket af glødende guld- og smaragdfarvede mosaikker af Kristus, Justinian og kejserinde Theodora med hendes hof. I haven ligger Mausoleo di Galla Placidia fra det 5. århundrede med sin berømte dybblå nattehimmel af stjernemosaikker.",
+    "tipsHeading": "Mosaikkernes Magi",
+    "tips": "Køb en samlet kombibillet til Ravennas 5 UNESCO-monumenter. Stå stille under stjernehimlen i Galla Placidia og oplev det gyldne alabastlys gennem de små vinduer.",
+    "pills": [
+      "UNESCO Verdensarv",
+      "Byzantinske Guldmosaikker",
+      "Kejser Justinian & Theodora",
+      "547 e.Kr.",
+      "Ravenna"
+    ],
+    "address": "Via San Vitale 17, 48121 Ravenna",
+    "hours": "Alle dage: 09:00 - 19:00 (Tidsreservation anbefales)",
+    "wineFocus": "Prøv en Sangiovese di Romagna Superiore eller en sprød Albana di Romagna i Ravennas historiske gader."
+  },
+  {
+    "id": "sant-apollinare-in-classe",
+    "name": "Basilica di Sant'Apollinare in Classe (Ravenna)",
+    "category": "kirke",
+    "area": "omegn",
+    "trending": false,
+    "coords": [
+      44.3802,
+      12.2335
+    ],
+    "shortDesc": "Monumental tidskristen basilika fra 549 e.Kr. med enestående apsismosaik af Sankt Apollinaris i et paradisisk eng-landskab.",
+    "heroDesc": "Rejst i det 6. århundrede over graven for Ravennas første biskop Sankt Apollinaris ved den antikke romerske flådehavn Classe. Kirkerummet er en kolossal treskibet basilika båret af 24 græske marmorsøjler. Højdepunktet er den storslåede apsismosaik, der fremstiller et grønt, blomstrende paradis med tolv hvide lam og et juvelbesat krucifiks svævende mod en himmel af guld.",
+    "tipsHeading": "Arkitektur & Fred",
+    "tips": "Et af de mest intakte og majestætiske tidskristne kirkerum i verden. Læg mærke til det runde byzantinske klokketårn fra det 9. århundrede.",
+    "pills": [
+      "UNESCO Verdensarv",
+      "6. Århundrede 549 e.Kr.",
+      "Paradis-Apsismosaik",
+      "Byzantinsk Basilika",
+      "Ravenna Omegn"
+    ],
+    "address": "Via Romea Sud 224, 48124 Classe, Ravenna",
+    "hours": "Man-Lør: 08:30 - 19:30, Søn: 13:30 - 19:30",
+    "wineFocus": "Kort kørsel til den adriatiske kysts fiskerestauranter og Romagna DOC vine."
+  },
+  {
+    "id": "friperie-vintage",
+    "name": "Friperie Vintage & Design",
+    "category": "antik",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4988,
+      11.3415
+    ],
+    "shortDesc": "🔥 Super trendy vintagebutik i Via San Felice med håndplukkede italienske designervarer og unika.",
+    "heroDesc": "Friperie er et sandt mekka for vintage-elskere. Her kurateres tøj, accessories, silketørklæder og interiør fra 60'erne, 70'erne og 80'erne med fokus på italiensk håndværk og tidløs elegance.",
+    "tipsHeading": "Shopping Tip",
+    "tips": "Kig efter deres vintage silkeskjorter fra italienske modehuse og unikke solbriller. Udvalget skifter ugentligt.",
+    "pills": [
+      "Italiensk Vintage",
+      "Designertøj",
+      "Silketørklæder",
+      "San Felice"
+    ],
+    "address": "Via San Felice 134/a, 40122 Bologna",
+    "hours": "Man-Lør: 10:30 - 19:30",
+    "wineFocus": "Ligger tæt på hyggelige vinbarer langs Via del Pratello."
+  },
+  {
+    "id": "mercato-antiquario-santo-stefano",
+    "name": "Mercato Antiquario di Santo Stefano",
+    "category": "antik",
+    "area": "centro",
+    "trending": true,
+    "coords": [
+      44.4922,
+      11.3482
+    ],
+    "shortDesc": "🔥 Det berømte antikmarked på Piazza Santo Stefano den 2. weekend i hver måned. Møbler, kunst og rariteter.",
+    "heroDesc": "Et af Italiens mest stemningsfulde antikmarkeder. På den smukke plads foran Sette Chiese samles antikvitetshandlere fra hele Emilia-Romagna med antikke møbler, sølvtøj, vintageure, gamle bøger og kunstværker.",
+    "tipsHeading": "Markedstip",
+    "tips": "Kom lørdag eller søndag formiddag. Tag en kaffe på pladsen og nyd synet af de lokale antikvitetshandlere, der forhandler.",
+    "pills": [
+      "Månedligt Marked",
+      "2. Weekend i md.",
+      "Sølvtøj & Møbler",
+      "Sjældne tryk"
+    ],
+    "address": "Piazza Santo Stefano, 40125 Bologna",
+    "hours": "2. lørdag & søndag i måneden: 08:30 - 18:30 (undtagen juli/august)",
+    "wineFocus": "Perfekt at kombinere med et glas vin hos Vineria Favalli ved siden af."
+  },
+  {
+    "id": "curiosita-vintage-dautore",
+    "name": "Curiosità & Vintage D'Autore",
+    "category": "antik",
+    "area": "centro",
+    "coords": [
+      44.4979,
+      11.3482
+    ],
+    "shortDesc": "Kurateret vintagebutik med 1950-1970 italiensk design, Murano-glas, vintagesmykker og designertasker.",
+    "heroDesc": "En lille skattekiste for elskere af mid-century italiensk design. Her finder du smukt håndlavet Murano-glas, vintage Gucci og Hermès tasker samt retro bordlamper fra 60'erne og 70'erne.",
+    "tipsHeading": "Design Tip",
+    "tips": "Spørg efter deres samling af italienske vintage karafler og vinglas i mundblæst krystal – perfekte souvenirs for vinentusiasten.",
+    "pills": [
+      "Italiensk Design",
+      "Murano Glas",
+      "Vintage Tasker",
+      "60'er/70'er Retro"
+    ],
+    "address": "Via Mascarella 18, 40126 Bologna",
+    "hours": "Tir-Lør: 10:30 - 13:00 & 16:00 - 19:30",
+    "wineFocus": "Ligger i det livlige vin- og jazz-kvarter på Via Mascarella."
+  },
+  {
+    "id": "antichita-santa-cristina",
+    "name": "Antichità Santa Cristina",
+    "category": "antik",
+    "area": "centro",
+    "coords": [
+      44.4889,
+      11.3551
+    ],
+    "shortDesc": "Prestigefyldt antikvitetsforretning med speciale i emilianske 1600- og 1700-tals møbler og kunst.",
+    "heroDesc": "En udsøgt butik dedikeret til klassiske italienske antikviteter. Ejerne er anerkendte eksperter i historisk italiensk møbelkunst, forgyldte spejle og barokmalerier.",
+    "tipsHeading": "Hvad du finder her",
+    "tips": "Særligt kendt for sjældne emilianske kommoder i valnøddetræ og kandelabre i forgyldt bronze.",
+    "pills": [
+      "Højkvalitets Antik",
+      "Emilianske møbler",
+      "Barokkunst",
+      "Ekspertise"
+    ],
+    "address": "Piazza Santa Cristina 2, 40125 Bologna",
+    "hours": "Man-Fre: 10:00 - 13:00 & 16:00 - 19:30 (Lør efter aftale)",
+    "wineFocus": "Ligger i det rolige og mondæne sydlige Santo Stefano-kvarter."
+  },
+  {
+    "id": "mercato-della-montagnola",
+    "name": "Mercato della Montagnola / Brocantage",
+    "category": "antik",
+    "area": "centro",
+    "coords": [
+      44.5015,
+      11.3448
+    ],
+    "shortDesc": "Kæmpe historisk marked på Piazza VIII Agosto hver fredag og lørdag med masser af vintage og retrofund.",
+    "heroDesc": "Det historiske \"Piazzola\"-marked har eksisteret siden 1251. I Montagnola-parkens skygge finder du boder med retro tøj, vintagelædertasker, gamle vinylplader, lamper og genbrugsfund.",
+    "tipsHeading": "Skattejæger Tip",
+    "tips": "Gå efter vintageboderne tæt på parktrappen (\"Scalinata del Pincio\"). Husk kontanter og vær klar til at prutte om prisen.",
+    "pills": [
+      "Fredag & Lørdag",
+      "Vintage Tøj",
+      "Retro Design",
+      "Folkemarked"
+    ],
+    "address": "Piazza VIII Agosto / Parco della Montagnola, 40126 Bologna",
+    "hours": "Fredag & Lørdag: 08:00 - 18:30",
+    "wineFocus": "Nyd en frokost i nærliggende Bolognina efter markedsbesøget."
+  },
+  {
+    "id": "antiquario-del-borgo-modena",
+    "name": "L'Antiquario del Borgo (Modena)",
+    "category": "antik",
+    "area": "omegn",
+    "coords": [
+      44.6479,
+      10.9282
+    ],
+    "shortDesc": "Charmerende antikforretning i Modenas centrum med antikke ure, sjældne kort og keramik.",
+    "heroDesc": "Beliggende langs den antikke Via Emilia i Modena. Forretningen rummer en fortryllende blanding af antikke emilianske fajancer, gamle landkort over Emilia-Romagna og mekaniske lommeure.",
+    "tipsHeading": "Unikke Fund",
+    "tips": "Kig efter antikke botaniske tryk og historiske kort over vinregionerne i Norditalien.",
+    "pills": [
+      "Modena Centrum",
+      "Gamle Landkort",
+      "Antikke Ure",
+      "Emiliansk Keramik"
+    ],
+    "address": "Via Emilia Centro 120, 41121 Modena",
+    "hours": "Man-Lør: 09:30 - 12:30 & 16:00 - 19:30",
+    "wineFocus": "Kort gang til Piazza Grande og Modenas berømte madmarked Mercato Albinelli."
+  },
+  {
+    "id": "ponte-di-tiberio-rimini",
+    "name": "Ponte di Tiberio & Kanalpromenaden",
+    "category": "sevaerdighed",
+    "area": "rimini",
+    "trending": true,
+    "coords": [
+      44.0634,
+      12.5632
+    ],
+    "shortDesc": "🔥 2000 år gammel romersk bro i hvid istrisk sten. Byens smukkeste solnedgangs- og aperitivo-spot over vandet.",
+    "heroDesc": "Ponte di Tiberio blev påbegyndt af kejser Augustus i år 14 e.Kr. og fuldført af Tiberius i år 20 e.Kr. Broen forbinder Riminis historiske bymidte med det maleriske Borgo San Giuliano. Pladsen ved vandet (Piazza sull'Acqua) er forvandlet til en grøn oase, hvor lokale mødes med et glas Sangiovese ved solnedgang.",
+    "tipsHeading": "Solnedgang & Aperitivo Tip",
+    "tips": "Kom omkring kl. 19:30 og sæt dig på træbænkene ved Piazza sull'Acqua med udsigt til broens 5 buer oplyst i det gyldne aftenlys.",
+    "pills": [
+      "Romersk Monument 20 e.Kr.",
+      "Solnedgangsspot",
+      "Borgo San Giuliano",
+      "Aperitivo ved vandet"
+    ],
+    "address": "Piazza sull'Acqua, 47921 Rimini",
+    "hours": "Åben døgnet rundt (Smukkest ved solnedgang og oplyst om aftenen)",
+    "wineFocus": "Nyd en lokal Sangiovese di Romagna eller Spritz fra de nærliggende barer."
+  },
+  {
+    "id": "borgo-san-giuliano",
+    "name": "Borgo San Giuliano & Fellini Murals",
+    "category": "sevaerdighed",
+    "area": "rimini",
+    "trending": true,
+    "coords": [
+      44.0652,
+      12.5619
+    ],
+    "shortDesc": "🔥 Det gamle fiskerkvarter med farverige pastelhuse, brostensgyder, Fellini-vægmalerier og intime osteriaer.",
+    "heroDesc": "Lige på den anden side af Tiberius-broen ligger Borgo San Giuliano – Riminis mest charmerende og fotogene bydel. Oprindeligt fiskernes og søfolkenes fattige kvarter, men i dag fyldt med kunst, blomsterkrukker og store vægmalerier, der hylder bysbarnet Federico Fellini og hans filmklassikere.",
+    "tipsHeading": "Vandretur & Fototip",
+    "tips": "Gå på opdagelse i de små gyder (f.eks. Via San Giuliano og Via Marecchia) for at finde vægmalerierne af Amarcord og La Dolce Vita. Slut af med middag på en af kvarterets berømte fiskerestauranter.",
+    "pills": [
+      "Fiskerkvarter",
+      "Fellini Vægmalerier",
+      "Pastelhuse",
+      "Gastronomi",
+      "Romantisk"
+    ],
+    "address": "Borgo San Giuliano, 47921 Rimini",
+    "hours": "Åbent altid (Særlig magisk stemning i aftentimerne)",
+    "wineFocus": "Kvarterets vinkort bugner af Romagnas bedste hvidvine (Pagadebit, Albana DOCG, Trebbiano)."
+  },
+  {
+    "id": "castel-sismondo-fellini-museum",
+    "name": "Castel Sismondo & Fellini Museum",
+    "category": "sevaerdighed",
+    "area": "rimini",
+    "trending": true,
+    "coords": [
+      44.0601,
+      12.5647
+    ],
+    "shortDesc": "🔥 1400-tals fæstning forvandlet til et spektakulært, sansemættet museum for filminstruktøren Federico Fellini.",
+    "heroDesc": "Castel Sismondo var renæssanceherskeren Sigismondo Malatestas mægtige borg. I dag huser borgen det internationale Fellini Museum – et ultramoderne, interaktivt museum med svævende projektioner, filmrekvisitter, drømmesale og en stor vandspejl-plads (Piazza dei Sogni) udenfor.",
+    "tipsHeading": "Besøgstip",
+    "tips": "Billetten giver også adgang til Palazzo del Fulgor og Cinema Fulgor, hvor den unge Fellini så sine første film.",
+    "pills": [
+      "Fellini Museum",
+      "Renæssancefæstning 1437",
+      "Piazza dei Sogni",
+      "Filmhistorie"
+    ],
+    "address": "Piazza Malatesta, 47921 Rimini",
+    "hours": "Tir-Søn: 10:00 - 19:00 (Mandag lukket)",
+    "wineFocus": "Besøg den elegante vinbar i Teatro Galli lige over for borgen bagefter."
+  },
+  {
+    "id": "arco-d-augusto-rimini",
+    "name": "Arco d'Augusto (Augustusbuen)",
+    "category": "sevaerdighed",
+    "area": "rimini",
+    "coords": [
+      44.0572,
+      12.5714
+    ],
+    "shortDesc": "Verdens ældste bevarede romerske triumfbue opført i 27 f.Kr. Markerende enden på Via Flaminia.",
+    "heroDesc": "Rejst i 27 f.Kr. til ære for kejser Augustus af det romerske senat. Buen markerede det historiske knudepunkt, hvor den berømte romerske vej Via Flaminia fra Rom mødtes med Via Emilia mod Piacenza og Milano.",
+    "tipsHeading": "Historisk Tip",
+    "tips": "Læg mærke til de romerske guder udskåret i marmorreliefferne: Jupiter, Apollo, Neptun og gudinden Roma.",
+    "pills": [
+      "Romersk Triumfbue 27 f.Kr.",
+      "Via Flaminia & Via Emilia",
+      "Historisk Centrum"
+    ],
+    "address": "Corso d'Augusto, 47921 Rimini",
+    "hours": "Frit tilgængelig døgnet rundt i byparken",
+    "wineFocus": "Kort gåafstand til hyggelige vinbarer langs Corso d'Augusto."
+  },
+  {
+    "id": "tempio-malatestiano",
+    "name": "Tempio Malatestiano (Katedralen)",
+    "category": "kirke",
+    "area": "rimini",
+    "coords": [
+      44.0597,
+      12.5698
+    ],
+    "shortDesc": "Arkitektonisk mesterværk af Leon Battista Alberti med krucifiks af Giotto og fresko af Piero della Francesca.",
+    "heroDesc": "Riminis katedral regnes for et af den tidlige italienske renæssances mest skelsættende bygningsværker. Facaden blev designet i 1450 af den legendariske humanist og arkitekt Leon Battista Alberti inspireret af de romerske triumfbuer. Indenfor gemmer sig enestående kunstskatte, herunder et originalt trækrucifiks malet af Giotto (ca. 1312) og en berømt fresko af Piero della Francesca fra 1451.",
+    "tipsHeading": "Kunst & Arkitektur Tip",
+    "tips": "Gå ind i højre kapel for at se Piero della Francescas freske af Sigismondo Malatesta på knæ foran Sankt Sigismund. Husk passende påklædning (tildækkede skuldre og knæ).",
+    "pills": [
+      "Renæssance Mesterværk 1450",
+      "Giotto Krucifiks",
+      "Piero della Francesca",
+      "Alberti Arkitektur"
+    ],
+    "address": "Via Quattro Novembre 35, 47921 Rimini",
+    "hours": "Man-Lør: 08:30 - 12:30 & 15:30 - 19:00, Søn: 09:00 - 13:00 & 15:30 - 19:00",
+    "wineFocus": "Stilfærdig andagt – fortsæt mod Piazza Cavour til vin efter besøget."
+  },
+  {
+    "id": "santuario-madonna-delle-grazie-rimini",
+    "name": "Santuario delle Grazie (Covignano-bakken)",
+    "category": "kirke",
+    "area": "rimini",
+    "coords": [
+      44.0435,
+      12.5358
+    ],
+    "shortDesc": "Historisk franciskanerkloster på bakken over Rimini med storslået panoramaudsigt over Adriaterhavet.",
+    "heroDesc": "Beliggende på den grønne Covignano-bakke vest for Rimini centrum finder du dette fredfyldte franciskanerkloster fra 1391. Klosteret rummer smukke loftsudskæringer og et værdsat Mariabillede, og fra forpladsen har man en uforglemmelig udsigt over hele Rimini-bugten og kystlinjen.",
+    "tipsHeading": "Panorama Tip",
+    "tips": "Tag en kort taxa eller cykeltur op på bakken for at slippe væk fra sommervarmen og nyde den svalende brise og udsigten over havet.",
+    "pills": [
+      "Panoramablik over Kysten",
+      "Kloster 1391",
+      "Covignano Bakkerne",
+      "Fred & Natur"
+    ],
+    "address": "Via delle Grazie 10, 47923 Rimini (Covignano)",
+    "hours": "Alle dage: 07:30 - 12:00 & 15:30 - 19:00",
+    "wineFocus": "Området omkring Covignano har historiske vinmarker med Sangiovese Colli di Rimini DOC."
+  },
+  {
+    "id": "trattoria-la-marianna",
+    "name": "Trattoria La Marianna",
+    "category": "restaurant",
+    "area": "rimini",
+    "trending": true,
+    "coords": [
+      44.0645,
+      12.5627
+    ],
+    "shortDesc": "🔥 Legendarisk fiskerestaurant i Borgo San Giuliano. Friskfanget fisk, grillede spid og fritto misto.",
+    "heroDesc": "La Marianna er selve symbolet på den ægte romagnolske fisketradition. Beliggende i det stemningsfulde fiskerkvarter lige ved Tiberius-broen har restauranten i årtier serveret dagens friske fangst fra Adriaterhavet – fra grillede sardiner og spid med blæksprutter til dampede muslinger og håndrullet tagliolini med hummer.",
+    "tipsHeading": "Hvad du skal bestille",
+    "tips": "Bestil deres 'Spiedini di Pesce' (grillede fiskespyd vendt i let brødkrumme) eller 'Fritto Misto dell'Adriatico'. Bordreservation er absolut nødvendig i sæsonen.",
+    "pills": [
+      "Fiske-Institution",
+      "Borgo San Giuliano",
+      "Adriaterhavs-Fangst",
+      "Udendørsservering"
+    ],
+    "address": "Viale Tiberio 19, 47921 Rimini",
+    "hours": "Tir-Søn: 12:30 - 14:30 & 19:30 - 23:00 (Man lukket)",
+    "wineFocus": "Udsøgt kort med sprøde hvidvine: Albana Secco, Famoso, Pagadebit og Franciacorta."
+  },
+  {
+    "id": "osteria-de-borg",
+    "name": "Osteria de Borg",
+    "category": "restaurant",
+    "area": "rimini",
+    "coords": [
+      44.0648,
+      12.5622
+    ],
+    "shortDesc": "Autentisk romagnolsk osteria i Borgo San Giuliano med fokus på lokale råvarer, cappelletti og kødretter.",
+    "heroDesc": "Osteria de Borg hylder Romagnas rige indlandskøkken og håndlavede pasta. Her tilberedes egnens klassikere med stor kærlighed: Cappelletti i fyldig bouillon, håndrullede Strozzapreti med pølse og sangiovese-sauce, samt møre kødretter af lokale racer fra Montefeltro-bjergene.",
+    "tipsHeading": "Madoplevelse",
+    "tips": "Prøv deres 'Strozzapreti pasticciati' og slut af med en traditionel Torta di Ricotta. Fantastisk vinkælder med over 300 italienske etiketter.",
+    "pills": [
+      "Romagnolsk Indlandskøkken",
+      "Håndlavet Pasta",
+      "Strozzapreti & Cappelletti",
+      "Stor Vinkælder"
+    ],
+    "address": "Via San Giuliano 54, 47921 Rimini",
+    "hours": "Tir-Søn: 12:30 - 14:30 & 19:30 - 23:00 (Man lukket)",
+    "wineFocus": "Fokus på top-Sangiovese di Romagna Superiore Riserva og naturvine fra Romagnas bakker."
+  },
+  {
+    "id": "nud-e-crud",
+    "name": "Nud e Crud (Piadina Romagnola)",
+    "category": "restaurant",
+    "area": "rimini",
+    "trending": true,
+    "coords": [
+      44.0641,
+      12.563
+    ],
+    "shortDesc": "🔥 Byens bedste uformelle sted for autentisk Piadina Romagnola IGP med squacquerone, prosciutto og kold vin.",
+    "heroDesc": "Nud e Crud (der betyder 'Nøgen og Rå' på romagnolsk dialekt) er et moderne gadekøkken og osteria dedikeret til nul-kilometer råvarer. Her bages de berømte fladbrød Piadina Romagnola og Cassoni (lukkede, fyldte piadinas) frisk foran gæsterne med mel fra lokale møller.",
+    "tipsHeading": "Hvad du skal smage",
+    "tips": "Bestil en klassisk 'Piadina con Squacquerone DOP, Prosciutto Crudo di Parma og Rucola' eller en 'Cassone med urter og mozzarella'. Nydes ved udendørsbordene med udsigt til parken.",
+    "pills": [
+      "Piadina Romagnola IGP",
+      "0-km Råvarer",
+      "Squacquerone & Crudo",
+      "Afslappet & Hip"
+    ],
+    "address": "Viale Tiberio 27, 47921 Rimini",
+    "hours": "Alle dage: 12:00 - 23:30",
+    "wineFocus": "Lokale økologiske fadvine, håndbrygget øl fra Romagna og Sangiovese på kande."
+  },
+  {
+    "id": "ristorante-guido-rimini",
+    "name": "Ristorante Guido (1 Michelin-stjerne)",
+    "category": "restaurant",
+    "area": "rimini",
+    "trending": true,
+    "coords": [
+      44.0289,
+      12.6171
+    ],
+    "shortDesc": "🔥 1 Michelin-stjerne. Gourmet adriaterhavs-fiskegastronomi serveret direkte i sandkanten på Miramare-stranden.",
+    "heroDesc": "Hos familien Raschi er fiskekøkkenet løftet til absolut kunst. Ristorante Guido ligger direkte på stranden i Miramare lige syd for Rimini. Chef Gianpaolo Raschi fortolker havets gaver med sublim elegance, mens broderen Gianluca styrer en af kystens mest imponerende vinkældre.",
+    "tipsHeading": "Gourmetoplevelse",
+    "tips": "Bestil smagsmenuen 'Mare di Mezzo' og nyd solnedgangen over havet gennem de store panoramavinduer. Bordreservation i god tid er nødvendig.",
+    "pills": [
+      "1 Michelin Stjerne",
+      "Direkte på Stranden",
+      "Gourmet Fisk",
+      "Verdensklasse Vin"
+    ],
+    "address": "Lungomare Spadazzi 18, 47924 Miramare di Rimini",
+    "hours": "Ons-Søn: 12:30 - 14:30 & 19:45 - 22:30 (Lukket Man-Tir)",
+    "wineFocus": "Enorm kælder med sjældne Champagner, modne hvide burgundere og Italiens største hvidvine."
+  },
+  {
+    "id": "enoteca-del-teatro-rimini",
+    "name": "Enoteca del Teatro",
+    "category": "vinbar",
+    "area": "rimini",
+    "coords": [
+      44.0611,
+      12.5658
+    ],
+    "shortDesc": "Stemningsfuld historisk vinbar ved Piazza Cavour med over 500 nøje udvalgte vine og charcuteribræt.",
+    "heroDesc": "Gemt i en rolig passage bag det storslåede Teatro Galli og Piazza Cavour ligger Enoteca del Teatro. En sand oase for vinelskere, hvor hylderne fra gulv til loft er fyldt med Romagnas, Toscanas og Piemontes bedste årgange samt et stærkt udvalg af Champagne og naturvin.",
+    "tipsHeading": "Aperitivo Tip",
+    "tips": "Sæt dig ved de hyggelige tønder udenfor og bed sommelieren om at åbne en lokal cru-Sangiovese fra f.eks. Predappio eller Modigliana ledsaget af Formaggio di Fossa (grubeost).",
+    "pills": [
+      "Over 500 Vine",
+      "Piazza Cavour",
+      "Sommelier Vejledning",
+      "Formaggio di Fossa"
+    ],
+    "address": "Via Poletti 2, 47921 Rimini",
+    "hours": "Man-Lør: 11:30 - 15:00 & 18:00 - 00:00 (Søn lukket)",
+    "wineFocus": "Cru-Sangiovese di Romagna, Albana i amfora, Champagne og naturvin."
+  },
+  {
+    "id": "foyer-rimini-teatro-galli",
+    "name": "Foyer Riminese (Teatro Galli)",
+    "category": "vinbar",
+    "area": "rimini",
+    "trending": true,
+    "coords": [
+      44.0614,
+      12.5653
+    ],
+    "shortDesc": "🔥 Eksklusiv vin- og cocktailbar i det nyrestaurerede neoklassiske operahus med udsigt over Piazza Cavour.",
+    "heroDesc": "Teatro Amintore Galli er Riminis stolthed, oprindeligt indviet af Giuseppe Verdi i 1857. Teatrets elegante café og bar (Il Foyer) åbner ud mod den historiske plads med marmorsøjler og springvandet Fontana della Pigna, hvilket gør det til byens mest stilfulde aperitivo-mødested.",
+    "tipsHeading": "Aften & Aperitivo",
+    "tips": "Perfekt til en klassisk Negroni, et glas mousserende Metodo Classico eller en cocktail før middagen i centrum.",
+    "pills": [
+      "Verdi Operahus",
+      "Piazza Cavour",
+      "Eksklusiv Aperitivo",
+      "Historisk Elegance"
+    ],
+    "address": "Piazza Cavour 22, 47921 Rimini",
+    "hours": "Tir-Søn: 08:00 - 01:00 (Man lukket)",
+    "wineFocus": "Italienske bobler (Franciacorta, Trento DOC), biodynamiske hvidvine og signatur-cocktails."
+  },
+  {
+    "id": "kiosko-il-baroncino",
+    "name": "Kiosko Il Baroncino (Strand-Aperitivo)",
+    "category": "vinbar",
+    "area": "rimini",
+    "coords": [
+      44.0712,
+      12.5765
+    ],
+    "shortDesc": "Afslappet strandbar på Riminis nye grønne strandpromenade med Spritz, kolde Romagna-vine og havbrise.",
+    "heroDesc": "På den nyrenoverede kystpromenade Parco del Mare finder du Il Baroncino – en afslappet oase under palmerne med udsigt til sandet og Adriaterhavets bølger. Her mødes feriegæster og lokale til uformel hygge i klipklappere med loungemusik i baggrunden.",
+    "tipsHeading": "Strandpause Tip",
+    "tips": "Nyd en kold flaske Famoso eller Trebbiano Romagnolo med friske oliven og bruschetta efter en dag på stranden.",
+    "pills": [
+      "Havudsigt",
+      "Parco del Mare",
+      "Strand Aperitivo",
+      "Afslappet Sommerstemning"
+    ],
+    "address": "Lungomare Claudio Tintori (Bagno 26), 47921 Rimini",
+    "hours": "Alle dage: 09:00 - 01:00 (Sommersæson)",
+    "wineFocus": "Spritz, mousserende Pignoletto, Pagadebit og friske sommervine på glas."
+  },
+  {
+    "id": "grand-hotel-parco-del-mare",
+    "name": "Grand Hotel di Rimini & Parco del Mare",
+    "category": "sevaerdighed",
+    "area": "rimini",
+    "coords": [
+      44.0702,
+      12.5756
+    ],
+    "shortDesc": "Det legendariske 5-stjernede jugendstilhotel fra 1908 udødeliggjort af Fellini i filmen Amarcord.",
+    "heroDesc": "Opført i 1908 og erklæret nationalt monument. Grand Hotel di Rimini er essensen af 'La Belle Époque' og den italienske rivieras storhedstid. Hotellet var Federico Fellinis absolutte yndlingssted, hvor han altid boede i værelse 315. Lige foran hotellet ligger den nyanlagte Parco del Mare med cykelstier, palmer og træningszoner.",
+    "tipsHeading": "Historisk Luksus Tip",
+    "tips": "Gå en tur i den store hotelhave og nyd en kaffe eller en klassisk cocktail på hotellets terrasse under de majestætiske lysekroner.",
+    "pills": [
+      "Nationalmonument 1908",
+      "Fellini Amarcord",
+      "Belle Époque",
+      "Strandpromenade"
+    ],
+    "address": "Parco Federico Fellini, 47921 Rimini",
+    "hours": "Åbent for gæster og besøgende i have/bar",
+    "wineFocus": "Klassisk bar med vintage spiritus, fineste italienske årgange og Champagne."
+  },
+  {
+    "id": "mercato-coperto-rimini",
+    "name": "Mercato Coperto di Rimini",
+    "category": "restaurant",
+    "area": "rimini",
+    "coords": [
+      44.0608,
+      12.5682
+    ],
+    "shortDesc": "Riminis store overdækkede madmarked. Det største fiske- og råvaremarked i hele Romagna-regionen.",
+    "heroDesc": "Et sansebombardement for madelskere! Mercato Coperto rummer over 130 boder, hvoraf hele underetagen er dedikeret til friskfanget fisk og skaldyr fra de lokale kuttere i Rimini havn. Her finder du også lokale oste (Formaggio di Fossa, Raviggiolo), charcuteri, olivenolier og frisk frugt.",
+    "tipsHeading": "Gourmet Markedsbesøg",
+    "tips": "Kom om formiddagen mellem kl. 08:30 og 11:00 for at opleve den intense handelsstemning. Flere boder tilbyder smagsprøver og 'street food' tilberedt på stedet.",
+    "pills": [
+      "Stort Fiskemarked",
+      "130 Boder",
+      "Lokale Oste & Charcuteri",
+      "Autentisk Stemning"
+    ],
+    "address": "Via Castelfidardo 15, 47921 Rimini",
+    "hours": "Man-Lør: 07:00 - 14:00 (Søn lukket)",
+    "wineFocus": "Køb lokale delikatesser med hjem til en picnic med en flaske Sangiovese."
+  },
+  {
+    "id": "rimini-antikvitetsmarked",
+    "name": "Rimini Antikvitets- & Vintagemarked",
+    "category": "antik",
+    "area": "rimini",
+    "coords": [
+      44.0616,
+      12.5661
+    ],
+    "shortDesc": "Månedligt antikvitetsmarked på Piazza Cavour og Piazza Tre Martiri med vintage design, kunst og bøger.",
+    "heroDesc": "Hver sidste søndag i måneden (undtagen juli) omdannes Riminis historiske pladser Piazza Cavour og Piazza Tre Martiri til et levende marked for antikviteter, vintage smykker, filmplakater, gamle ure, keramik og italiensk retrodesign.",
+    "tipsHeading": "Vintage Tip",
+    "tips": "Kig efter vintage Fellini-memorabilia, italienske espressomaskiner i aluminium og gammel romagnolsk keramik. Gå tidligt for de bedste fund.",
+    "pills": [
+      "Sidste søndag i måneden",
+      "Piazza Cavour",
+      "Vintage Design & Bøger",
+      "Italiensk Retro"
+    ],
+    "address": "Piazza Cavour & Piazza Tre Martiri, 47921 Rimini",
+    "hours": "Sidste søndag i måneden: 08:00 - 18:30 (Hele året undtagen juli)",
+    "wineFocus": "Kombinér loppemarkedet med en frokost på de omkringliggende osteriaer."
+  }
 ];
 
     /* App State */
@@ -2513,11 +3080,13 @@
     const AREA_NAMES = {
       centro: 'Bologna Centro Storico',
       colli: 'Colli Bolognesi (Bakkerne)',
-      omegn: 'Omegn (Modena, Ravenna, Parma m.fl.)'
+      omegn: 'Omegn (Modena, Ravenna, Parma m.fl.)',
+      rimini: 'Rimini & Adriaterhavskysten'
     };
 
     /* Initialize Application */
     function initApp() {
+      initWeather();
       initMap();
       updateCategoryCounts();
       updateFavoritesUI();
@@ -2539,6 +3108,243 @@
 
       L.control.attribution({ position: 'bottomright' }).addAttribution('© OpenStreetMap & CARTO').addTo(map);
     }
+
+    
+    /* ==========================================
+       WEATHER & CITY SWITCHING SYSTEM
+       ========================================== */
+    let weatherData = null;
+    let currentActiveWeatherCity = 'bologna';
+    let currentCityFilter = 'all';
+
+    const WMO_CODES = {
+      0: { text: 'Klar sol', icon: '☀️' },
+      1: { text: 'Overvejende solrigt', icon: '🌤️' },
+      2: { text: 'Let skyet', icon: '⛅' },
+      3: { text: 'Overskyet', icon: '☁️' },
+      45: { text: 'Tåge', icon: '🌫️' },
+      48: { text: 'Rimtåge', icon: '🌫️' },
+      51: { text: 'Let støvregn', icon: '🌦️' },
+      53: { text: 'Støvregn', icon: '🌦️' },
+      55: { text: 'Kraftig støvregn', icon: '🌧️' },
+      61: { text: 'Let regn', icon: '🌧️' },
+      63: { text: 'Regnvejr', icon: '🌧️' },
+      65: { text: 'Kraftig regn', icon: '🌧️' },
+      80: { text: 'Regnbyger', icon: '🌦️' },
+      81: { text: 'Kraftige byger', icon: '⛈️' },
+      82: { text: 'Skybrud', icon: '⛈️' },
+      95: { text: 'Tordenvejr', icon: '⛈️' },
+      96: { text: 'Torden med hagl', icon: '⛈️' }
+    };
+
+    function getWeatherDesc(code) {
+      return WMO_CODES[code] || { text: 'Delvist skyet', icon: '⛅' };
+    }
+
+    async function initWeather() {
+      // Check cached weather first
+      const cached = localStorage.getItem('er_weather_cache');
+      if (cached) {
+        try {
+          const parsed = JSON.parse(cached);
+          if (Date.now() - parsed.timestamp < 30 * 60 * 1000) { // 30 min cache
+            weatherData = parsed.data;
+            updateWeatherHeader();
+            renderWeatherModal();
+          }
+        } catch(e){}
+      }
+
+      // Fetch fresh weather from Open-Meteo
+      try {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=44.4942,44.0678&longitude=11.3465,12.5695&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FRome';
+        const res = await fetch(url);
+        if (res.ok) {
+          const data = await res.json();
+          weatherData = {
+            bologna: data[0],
+            rimini: data[1]
+          };
+          localStorage.setItem('er_weather_cache', JSON.stringify({
+            timestamp: Date.now(),
+            data: weatherData
+          }));
+          updateWeatherHeader();
+          renderWeatherModal();
+        }
+      } catch(err) {
+        console.log('Weather fetch notice:', err);
+        // Fallback demo data if offline
+        if (!weatherData) {
+          weatherData = {
+            bologna: {
+              current: { temperature_2m: 35.5, weather_code: 1, apparent_temperature: 36.5, relative_humidity_2m: 30, wind_speed_10m: 6.5 },
+              daily: {
+                time: ['I dag', 'I morgen', 'Fredag'],
+                weather_code: [1, 2, 61],
+                temperature_2m_max: [36, 35, 29],
+                temperature_2m_min: [22, 24, 21],
+                precipitation_probability_max: [5, 20, 60]
+              }
+            },
+            rimini: {
+              current: { temperature_2m: 32.0, weather_code: 0, apparent_temperature: 33.0, relative_humidity_2m: 45, wind_speed_10m: 18.0 },
+              daily: {
+                time: ['I dag', 'I morgen', 'Fredag'],
+                weather_code: [0, 1, 80],
+                temperature_2m_max: [33, 37, 30],
+                temperature_2m_min: [23, 25, 24],
+                precipitation_probability_max: [0, 15, 65]
+              }
+            }
+          };
+          updateWeatherHeader();
+          renderWeatherModal();
+        }
+      }
+    }
+
+    function updateWeatherHeader() {
+      if (!weatherData) return;
+      const b = weatherData.bologna.current;
+      const r = weatherData.rimini.current;
+      const bInfo = getWeatherDesc(b.weather_code);
+      const rInfo = getWeatherDesc(r.weather_code);
+
+      const headerText = document.getElementById('weather-text-header');
+      const headerIcon = document.getElementById('weather-icon-header');
+      if (headerText && headerIcon) {
+        headerIcon.textContent = bInfo.icon;
+        headerText.textContent = `Bologna ${Math.round(b.temperature_2m)}° | Rimini ${Math.round(r.temperature_2m)}°`;
+      }
+    }
+
+    function setWeatherTab(city) {
+      currentActiveWeatherCity = city;
+      document.getElementById('wtab-bologna').classList.toggle('active', city === 'bologna');
+      document.getElementById('wtab-rimini').classList.toggle('active', city === 'rimini');
+      renderWeatherModal();
+    }
+
+    function renderWeatherModal() {
+      if (!weatherData) return;
+      const container = document.getElementById('weather-content');
+      if (!container) return;
+
+      const isBologna = currentActiveWeatherCity === 'bologna';
+      const cityData = isBologna ? weatherData.bologna : weatherData.rimini;
+      const cityName = isBologna ? 'Bologna (Emilia)' : 'Rimini (Adriaterhavet)';
+      const curr = cityData.current;
+      const desc = getWeatherDesc(curr.weather_code);
+      const daily = cityData.daily;
+
+      const daysOfWeek = ['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør'];
+      let forecastHtml = '';
+
+      for (let i = 0; i < Math.min(4, daily.time.length); i++) {
+        let dayName = 'I dag';
+        if (i === 1) dayName = 'I morgen';
+        else if (i > 1) {
+          const d = new Date(daily.time[i]);
+          dayName = isNaN(d.getDay()) ? daily.time[i] : daysOfWeek[d.getDay()];
+        }
+        const dCode = daily.weather_code[i];
+        const dDesc = getWeatherDesc(dCode);
+        const maxT = Math.round(daily.temperature_2m_max[i]);
+        const minT = Math.round(daily.temperature_2m_min[i]);
+        const rainProb = daily.precipitation_probability_max ? daily.precipitation_probability_max[i] : 0;
+
+        forecastHtml += `
+          <div class="forecast-item">
+            <div class="forecast-day">${dayName}</div>
+            <div class="forecast-condition">
+              <span>${dDesc.icon}</span>
+              <span>${dDesc.text}</span>
+            </div>
+            <div style="font-size:12px; color:var(--text-light);">${rainProb > 20 ? '💧 ' + rainProb + '%' : ''}</div>
+            <div class="forecast-temp">${maxT}° / <span style="color:var(--text-light);">${minT}°</span></div>
+          </div>
+        `;
+      }
+
+      const tipText = isBologna 
+        ? (curr.temperature_2m > 30 ? '🔥 Varm sommerdag i Bologna! Perfekt til skyggefulde portico-vandringer, siesta og en kold Spritz i Giardini Margherita.' : '☀️ Dejligt vejr til at udforske kirkerne og torvene.')
+        : (curr.temperature_2m > 30 ? '🏖️ Perfekt strandvejr i Rimini! Tag til Parco del Mare, snup en Piadina ved Tiberio-broen og afslut med aftensol på Borgo San Giuliano.' : '🌊 Frisk havbrise ved kysten.');
+
+      container.innerHTML = `
+        <div class="weather-hero">
+          <div>
+            <div style="font-size:13px; font-weight:700; color:var(--cat-mad-text); text-transform:uppercase; letter-spacing:0.5px;">${cityName}</div>
+            <div class="weather-temp-huge">${Math.round(curr.temperature_2m)}°C</div>
+            <div class="weather-condition-desc">${desc.icon} ${desc.text} (Føles som ${Math.round(curr.apparent_temperature)}°)</div>
+          </div>
+          <div class="weather-icon-huge">${desc.icon}</div>
+        </div>
+
+        <div class="weather-stats-grid">
+          <div class="weather-stat-box">
+            <div class="weather-stat-label">Fugtighed</div>
+            <div class="weather-stat-val">${curr.relative_humidity_2m}%</div>
+          </div>
+          <div class="weather-stat-box">
+            <div class="weather-stat-label">Vind</div>
+            <div class="weather-stat-val">${Math.round(curr.wind_speed_10m)} km/t</div>
+          </div>
+          <div class="weather-stat-box">
+            <div class="weather-stat-label">Nedbør</div>
+            <div class="weather-stat-val">${curr.precipitation || 0} mm</div>
+          </div>
+        </div>
+
+        <div style="font-size:12px; background:var(--bg-subtle); padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:16px; color:var(--text-main);">
+          💡 <strong>Tip:</strong> ${tipText}
+        </div>
+
+        <div style="font-size:13px; font-weight:700; margin-bottom:8px; color:var(--text-main);">Prognose de næste dage:</div>
+        <div class="weather-forecast-list">
+          ${forecastHtml}
+        </div>
+      `;
+    }
+
+    /* City Quick Switcher Logic */
+    function selectCityFilter(city) {
+      currentCityFilter = city;
+      
+      document.getElementById('city-btn-all').classList.toggle('active', city === 'all');
+      document.getElementById('city-btn-bologna').classList.toggle('active', city === 'bologna');
+      document.getElementById('city-btn-rimini').classList.toggle('active', city === 'rimini');
+
+      if (city === 'rimini') {
+        currentArea = 'rimini';
+        document.querySelectorAll('.area-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.area === 'rimini');
+        });
+        if (map) {
+          map.flyTo([44.0620, 12.5680], 14, { duration: 1.2 });
+        }
+      } else if (city === 'bologna') {
+        currentArea = 'centro';
+        document.querySelectorAll('.area-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.area === 'centro');
+        });
+        if (map) {
+          map.flyTo([44.4949, 11.3426], 13, { duration: 1.2 });
+        }
+      } else {
+        currentArea = 'all';
+        document.querySelectorAll('.area-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.area === 'all');
+        });
+        if (map) {
+          map.flyTo([44.3000, 11.9500], 9, { duration: 1.2 });
+        }
+      }
+
+      renderPlacesList();
+      renderMarkers();
+    }
+
 
     /* Render Custom Pastel Markers on Map */
     function renderMarkers() {
@@ -2898,5 +3704,32 @@
     }
 
   </script>
+
+  <!-- Weather Forecast Modal -->
+  <div class="modal-backdrop" id="weather-modal">
+    <div class="weather-modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h2 style="font-family:var(--font-display); font-size:20px; color:var(--text-main); margin:0;">☀️ Vejr & Prognose</h2>
+        <button class="detail-close-btn" onclick="closeModal('weather-modal')">✕</button>
+      </div>
+
+      <div class="weather-city-tabs">
+        <button type="button" class="weather-tab-btn active" id="wtab-bologna" onclick="setWeatherTab('bologna')">🍝 Bologna</button>
+        <button type="button" class="weather-tab-btn" id="wtab-rimini" onclick="setWeatherTab('rimini')">🏖️ Rimini (Kysten)</button>
+      </div>
+
+      <div id="weather-content">
+        <!-- Injected via JavaScript -->
+        <div style="text-align:center; padding:30px; color:var(--text-muted);">
+          Indlæser live vejrdata for Emilia-Romagna...
+        </div>
+      </div>
+
+      <div style="margin-top:16px; font-size:11px; color:var(--text-light); text-align:center;">
+        Live satellit- & vejrdata leveret af Open-Meteo • Opdateres automatisk
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

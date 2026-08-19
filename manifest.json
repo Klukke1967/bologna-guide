@@ -1,7 +1,7 @@
 {
-  "name": "Bologna & Omegn Guide",
-  "short_name": "Bologna Guide",
-  "description": "Gourmet, vin, seværdigheder og vintage i Bologna og Emilia-Romagna",
+  "name": "Bologna & Rimini Guide",
+  "short_name": "Bologna & Rimini",
+  "description": "Gourmet, vin, seværdigheder, vejr og vintage i Bologna, Rimini og Emilia-Romagna",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FAF7F2",
