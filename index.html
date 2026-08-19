@@ -1318,6 +1318,63 @@
       border-color: #FFD4BC !important;
     }
 
+  
+    /* Quick Navigation Buttons */
+    .card-nav-btn {
+      background: var(--cat-mad-bg);
+      border: 1px solid var(--cat-mad-border);
+      color: var(--cat-mad-text);
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .card-nav-btn:hover {
+      background: #FFE8CC;
+      color: #7A3305;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-action-apple {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 12px 14px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-apple:hover {
+      background: #EAE3D9;
+    }
+
+    .place-footer-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .custom-map-popup {
+      padding: 6px 2px;
+      min-width: 180px;
+    }
+
   </style>
 </head>
 <body>
@@ -1524,9 +1581,12 @@
 
         <div class="detail-footer">
           <a id="detail-map-link" href="#" target="_blank" class="btn-action-primary">
-            <span>🗺️</span> Rutevejledning i Google Maps
+            <span>🧭</span> Google Maps
           </a>
-          <button id="detail-fav-btn" class="btn-action-fav" onclick="toggleCurrentDetailFav()">
+          <a id="detail-apple-map-link" href="#" target="_blank" class="btn-action-apple" title="Åbn i Apple Maps på iPhone">
+            <span>🍎</span> Apple Maps
+          </a>
+          <button id="detail-fav-btn" class="btn-action-fav" onclick="toggleCurrentDetailFav()" title="Favorit">
             ♥
           </button>
         </div>
@@ -3654,6 +3714,18 @@
           className: 'custom-tooltip'
         });
 
+        const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place.name + ', ' + place.address)}`;
+        marker.bindPopup(`
+          <div class="custom-map-popup">
+            <div style="font-size:14px; font-weight:700; color:var(--text-main); margin-bottom:4px;">${place.name}</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-bottom:8px;">${catInfo.icon} ${catInfo.label}${place.trending ? ' • 🔥 Trend' : ''}</div>
+            <div style="display:flex; gap:6px; margin-top:6px;">
+              <a href="${navUrl}" target="_blank" class="card-nav-btn" style="flex:1; justify-content:center; padding:7px 10px;">🧭 Navigér</a>
+              <button onclick="selectPlace('${place.id}', false)" style="background:var(--bg-subtle); border:1px solid var(--border-color); border-radius:var(--radius-full); padding:7px 12px; font-size:11px; font-weight:700; cursor:pointer; color:var(--text-main);">📖 Info</button>
+            </div>
+          </div>
+        `, { offset: [0, -28] });
+
         marker.on('click', () => {
           selectPlace(place.id, false);
         });
@@ -3720,9 +3792,18 @@
             <div class="place-short-desc">${place.shortDesc}</div>
             <div class="place-footer">
               <span class="place-area-tag">📍 ${areaName}</span>
-              <button class="fav-heart-btn ${isFav ? 'is-fav' : ''}" onclick="toggleFav(event, '${place.id}')" title="Gem som favorit">
-                ${isFav ? '❤️' : '🤍'}
-              </button>
+              <div class="place-footer-actions">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place.name + ', ' + place.address)}" 
+                   target="_blank" 
+                   class="card-nav-btn" 
+                   onclick="event.stopPropagation()" 
+                   title="Start rutevejledning">
+                  🧭 Navigér
+                </a>
+                <button class="fav-heart-btn ${isFav ? 'is-fav' : ''}" onclick="toggleFav(event, '${place.id}')" title="Gem som favorit">
+                  ${isFav ? '❤️' : '🤍'}
+                </button>
+              </div>
             </div>
           </div>
         `;
@@ -3796,6 +3877,9 @@
 
       const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name + ' ' + place.address)}`;
       document.getElementById('detail-map-link').href = googleMapsUrl;
+      const appleMapsUrl = `https://maps.apple.com/?daddr=${encodeURIComponent(place.name + ', ' + place.address)}&dirflg=w`;
+      const appleLink = document.getElementById('detail-apple-map-link');
+      if (appleLink) appleLink.href = appleMapsUrl;
 
       updateDetailFavButton(place.id);
       panel.classList.add('open');
