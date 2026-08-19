@@ -1573,6 +1573,34 @@
     </div>
   </div>
 
+  <!-- Weather Forecast Modal -->
+  <div class="modal-overlay" id="weather-modal" onclick="closeModalOnBackdrop(event, 'weather-modal')">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <h2 class="modal-title">☀️ Vejr & Prognose</h2>
+        <button class="detail-close-btn" onclick="closeModal('weather-modal')">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="weather-city-tabs">
+          <button type="button" class="weather-tab-btn active" id="wtab-bologna" onclick="setWeatherTab('bologna')">🍝 Bologna</button>
+          <button type="button" class="weather-tab-btn" id="wtab-rimini" onclick="setWeatherTab('rimini')">🏖️ Rimini (Kysten)</button>
+        </div>
+
+        <div id="weather-content">
+          <!-- Injected via JavaScript -->
+          <div style="text-align:center; padding:30px; color:var(--text-muted);">
+            Indlæser live vejrdata for Emilia-Romagna...
+          </div>
+        </div>
+
+        <div style="margin-top:16px; font-size:11px; color:var(--text-light); text-align:center;">
+          Live satellit- & vejrdata leveret af Open-Meteo • Opdateres automatisk
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
@@ -3955,31 +3983,7 @@
 
   </script>
 
-  <!-- Weather Forecast Modal -->
-  <div class="modal-backdrop" id="weather-modal">
-    <div class="weather-modal-card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-        <h2 style="font-family:var(--font-display); font-size:20px; color:var(--text-main); margin:0;">☀️ Vejr & Prognose</h2>
-        <button class="detail-close-btn" onclick="closeModal('weather-modal')">✕</button>
-      </div>
 
-      <div class="weather-city-tabs">
-        <button type="button" class="weather-tab-btn active" id="wtab-bologna" onclick="setWeatherTab('bologna')">🍝 Bologna</button>
-        <button type="button" class="weather-tab-btn" id="wtab-rimini" onclick="setWeatherTab('rimini')">🏖️ Rimini (Kysten)</button>
-      </div>
-
-      <div id="weather-content">
-        <!-- Injected via JavaScript -->
-        <div style="text-align:center; padding:30px; color:var(--text-muted);">
-          Indlæser live vejrdata for Emilia-Romagna...
-        </div>
-      </div>
-
-      <div style="margin-top:16px; font-size:11px; color:var(--text-light); text-align:center;">
-        Live satellit- & vejrdata leveret af Open-Meteo • Opdateres automatisk
-      </div>
-    </div>
-  </div>
 
 </body>
 </html>
