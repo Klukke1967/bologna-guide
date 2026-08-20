@@ -1462,6 +1462,212 @@
       min-width: 180px;
     }
 
+  
+    /* Events Modal & Button Styles */
+    .btn-events {
+      background: var(--cat-trend-bg);
+      border-color: var(--cat-trend-accent);
+      color: var(--cat-trend-text);
+      font-weight: 700;
+      animation: pulseGlow 2.5s infinite ease-in-out;
+    }
+
+    .btn-events:hover {
+      background: var(--cat-trend-accent);
+      color: #FFF;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(209, 75, 154, 0.2); }
+      50% { box-shadow: 0 0 0 6px rgba(209, 75, 154, 0.15); }
+    }
+
+    .events-modal-card {
+      max-width: 820px;
+      width: 95%;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .events-nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+      flex-shrink: 0;
+    }
+
+    .event-tab-btn {
+      padding: 7px 14px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 700;
+      border: 1.5px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .event-tab-btn:hover {
+      background: var(--bg-cream);
+      color: var(--text-main);
+    }
+
+    .event-tab-btn.active {
+      background: var(--text-main);
+      color: #FFF;
+      border-color: var(--text-main);
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .event-card {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .event-card:hover {
+      border-color: var(--cat-trend-accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .event-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .event-date-badge {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      background: var(--cat-trend-bg);
+      color: var(--cat-trend-text);
+      border: 1px solid var(--cat-trend-border);
+      white-space: nowrap;
+    }
+
+    .event-city-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+    }
+
+    .event-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    .event-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .event-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border-color);
+      font-size: 12px;
+    }
+
+    .event-loc {
+      color: var(--text-light);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .event-link-btn {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--cat-trend-accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+
+    .event-link-btn:hover {
+      text-decoration: underline;
+    }
+
+    .live-feeds-bar {
+      background: var(--bg-subtle);
+      border-top: 1px solid var(--border-color);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .feed-links-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .feed-pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 11.5px;
+      transition: all 0.2s ease;
+    }
+
+    .feed-pill-link:hover {
+      border-color: var(--cat-trend-accent);
+      color: var(--cat-trend-accent);
+    }
+
   </style>
 </head>
 <body>
@@ -1497,6 +1703,9 @@
       </div>
       <button type="button" class="btn-header" id="btn-fav-filter" onclick="toggleFavoritesFilter()">
         <span>❤️</span> Favoritter (<span id="fav-count">0</span>)
+      </button>
+            <button type="button" class="btn-header btn-events" id="btn-events" onclick="openModal('events-modal')">
+        <span>🎉</span> Det sker i Bologna & Rimini
       </button>
       <button type="button" class="btn-header" onclick="openModal('guide-modal')">
         <span>📖</span> ABC & Tips
@@ -1683,6 +1892,56 @@
   </div>
 
   <!-- Modal: Gastronomisk ABC -->
+  
+  <!-- Events & What's On Modal -->
+  <div class="modal-overlay" id="events-modal" onclick="closeModalOnBackdrop(event, 'events-modal')">
+    <div class="modal-card events-modal-card">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:24px;">🎉</span>
+          <div>
+            <h3 class="modal-title" style="font-size:18px;">Det sker i Bologna & Rimini</h3>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:2px;">Live kulturkalender, mad- og vinfestivaler, koncerter & officielle feeds</p>
+          </div>
+        </div>
+        <button class="detail-close-btn" onclick="closeModal('events-modal')">✕</button>
+      </div>
+
+      <!-- Category / Area Tabs -->
+      <div class="events-nav-tabs">
+        <button type="button" class="event-tab-btn active" data-event-cat="all" onclick="filterEvents('all')">✨ Alle Begivenheder</button>
+        <button type="button" class="event-tab-btn" data-event-cat="bologna" onclick="filterEvents('bologna')">🍝 Bologna</button>
+        <button type="button" class="event-tab-btn" data-event-cat="rimini" onclick="filterEvents('rimini')">🏖️ Rimini & Riviera</button>
+        <button type="button" class="event-tab-btn" data-event-cat="mad" onclick="filterEvents('mad')">🍷 Mad & Vin / Sagre</button>
+        <button type="button" class="event-tab-btn" data-event-cat="kultur" onclick="filterEvents('kultur')">🎶 Musik & Kultur</button>
+      </div>
+
+      <!-- Events Grid Container -->
+      <div class="events-grid" id="events-grid-container">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Official Live Feed Links Footer -->
+      <div class="live-feeds-bar">
+        <span><strong>📡 Direkte Live Feeds:</strong></span>
+        <div class="feed-links-group">
+          <a href="https://www.bolognawelcome.com/en/events" target="_blank" rel="noopener" class="feed-pill-link">
+            🍝 Bologna Welcome Agenda ↗
+          </a>
+          <a href="https://emiliaromagnaturismo.it/en/events" target="_blank" rel="noopener" class="feed-pill-link">
+            🍇 Emilia-Romagna Events ↗
+          </a>
+          <a href="https://riminiturismo.it/en/events" target="_blank" rel="noopener" class="feed-pill-link">
+            🏖️ Rimini Turismo Kalender ↗
+          </a>
+          <a href="https://cinetecadibologna.it/" target="_blank" rel="noopener" class="feed-pill-link">
+            🎬 Cineteca di Bologna ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="guide-modal" onclick="closeModalOnBackdrop(event, 'guide-modal')">
     <div class="modal-card">
       <div class="modal-header">
@@ -3564,7 +3823,157 @@
     };
 
     /* Initialize Application */
+    
+    /* ================= EVENTS DATA & FEED ENGINE ================= */
+    const EVENTS_DATA = [
+      {
+        id: 'ev-1',
+        title: 'Bologna Jazz Festival & Cantina Bentivoglio',
+        city: 'bologna',
+        category: 'kultur',
+        dateBadge: 'Efterår / Okt - Nov',
+        desc: 'Italiens ældste jazzfestival med internationale stjerner på Teatro Manzoni, Dumbo og intime live-aftener på jazz-vinbaren Cantina Bentivoglio i Via Mascarella.',
+        location: '📍 Flere steder i Bologna',
+        link: 'https://www.bolognajazzfestival.com'
+      },
+      {
+        id: 'ev-2',
+        title: 'Sagra del Tartufo Bianco di Savigno (Hvid Trøffelfestival)',
+        city: 'bologna',
+        category: 'mad',
+        dateBadge: 'Oktober & November',
+        desc: 'Colli Bolognesis berømte hvide trøffelfestival. Boder, vinsmagninger af Pignoletto og Barbera, trøffelauktioner og gastronomiske menuer i bakkebyen Savigno.',
+        location: '📍 Savigno, Colli Bolognesi',
+        link: 'https://www.bolognawelcome.com/en/events'
+      },
+      {
+        id: 'ev-3',
+        title: 'La Notte Rosa – Den Lyserøde Kystfest',
+        city: 'rimini',
+        category: 'kultur',
+        dateBadge: 'Sommer / Primo Juli',
+        desc: 'Den legendariske "Sommer-Nytårsaften" langs 110 km adriaterhavskyst. Hele Rimini lyser op i lyserødt med gratis strandkoncerter, lysshow og fyrværkeri.',
+        location: '📍 Rimini & Romagna-Kysten',
+        link: 'https://www.lanotterosa.it'
+      },
+      {
+        id: 'ev-4',
+        title: 'Mercato Ritrovato – Lørdagsmadmarked & Street Food',
+        city: 'bologna',
+        category: 'mad',
+        dateBadge: 'Hver Lørdag Formiddag',
+        desc: 'Bolognas mest charmerende mad- og vinmarked foran Cineteca di Bologna. Lokale producenter, frisk pasta, håndværksøl, naturvin og levende musik i gården.',
+        location: '📍 Piazzetta Pasolini (Cineteca)',
+        link: 'https://www.ilmercatoritrovato.it'
+      },
+      {
+        id: 'ev-5',
+        title: 'Sagra Musicale Malatestiana (Rimini Musikfestival)',
+        city: 'rimini',
+        category: 'kultur',
+        dateBadge: 'August - Oktober',
+        desc: 'Prestigefyldt klassisk musik- og operafestival i det historiske Teatro Amintore Galli og Castel Sismondo i Rimini.',
+        location: '📍 Teatro Galli & Castel Sismondo, Rimini',
+        link: 'https://www.sagramusicalemalatestiana.it'
+      },
+      {
+        id: 'ev-6',
+        title: 'Festa de Borg – Borgo San Giuliano',
+        city: 'rimini',
+        category: 'mad',
+        dateBadge: 'September',
+        desc: 'Kæmpe gadefest i Fellinis elskede fiskerkvarter Borgo San Giuliano i Rimini med åbne gårdhaver, Sangiovese-vin, grillet fisk og gadeteater.',
+        location: '📍 Borgo San Giuliano, Rimini',
+        link: 'https://www.societadeborg.it'
+      },
+      {
+        id: 'ev-7',
+        title: 'Cioccoshow & Chocoday Bologna',
+        city: 'bologna',
+        category: 'mad',
+        dateBadge: 'November',
+        desc: 'Bolognas store chokolade- og håndværksfestival. Mestre fra hele Italien samles med håndlavet chokolade, nougat og søde delikatesser.',
+        location: '📍 Piazza XX Settembre, Bologna',
+        link: 'https://www.bolognawelcome.com/en/events'
+      },
+      {
+        id: 'ev-8',
+        title: 'Sotto le Stelle del Cinema (Piazza Maggiore)',
+        city: 'bologna',
+        category: 'kultur',
+        dateBadge: 'Juni - August',
+        desc: 'Verdens måske smukkeste friluftsbiograf. Kæmpe lærred rejst midt på Piazza Maggiore med gratis filmvisninger under stjernerne hver aften.',
+        location: '📍 Piazza Maggiore, Bologna',
+        link: 'https://cinetecadibologna.it'
+      },
+      {
+        id: 'ev-9',
+        title: 'Paganello Beach World Cup & Riviera Sunset Sessions',
+        city: 'rimini',
+        category: 'kultur',
+        dateBadge: 'Påske / Forår',
+        desc: 'Farverig international beach frisbee-turnering og solnedgangsfest på Rimini Beach med DJs, koncerter og strandbarer.',
+        location: '📍 Rimini Beach, Lungomare',
+        link: 'https://www.paganello.com'
+      },
+      {
+        id: 'ev-10',
+        title: 'Festa di San Petronio (Bolognas Skytshelgendag)',
+        city: 'bologna',
+        category: 'kultur',
+        dateBadge: '4. Oktober',
+        desc: 'Bolognas store byfest med procession, koncerter foran basilikaen og et storslået musikalsk fyrværkeri over Piazza Maggiore.',
+        location: '📍 Piazza Maggiore, Bologna',
+        link: 'https://www.bolognawelcome.com/en/events'
+      }
+    ];
+
+    let currentEventCat = 'all';
+
+    function renderEventsList() {
+      const container = document.getElementById('events-grid-container');
+      if (!container) return;
+
+      const filtered = EVENTS_DATA.filter(ev => {
+        if (currentEventCat === 'all') return true;
+        if (currentEventCat === 'bologna' && ev.city === 'bologna') return true;
+        if (currentEventCat === 'rimini' && ev.city === 'rimini') return true;
+        if (currentEventCat === 'mad' && ev.category === 'mad') return true;
+        if (currentEventCat === 'kultur' && ev.category === 'kultur') return true;
+        return false;
+      });
+
+      container.innerHTML = filtered.map(ev => {
+        const cityLabel = ev.city === 'bologna' ? '🍝 Bologna' : '🏖️ Rimini';
+        return `
+          <div class="event-card">
+            <div class="event-card-header">
+              <span class="event-date-badge">${ev.dateBadge}</span>
+              <span class="event-city-badge">${cityLabel}</span>
+            </div>
+            <div class="event-title">${ev.title}</div>
+            <div class="event-desc">${ev.desc}</div>
+            <div class="event-footer">
+              <span class="event-loc">${ev.location}</span>
+              <a href="${ev.link}" target="_blank" rel="noopener" class="event-link-btn">
+                Officiel info ↗
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterEvents(cat) {
+      currentEventCat = cat;
+      document.querySelectorAll('.event-tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-event-cat') === cat);
+      });
+      renderEventsList();
+    }
+
     function initApp() {
+      renderEventsList();
       initWeather();
       initMap();
       updateCategoryCounts();
