@@ -1477,6 +1477,39 @@
       color: #FFF;
     }
 
+    .events-fab {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 2200;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: var(--radius-full);
+      border: 1.5px solid var(--cat-trend-accent);
+      background: var(--cat-trend-bg);
+      color: var(--cat-trend-text);
+      font-weight: 800;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .events-fab:hover {
+      background: var(--cat-trend-accent);
+      color: #FFF;
+    }
+
+    @media (max-width: 900px) {
+      .events-fab {
+        right: 12px;
+        bottom: 12px;
+        padding: 10px 14px;
+        font-size: 12px;
+      }
+    }
+
     @keyframes pulseGlow {
       0%, 100% { box-shadow: 0 0 0 0 rgba(209, 75, 154, 0.2); }
       50% { box-shadow: 0 0 0 6px rgba(209, 75, 154, 0.15); }
@@ -1712,6 +1745,10 @@
       </button>
     </div>
   </header>
+
+  <button type="button" class="events-fab" id="events-fab" onclick="openModal('events-modal')" aria-label="Åbn Det sker i Bologna & Rimini">
+    🎉 Det sker
+  </button>
 
   <!-- App Main Content Layout -->
   <div class="app-layout" data-mobile-view="map">
