@@ -4027,7 +4027,8 @@
       }).setView([44.4949, 11.3426], 13);
 
       L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
+        maxZoom: 20,
+        maxNativeZoom: 18,
         subdomains: 'abcd'
       }).addTo(map);
 
