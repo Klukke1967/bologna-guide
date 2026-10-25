@@ -8,6 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Bologna Guide">
   <meta name="theme-color" content="#FAF7F2">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -1701,6 +1704,82 @@
       color: var(--cat-trend-accent);
     }
 
+
+    /* Automatisk Opdaterings-Toast & Refresh */
+    .btn-refresh-pill {
+      background: var(--bg-surface, #FFFFFF);
+      border: 1px solid var(--border-color, #EBE3DA);
+      color: var(--text-muted, #726868);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.25s ease, border-color 0.2s ease, color 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .btn-refresh-pill:hover {
+      color: var(--cat-vin-text, #8E2B2B);
+      border-color: var(--cat-vin-accent, #D75A5A);
+      transform: rotate(180deg);
+    }
+    .update-toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(140px);
+      background: #2D2727;
+      border: 1.5px solid #D75A5A;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      border-radius: 9999px;
+      padding: 8px 14px 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 9999;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .update-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .toast-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast-icon { font-size: 16px; }
+    .toast-text {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #FFF;
+      white-space: nowrap;
+    }
+    .btn-toast-reload {
+      background: #D75A5A;
+      color: #FFF;
+      border: none;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 7px 14px;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-toast-reload:hover {
+      background: #FFF;
+      color: #8E2B2B;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+    }
+
   </style>
 </head>
 <body>
@@ -1719,6 +1798,9 @@
     </div>
 
     <div class="header-actions">
+      <button type="button" class="btn-refresh-pill" id="btn-force-refresh" title="Tving opdatering af appen" aria-label="Opdater app">
+        <span>🔄</span>
+      </button>
       <div class="city-switcher-row">
         <button type="button" class="city-btn active" id="city-btn-all" onclick="selectCityFilter('all')">🗺️ Hele Regionen</button>
         <button type="button" class="city-btn" id="city-btn-bologna" onclick="selectCityFilter('bologna')">🍝 Bologna</button>
@@ -2215,6 +2297,29 @@
     "address": "Via Zamboni 57, 40126 Bologna",
     "hours": "Tir-Lør: 18:00 - 00:30",
     "wineFocus": "Små uafhængige vinbønder, oprindelige druesorter og rå natur."
+  },
+  {
+    "id": "signorvino-piazza-maggiore",
+    "name": "Signorvino Bologna Piazza Maggiore",
+    "category": "vinbar",
+    "area": "centro",
+    "coords": [
+      44.4940339,
+      11.3434943
+    ],
+    "shortDesc": "Vinbar og enoteca lige ved Piazza Maggiore med stort udvalg af italienske vine, glasservering og aperitivo.",
+    "heroDesc": "Signorvino ved Piazza Maggiore kombinerer vinbutik og vinbar midt i Bolognas mest ikoniske centrum. Her kan du gå på opdagelse i et bredt udvalg af vine fra hele Italien, få hjælp til at vælge den rigtige flaske og slå dig ned til et glas eller en enkel aperitivo med charcuteri og små serveringer.",
+    "tipsHeading": "Aperitivo & Vinshopping",
+    "tips": "Kom forbi til et glas vin før aftensmaden, eller kig efter en flaske til senere. Det er især oplagt, hvis du vil have noget let, centralt og uformelt lige ved Piazza Maggiore.",
+    "pills": [
+      "Piazza Maggiore",
+      "Glas & flasker",
+      "Aperitivo",
+      "Vinshopping"
+    ],
+    "address": "Piazza Maggiore 1/C, 40124 Bologna",
+    "hours": "Man-Fre: 09:00 - 23:30 • Lør-Søn: 10:00 - 23:30",
+    "wineFocus": "Stort udvalg af italienske vine, mulighed for glasservering og en uformel aperitivooplevelse."
   },
   {
     "id": "enoteca-regionale-dozza",
@@ -4647,18 +4752,118 @@
     // Initialize on Load
     window.addEventListener('DOMContentLoaded', initApp);
 
-    // Service Worker Registration for Offline Phone App
+    // Automatisk Versionstjek & Cache-busting
+    async function checkForAppUpdates() {
+      try {
+        const res = await fetch('version.json?t=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) return;
+        const serverVer = await res.json();
+        const storedBuild = localStorage.getItem('bologna_current_build');
+
+        if (!storedBuild) {
+          localStorage.setItem('bologna_current_build', serverVer.buildTime);
+          return;
+        }
+
+        if (serverVer.buildTime > parseInt(storedBuild, 10)) {
+          showUpdateToast(serverVer);
+        }
+      } catch (e) {
+        console.debug('Update check skipped:', e);
+      }
+    }
+
+    function showUpdateToast(serverVer) {
+      const toast = document.getElementById('update-toast');
+      const btn = document.getElementById('btn-toast-reload');
+      if (!toast) return;
+
+      toast.classList.add('show');
+
+      if (btn) {
+        btn.onclick = () => {
+          forceAppReload(serverVer.buildTime);
+        };
+      }
+    }
+
+    function forceAppReload(newBuildTime) {
+      if (newBuildTime) {
+        localStorage.setItem('bologna_current_build', newBuildTime);
+      }
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(regs => {
+          for (let reg of regs) reg.update();
+        });
+      }
+      const url = new URL(window.location.href);
+      url.searchParams.set('v', Date.now());
+      window.location.href = url.toString();
+    }
+
+    // Service Worker Registration with Auto-Update
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('PWA ServiceWorker ready'))
+          .then(reg => {
+            console.log('PWA ServiceWorker ready');
+            reg.update();
+            reg.addEventListener('updatefound', () => {
+              const newWorker = reg.installing;
+              if (newWorker) {
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    checkForAppUpdates();
+                  }
+                });
+              }
+            });
+          })
           .catch(err => console.log('SW registration failed:', err));
       });
     }
 
+    window.addEventListener('DOMContentLoaded', () => {
+      checkForAppUpdates();
+
+      const btnRefresh = document.getElementById('btn-force-refresh');
+      if (btnRefresh) {
+        btnRefresh.addEventListener('click', () => {
+          btnRefresh.style.transform = 'rotate(360deg)';
+          setTimeout(() => {
+            forceAppReload();
+          }, 200);
+        });
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          checkForAppUpdates();
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(regs => {
+              for (let reg of regs) reg.update();
+            });
+          }
+        }
+      });
+
+      window.addEventListener('focus', () => {
+        checkForAppUpdates();
+      });
+    });
+
   </script>
 
 
+
+  <!-- Automatisk Opdaterings-Toast -->
+  <div id="update-toast" class="update-toast">
+    <div class="toast-content">
+      <span class="toast-icon">🍝</span>
+      <span class="toast-text">Ny opdatering til Bologna & Rimini!</span>
+    </div>
+    <button id="btn-toast-reload" class="btn-toast-reload">Opdater nu</button>
+  </div>
 
 </body>
 </html>
